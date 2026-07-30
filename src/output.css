@@ -194,12 +194,6 @@
   .text-blue-600 {
     color: var(--color-blue-600);
   }
-  .text-green-200 {
-    color: var(--color-green-200);
-  }
-  .text-green-700 {
-    color: var(--color-green-700);
-  }
   .underline {
     text-decoration-line: underline;
   }
