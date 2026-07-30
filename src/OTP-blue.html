@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VerifiedDoc | OTP Sent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { poppins: ["Poppins", "sans-serif"] },
+            colors: { navy: "#021C3E" },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+      /* Fixed canvas size to match exported design spec: 743px x 1117px */
+      .canvas {
+        width: 743px;
+        height: 1117px;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-800 flex items-center justify-center min-h-screen">
+    <div class="canvas bg-navy relative flex flex-col overflow-hidden">
+      <!-- Top bar: logo -->
+      <div class="flex items-center gap-3 px-10 pt-9">
+        <img src="assets/logo.svg" alt="VerifiedDoc logo" class="w-9 h-9" />
+        <div class="leading-tight">
+          <p class="text-white font-semibold text-lg tracking-wide">
+            VerifiedDoc
+          </p>
+          <p class="text-[9px] tracking-widest text-slate-300 uppercase">
+            Credentials verified at the source
+          </p>
+        </div>
+      </div>
+
+      <!-- Hero: envelope illustration -->
+      <div class="flex-1 flex flex-col items-center justify-start pt-10">
+        <img
+          src="assets/envelope.svg"
+          alt="Secure email envelope"
+          class="w-[320px] h-[320px] object-contain"
+        />
+
+        <h1 class="text-white font-bold text-3xl mt-12">One Step Closer!</h1>
+
+        <p
+          class="text-slate-300 text-center text-sm mt-6 leading-relaxed max-w-[360px]"
+        >
+          We have sent a one time password to your<br />
+          Email Address
+        </p>
+      </div>
+
+      <!-- Bottom: trust footer -->
+      <div class="flex items-center gap-4 px-14 pb-12">
+        <img
+          src="assets/shield.svg"
+          alt="Security shield"
+          class="w-[52px] h-[59px] flex-shrink-0"
+        />
+        <div>
+          <p class="text-white font-semibold text-base">
+            Your Security is our priority
+          </p>
+          <p class="text-slate-300 text-xs mt-1 leading-snug">
+            The extra steps helps keep your<br />account safe and secure
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
