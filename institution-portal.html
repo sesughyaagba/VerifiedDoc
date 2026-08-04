@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Institutional Portal</title>
+  
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+          },
+          colors: {
+            sidebar: {
+              bg: '#1e325c',
+              activeBg: 'rgba(255, 255, 255, 0.12)',
+              accent: '#b88e38',
+              text: '#94a3b8',
+              textActive: '#ffffff',
+            },
+            dash: {
+              bg: '#f8f9fc',
+              cardBg: '#f5f3f8',
+              cardBorder: '#e8e5ef',
+              textDark: '#2c3242',
+              textMuted: '#798092',
+              green: '#22c55e',
+              red: '#ef4444',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#f8f9fc] font-sans text-[#2c3242] antialiased flex min-h-screen">
+
+  <!--  SIDEBAR  -->
+  <aside class="w-60 bg-[#1e325c] text-[#94a3b8] flex flex-col shrink-0">
+    <!-- Brand / Logo -->
+    <div class="px-6 py-6 flex items-center gap-2">
+      <img src="./Assets/logo.svg" alt="Logo">
+    </div>  
+    <!-- Navigation Menu -->
+    <nav class="mt-4 px-3 space-y-1.5 text-xs font-medium">
+      <!-- Dashboard -->
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:text-white transition-colors">
+        <i data-lucide="layout-grid" class="w-4 h-4 opacity-70"></i>
+        <span>Dashboard</span>
+      </a>
+
+      <!-- Institutional Portal (Active) -->
+      <a href="#" class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-white/10 text-white font-medium">
+        <div class="flex items-center gap-3">
+          <div class="w-3 h-3 bg-[#b88e38] rounded-xs"></div>
+          <span>Institutional Portal</span>
+        </div>
+      </a>
+
+      <!-- Issue Credential -->
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:text-white transition-colors">
+        <i data-lucide="file-plus-2" class="w-4 h-4 opacity-70"></i>
+        <span>Issue Credential</span>
+      </a>
+
+      <!-- Issued Credentials -->
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:text-white transition-colors">
+        <i data-lucide="file-text" class="w-4 h-4 opacity-70"></i>
+        <span>Issued Credentials</span>
+      </a>
+
+      <!-- Verification Requests -->
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:text-white transition-colors">
+        <i data-lucide="clipboard-check" class="w-4 h-4 opacity-70"></i>
+        <span class="leading-tight">Verification Requests</span>
+      </a>
+
+      <!-- Organization Profile -->
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:text-white transition-colors">
+        <i data-lucide="building-2" class="w-4 h-4 opacity-70"></i>
+        <span>Organization Profile</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!--  MAIN CONTENT AREA -->
+  <main class="flex-1 p-8 overflow-y-auto">
+    
+    <!-- Top Header -->
+    <header class="flex items-start justify-between mb-8">
+      <div>
+        <h2 class="text-xl font-bold text-[#2c3242] flex items-center gap-2">
+          Welcome Back Admin <span class="text-xl">👋</span>
+        </h2>
+        <p class="text-xs text-[#798092] mt-0.5">Here's what's happening in your institution today.</p>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <!-- Notification Bell -->
+        <button class="relative p-2 bg-[#f0eff5] text-[#2c3242] rounded-full hover:bg-gray-200 transition">
+          <i data-lucide="bell" class="w-4 h-4"></i>
+          <span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-teal-500 rounded-full"></span>
+        </button>
+
+        <!-- Institution Dropdown Select -->
+        <div class="relative">
+          <button class="flex items-center gap-2 bg-[#f0eff5] text-[#2c3242] px-3 py-2 rounded-lg text-xs font-medium border border-gray-200 hover:bg-gray-200 transition">
+            <i data-lucide="landmark" class="w-4 h-4 text-gray-600"></i>
+            <span>University of Lagos</span>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-500 ml-1"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Top KPI Stat Cards -->
+    <section class="grid grid-cols-4 gap-5 mb-8">
+      
+      <!-- Card 1: Documents Issued -->
+      <div class="bg-[#f5f3f8] p-4 rounded-xl border border-[#e8e5ef] relative">
+        <p class="text-xs font-semibold text-[#2c3242]">Documents Issued</p>
+        <div class="flex items-center justify-between mt-3 mb-2">
+          <span class="text-2xl font-bold text-[#2c3242]">1,248</span>
+<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.75 19.8333C16.5667 19.8333 17.2569 19.5514 17.8208 18.9875C18.3847 18.4236 18.6667 17.7333 18.6667 16.9167C18.6667 16.1 18.3847 15.4097 17.8208 14.8458C17.2569 14.2819 16.5667 14 15.75 14C14.9333 14 14.2431 14.2819 13.6792 14.8458C13.1153 15.4097 12.8333 16.1 12.8333 16.9167C12.8333 17.7333 13.1153 18.4236 13.6792 18.9875C14.2431 19.5514 14.9333 19.8333 15.75 19.8333ZM21.7 24.5L18.55 21.3792C18.1417 21.6319 17.6995 21.8264 17.2235 21.9625C16.7475 22.0986 16.2563 22.1667 15.75 22.1667C14.2917 22.1667 13.0523 21.6564 12.0318 20.636C11.0114 19.6156 10.5008 18.3758 10.5 16.9167C10.4992 15.4576 11.0098 14.2182 12.0318 13.1985C13.0538 12.1788 14.2932 11.6682 15.75 11.6667C17.2068 11.6651 18.4466 12.1757 19.4693 13.1985C20.4921 14.2213 21.0023 15.4607 21 16.9167C21 17.4417 20.9273 17.9426 20.7818 18.4193C20.6364 18.8961 20.4369 19.3383 20.1833 19.7458L23.3333 22.8667L21.7 24.5ZM2.33333 23.3333C1.69167 23.3333 1.14256 23.1051 0.686 22.6485C0.229444 22.1919 0.000777778 21.6424 0 21V2.33333C0 1.69167 0.228667 1.14256 0.686 0.686C1.14333 0.229444 1.69244 0.000777778 2.33333 0H11.6667L18.6667 7V9.91667C18.2 9.72222 17.7236 9.57639 17.2375 9.47917C16.7514 9.38194 16.2556 9.33333 15.75 9.33333C13.3583 9.33333 11.487 10.1259 10.136 11.711C8.785 13.2961 8.10911 15.0605 8.10833 17.0042C8.10833 18.2097 8.39533 19.3764 8.96933 20.5042C9.54333 21.6319 10.4522 22.575 11.6958 23.3333H2.33333ZM10.5 8.16667H16.3333L10.5 2.33333V8.16667Z" fill="#2C6E7F"/>
+</svg>
+        </div>
+        <p class="text-[11px] font-medium text-emerald-600 flex items-center gap-1">
+          <span>↑</span> <span>12.5%</span> <span class="text-gray-500 font-normal">vs last 30 days</span>
+        </p>
+      </div>
+
+      <!-- Card 2: Verification Requests -->
+      <div class="bg-[#f5f3f8] p-4 rounded-xl border border-[#e8e5ef] relative">
+        <p class="text-xs font-semibold text-[#2c3242]">Verification Requests</p>
+        <div class="flex items-center justify-between mt-3 mb-2">
+          <span class="text-2xl font-bold text-[#2c3242]">320</span>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.9992 1.25114C15.1537 1.91757 16.152 2.82355 16.927 3.90813C17.702 4.9927 18.2357 6.2307 18.4921 7.53881C18.7486 8.84692 18.7218 10.1948 18.4137 11.4917C18.1056 12.7886 17.5233 14.0045 16.7059 15.0575L22.9907 21.3423C23.2032 21.5623 23.3208 21.8571 23.3182 22.1629C23.3155 22.4688 23.1928 22.7615 22.9765 22.9778C22.7602 23.1941 22.4676 23.3168 22.1617 23.3194C21.8558 23.3221 21.5611 23.2045 21.3411 22.992L15.0551 16.7071C13.7181 17.7446 12.1242 18.399 10.444 18.6004C8.76373 18.8017 7.06036 18.5425 5.51611 17.8504C3.97185 17.1583 2.64483 16.0593 1.67702 14.6711C0.709204 13.2829 0.137026 11.6577 0.0217012 9.96938C-0.0936234 8.28106 0.252246 6.59314 1.0223 5.08624C1.79236 3.57934 2.95762 2.31015 4.39342 1.41447C5.82922 0.5188 7.48152 0.0303438 9.17353 0.0013686C10.8655 -0.0276066 12.5336 0.405156 13.9992 1.25114Z" fill="#2C6E7F"/>
+</svg>
+
+        </div>
+        <p class="text-[11px] font-medium text-teal-600 flex items-center gap-1">
+          <span>↑</span> <span>8.3%</span> <span class="text-gray-500 font-normal">vs last 30 days</span>
+        </p>
+      </div>
+
+      <!-- Card 3: Pending Requests -->
+      <div class="bg-[#f5f3f8] p-4 rounded-xl border border-[#e8e5ef] relative">
+        <p class="text-xs font-semibold text-[#2c3242]">Pending Requests</p>
+        <div class="flex items-center justify-between mt-3 mb-2">
+          <span class="text-2xl font-bold text-[#2c3242]">18</span>
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14 0C12.1615 0 10.341 0.362121 8.64243 1.06569C6.94387 1.76925 5.40053 2.80048 4.1005 4.1005C1.475 6.72601 0 10.287 0 14C0 17.713 1.475 21.274 4.1005 23.8995C5.40053 25.1995 6.94387 26.2307 8.64243 26.9343C10.341 27.6379 12.1615 28 14 28C17.713 28 21.274 26.525 23.8995 23.8995C26.525 21.274 28 17.713 28 14C28 12.1615 27.6379 10.341 26.9343 8.64243C26.2307 6.94387 25.1995 5.40053 23.8995 4.1005C22.5995 2.80048 21.0561 1.76925 19.3576 1.06569C17.659 0.362121 15.8385 0 14 0ZM19.88 19.88L12.6 15.4V7H14.7V14.28L21 18.06L19.88 19.88Z" fill="#B08D57"/>
+</svg>
+        </div>
+        <p class="text-[11px] font-medium text-amber-600 flex items-center gap-1">
+          <span>↓</span> <span>10.0%</span> <span class="text-gray-500 font-normal">vs last 30 days</span>
+        </p>
+      </div>
+
+      <!-- Card 4: Revoked Documents -->
+      <div class="bg-[#f5f3f8] p-4 rounded-xl border border-[#e8e5ef] relative">
+        <p class="text-xs font-semibold text-[#2c3242]">Revoked Documents</p>
+        <div class="flex items-center justify-between mt-3 mb-2">
+          <span class="text-2xl font-bold text-[#2c3242]">6</span>
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14 0C6.258 0 0 6.258 0 14C0 21.742 6.258 28 14 28C21.742 28 28 21.742 28 14C28 6.258 21.742 0 14 0ZM21 19.026L19.026 21L14 15.974L8.974 21L7 19.026L12.026 14L7 8.974L8.974 7L14 12.026L19.026 7L21 8.974L15.974 14L21 19.026Z" fill="#C62828"/>
+</svg>
+
+        </div>
+        <p class="text-[11px] font-medium text-rose-600 flex items-center gap-1">
+          <span>↓</span> <span>14.3%</span> <span class="text-gray-500 font-normal">vs last 30 days</span>
+        </p>
+      </div>
+
+    </section>
+
+    <!-- Grid Section 1: Recent Verification Requests & Quick Actions -->
+    <div class="grid grid-cols-3 gap-6 mb-8">
+      
+      <!-- Recent Verification Requests Table -->
+      <div class="col-span-2 bg-[#f5f3f8] p-5 rounded-xl border border-[#e8e5ef]">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-bold text-base text-[#2c3242]">Recent Verification Requests</h3>
+          <a href="#" class="text-xs text-indigo-600 font-medium hover:underline">View all</a>
+        </div>
+
+        <table class="w-full text-left text-xs">
+          <thead>
+            <tr class="text-[#798092] border-b border-gray-200/60 pb-2">
+              <th class="font-normal pb-2">Applicant</th>
+              <th class="font-normal pb-2">Document</th>
+              <th class="font-normal pb-2">Status</th>
+              <th class="font-normal pb-2 text-right">Requested On</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200/60">
+            <!-- Row 1 -->
+            <tr>
+              <td class="py-2.5 flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-blue-200 text-blue-800 text-[10px] font-bold flex items-center justify-center">TO</span>
+                <span class="font-medium text-[#2c3242]">Taiwo Olumide</span>
+              </td>
+              <td class="py-2.5 text-[#2c3242]">B.Sc. Certificate</td>
+              <td class="py-2.5">
+                <span class="px-2 py-0.5 text-[10px] bg-green-100 text-green-700 font-medium rounded-md">Verified</span>
+              </td>
+              <td class="py-2.5 text-right text-[11px] text-[#798092]">
+                <div>May 31, 2025</div>
+                <div class="text-[10px]">08:47 AM</div>
+              </td>
+            </tr>
+
+            <!-- Row 2 -->
+            <tr>
+              <td class="py-2.5 flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-blue-200 text-blue-800 text-[10px] font-bold flex items-center justify-center">AA</span>
+                <span class="font-medium text-[#2c3242]">Ahmed Adeyemo</span>
+              </td>
+              <td class="py-2.5 text-[#2c3242]">NYSC Certificate</td>
+              <td class="py-2.5">
+                <span class="px-2 py-0.5 text-[10px] bg-amber-100 text-amber-700 font-medium rounded-md">Pending</span>
+              </td>
+              <td class="py-2.5 text-right text-[11px] text-[#798092]">
+                <div>May 31, 2025</div>
+                <div class="text-[10px]">10:00 AM</div>
+              </td>
+            </tr>
+
+            <!-- Row 3 -->
+            <tr>
+              <td class="py-2.5 flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-blue-200 text-blue-800 text-[10px] font-bold flex items-center justify-center">SO</span>
+                <span class="font-medium text-[#2c3242]">Sandra Okafor</span>
+              </td>
+              <td class="py-2.5 text-[#2c3242]">WAEC Certificate</td>
+              <td class="py-2.5">
+                <span class="px-2 py-0.5 text-[10px] bg-green-100 text-green-700 font-medium rounded-md">Verified</span>
+              </td>
+              <td class="py-2.5 text-right text-[11px] text-[#798092]">
+                <div>May 31, 2025</div>
+                <div class="text-[10px]">10:24 AM</div>
+              </td>
+            </tr>
+
+            <!-- Row 4 -->
+            <tr>
+              <td class="py-2.5 flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-blue-200 text-blue-800 text-[10px] font-bold flex items-center justify-center">IM</span>
+                <span class="font-medium text-[#2c3242]">Ibrahim Musa</span>
+              </td>
+              <td class="py-2.5 text-[#2c3242]">Transcript</td>
+              <td class="py-2.5">
+                <span class="px-2 py-0.5 text-[10px] bg-amber-100 text-amber-700 font-medium rounded-md">Pending</span>
+              </td>
+              <td class="py-2.5 text-right text-[11px] text-[#798092]">
+                <div>May 30, 2025</div>
+                <div class="text-[10px]">04:12 PM</div>
+              </td>
+            </tr>
+
+            <!-- Row 5 -->
+            <tr>
+              <td class="py-2.5 flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-blue-200 text-blue-800 text-[10px] font-bold flex items-center justify-center">UC</span>
+                <span class="font-medium text-[#2c3242]">Uche Chioma</span>
+              </td>
+              <td class="py-2.5 text-[#2c3242]">HND Certificate</td>
+              <td class="py-2.5">
+                <span class="px-2 py-0.5 text-[10px] bg-green-100 text-green-700 font-medium rounded-md">Verified</span>
+              </td>
+              <td class="py-2.5 text-right text-[11px] text-[#798092]">
+                <div>May 30, 2025</div>
+                <div class="text-[10px]">02:23 PM</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Quick Actions List -->
+      <div class="bg-[#f5f3f8] p-5 rounded-xl border border-[#e8e5ef] flex flex-col justify-between">
+        <h3 class="font-bold text-base text-[#2c3242] mb-3">Quick Actions</h3>
+
+        <div class="divide-y divide-gray-200/60">
+          
+          <!-- Quick Action 1 -->
+          <a href="#" class="py-2.5 flex items-center justify-between group hover:opacity-80 transition">
+            <div class="flex items-center gap-3">
+              <img src="./Assets/Vector (6).svg" alt="File" srcset="">
+              <div>
+                <p class="text-xs font-semibold text-[#2c3242]">Issue Documents</p>
+                <p class="text-[10px] text-[#798092]">Create and issue a new document</p>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+          </a>
+
+          <!-- Quick Action 2 -->
+          <a href="#" class="py-2.5 flex items-center justify-between group hover:opacity-80 transition">
+            <div class="flex items-center gap-3">
+              <img src="./Assets/records.svg" alt="Upload">
+              <div>
+                <p class="text-xs font-semibold text-[#2c3242]">Upload Records</p>
+                <p class="text-[10px] text-[#798092]">Upload student/holder records</p>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+          </a>
+
+          <!-- Quick Action 3 -->
+          <a href="#" class="py-2.5 flex items-center justify-between group hover:opacity-80 transition">
+            <div class="flex items-center gap-3">
+              <img src="./Assets/search.png" alt="Search">
+              <div>
+                <p class="text-xs font-semibold text-[#2c3242]">Search Records</p>
+                <p class="text-[10px] text-[#798092]">Search issued documents</p>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+          </a>
+
+          <!-- Quick Action 4 -->
+          <a href="#" class="py-2.5 flex items-center justify-between group hover:opacity-80 transition">
+            <div class="flex items-center gap-3">
+              <img src="./Assets/link.png" alt="Generate Links">
+              <div>
+                <p class="text-xs font-semibold text-[#2c3242]">Generate Verification Links</p>
+                <p class="text-[10px] text-[#798092]">Generate link for offline verification</p>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Grid Section 2: Issued Documents Overview & Security Card -->
+    <div class="grid grid-cols-3 gap-6">
+      
+      <!-- Issued Documents Overview Table -->
+      <div class="col-span-2 bg-[#f5f3f8] p-5 rounded-xl border border-[#e8e5ef]">
+        <h3 class="font-bold text-sm text-[#2c3242] mb-4">Issued Documents Overview</h3>
+
+        <table class="w-full text-left text-xs">
+          <thead>
+            <tr class="text-[#798092] border-b border-gray-200/60 pb-2">
+              <th class="font-normal pb-2">Document Type</th>
+              <th class="font-normal pb-2">Total Issued</th>
+              <th class="font-normal pb-2">This Month</th>
+              <th class="font-normal pb-2 text-right">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200/60">
+            <tr>
+              <td class="py-2.5 font-medium text-[#2c3242]">B.Sc. Certificate</td>
+              <td class="py-2.5 text-[#2c3242]">842</td>
+              <td class="py-2.5 text-[#2c3242]">42</td>
+              <td class="py-2.5 text-right font-medium text-emerald-600">Active</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 font-medium text-[#2c3242]">NYSC Certificate</td>
+              <td class="py-2.5 text-[#2c3242]">245</td>
+              <td class="py-2.5 text-[#2c3242]">18</td>
+              <td class="py-2.5 text-right font-medium text-emerald-600">Active</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 font-medium text-[#2c3242]">WAEC Certificate</td>
+              <td class="py-2.5 text-[#2c3242]">96</td>
+              <td class="py-2.5 text-[#2c3242]">7</td>
+              <td class="py-2.5 text-right font-medium text-emerald-600">Active</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 font-medium text-[#2c3242]">Transcript</td>
+              <td class="py-2.5 text-[#2c3242]">65</td>
+              <td class="py-2.5 text-[#2c3242]">5</td>
+              <td class="py-2.5 text-right font-medium text-emerald-600">Active</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Keep Records Secure Callout -->
+      <div class="bg-[#f5f3f8] p-6 rounded-xl border border-[#e8e5ef] flex flex-col items-center justify-center text-center">
+<svg width="37" height="45" viewBox="0 0 37 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.7895 0.353625L2.4395 6.72912C0.9635 7.38512 0 8.86112 0 10.4806V20.1156C0 31.4931 7.872 42.1326 18.45 44.7156C29.028 42.1326 36.9 31.4931 36.9 20.1156V10.4806C36.9 8.86112 35.9365 7.38512 34.4605 6.72912L20.1105 0.353625C19.065 -0.117875 17.835 -0.117875 16.7895 0.353625ZM12.8945 30.9601L7.585 25.6506C7.39521 25.4608 7.24466 25.2355 7.14194 24.9875C7.03923 24.7396 6.98636 24.4738 6.98636 24.2054C6.98636 23.937 7.03923 23.6712 7.14194 23.4232C7.24466 23.1752 7.39521 22.9499 7.585 22.7601C7.77479 22.5703 8.00011 22.4198 8.24809 22.3171C8.49606 22.2143 8.76184 22.1615 9.03025 22.1615C9.29866 22.1615 9.56444 22.2143 9.81242 22.3171C10.0604 22.4198 10.2857 22.5703 10.4755 22.7601L14.35 26.6141L26.404 14.5601C26.5938 14.3703 26.8191 14.2198 27.0671 14.1171C27.3151 14.0143 27.5808 13.9615 27.8493 13.9615C28.1177 13.9615 28.3834 14.0143 28.6314 14.1171C28.8794 14.2198 29.1047 14.3703 29.2945 14.5601C29.4843 14.7499 29.6348 14.9752 29.7376 15.2232C29.8403 15.4712 29.8931 15.737 29.8931 16.0054C29.8931 16.2738 29.8403 16.5396 29.7376 16.7875C29.6348 17.0355 29.4843 17.2608 29.2945 17.4506L15.785 30.9601C15.5953 31.1502 15.3701 31.3009 15.1221 31.4038C14.8741 31.5067 14.6082 31.5596 14.3398 31.5596C14.0713 31.5596 13.8054 31.5067 13.5574 31.4038C13.3094 31.3009 13.0842 31.1502 12.8945 30.9601Z" fill="#2C6E7F"/>
+</svg>
+        <h4 class="font-semibold text-sm text-[#2c3242] mb-1">Keep your records secure</h4>
+        <p class="text-[11px] text-[#798092] max-w-52.5 leading-relaxed">
+          All issued documents are digitally signed and can be verified instantly
+        </p>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Lucide Icons Initialization Script -->
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

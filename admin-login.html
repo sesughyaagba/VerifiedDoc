@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VerifiedDoc - Admin Sign In</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Poppins -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        figma: {
+                            navy: '#1E3A6E',
+                            teal: '#2C6E7F',
+                            gold: '#C59B27',
+                            goldLink: '#B88E3E',
+                            graySub: '#8C94A0',
+                            grayText: '#717680',
+                            headerGray: '#6C757D',
+                            inputBg: '#F3F4F6',
+                            inputBorder: '#D1D5DB',
+                            badgeBg: '#F3E8FF',
+                            labelDark: '#374151',
+                            eyeGray: '#6B7280'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-figma-teal selection:text-white">
+
+    <!-- Top Header Navigation -->
+    <header class="pt-8 sm:pt-10 pl-8 sm:pl-16">
+        <img src="./Assets/splashLogo.svg" alt="VerifiedDoc Logo" class="w-32 sm:w-40 h-auto">
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="w-full max-w-[1440px] mx-auto px-6 lg:px-12 xl:px-20 flex-1 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 my-auto py-8">
+        
+        <!-- Left Column: Frame 29 Illustration & Text -->
+        <div class="w-full lg:w-1/2 flex flex-col items-center justify-center text-center">
+            
+            <!-- Graphic Illustration Container -->
+            <div class="w-full max-w-[550px] flex items-center justify-center select-none mb-10">
+                <img src="./Assets/adminLogin.svg" alt="Admin Illustration" class="w-full h-auto object-contain">
+            </div>
+
+            <!-- Left Frame 1 Texts -->
+            <div class="w-full max-w-[500px] flex flex-col items-center gap-3">
+                <h2 class="font-poppins font-bold text-[20px] sm:text-[22px] leading-tight text-[#5B6576]">
+                    Secure Administrative Gateway
+                </h2>
+                <p class="font-sans font-normal text-[12px] sm:text-[13px] text-[#4B5563] tracking-tight">
+                    Unauthorized access attempts are monitored and logged under Platform Activity Audit.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Right Column: Frame 824 Sign-In Form -->
+        <div class="w-full lg:w-1/2 max-w-[480px] mx-auto flex flex-col justify-center items-center">
+            
+            <!-- Frame 821 Header -->
+            <div class="w-full flex flex-col items-center text-center gap-5 mb-8">
+                
+                <!-- Frame 816 Icon Circle -->
+                <div class="w-[84px] h-[84px] bg-[#F5ECF8] rounded-full flex items-center justify-center flex-shrink-0">
+                    <img src="./Assets/admin-login-icon.svg" alt="Admin Login Icon" class="w-10 h-10 object-contain">
+                </div>
+
+                <!-- Frame 820 Title & Subtitle -->
+                <div class="w-full flex flex-col items-center gap-2">
+                    <h1 class="font-poppins font-bold text-[22px] sm:text-[24px] text-black tracking-tight">
+                        Admin Sign In
+                    </h1>
+                    <p class="max-w-[360px] font-sans font-normal text-[13px] sm:text-[14px] leading-relaxed text-figma-graySub">
+                        Access the VerifiedDoc admin dashboard to manage and monitor the platform.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Frame 823 Form Section -->
+            <div class="w-full">
+                
+                <form id="loginForm" onsubmit="handleFormSubmit(event)" class="w-full flex flex-col gap-5">
+                    
+                    <!-- Email Input Field -->
+                    <div class="w-full flex flex-col gap-1.5">
+                        <label for="emailInput" class="font-sans font-semibold text-[13px] sm:text-[14px] text-figma-labelDark">
+                            Email Address
+                        </label>
+                        <div class="w-full h-[46px] bg-[#F3F4F6] border border-[#D1D5DB] rounded-lg px-3.5 flex items-center focus-within:ring-2 focus-within:ring-figma-teal transition-all">
+                            <input 
+                                type="email" 
+                                id="emailInput" 
+                                placeholder="admin@platform.com"
+                                required
+                                class="w-full bg-transparent font-sans font-normal text-[14px] text-gray-700 placeholder:text-gray-400 focus:outline-none"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Password Input Field -->
+                    <div class="w-full flex flex-col gap-1.5">
+                        <label for="passwordInput" class="font-sans font-semibold text-[13px] sm:text-[14px] text-figma-labelDark">
+                            Password
+                        </label>
+                        <div class="w-full h-[46px] bg-[#F3F4F6] border border-[#D1D5DB] rounded-lg px-3.5 flex items-center justify-between focus-within:ring-2 focus-within:ring-figma-teal transition-all">
+                            <input 
+                                type="password" 
+                                id="passwordInput" 
+                                placeholder="Enter your password"
+                                required
+                                class="w-full bg-transparent font-sans font-normal text-[14px] text-gray-700 placeholder:text-gray-400 focus:outline-none pr-2"
+                            >
+                            <button 
+                                type="button" 
+                                onclick="togglePassword()"
+                                aria-label="Toggle password visibility"
+                                class="flex items-center justify-center text-figma-eyeGray hover:text-black transition-colors focus:outline-none flex-shrink-0"
+                            >
+                                <svg id="eyeSlashIcon" class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                                    <line x1="1" y1="1" x2="23" y2="23"/>
+                                </svg>
+                                <svg id="eyeOpenIcon" class="w-5 h-5 text-gray-500 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="w-full flex items-center justify-between pt-1">
+                        <label class="flex items-center gap-2 cursor-pointer select-none">
+                            <input 
+                                type="checkbox" 
+                                id="rememberCheckbox"
+                                checked 
+                                class="w-4 h-4 text-figma-teal border-gray-300 rounded focus:ring-0 cursor-pointer accent-figma-teal"
+                            >
+                            <span class="font-sans font-medium text-[13px] sm:text-[14px] text-gray-800">
+                                Remember me
+                            </span>
+                        </label>
+
+                        <a href="#" onclick="alert('Password reset link generated.'); return false;" class="font-sans font-semibold text-[13px] sm:text-[14px] text-figma-goldLink hover:underline transition-all">
+                            Forgot Password?
+                        </a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button 
+                        type="submit"
+                        class="w-full h-[48px] bg-[#1E3A6E] hover:bg-[#162C54] text-white rounded-lg font-sans font-medium text-[15px] flex items-center justify-center transition-all duration-150 active:scale-[0.99] shadow-sm focus:outline-none mt-2"
+                    >
+                        Sign In
+                    </button>
+
+                </form>
+
+                <!-- Need Help Footer -->
+                <div class="w-full flex justify-center items-center gap-2 mt-10">
+                    <span class="font-sans font-semibold text-[13px] sm:text-[14px] text-black">
+                        Need help?
+                    </span>
+                    <a href="#" onclick="alert('Redirecting to support desk...'); return false;" class="font-sans font-semibold text-[13px] sm:text-[14px] text-figma-goldLink hover:underline transition-all">
+                        Contact support
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="p-2"></footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const eyeSlashIcon = document.getElementById('eyeSlashIcon');
+            const eyeOpenIcon = document.getElementById('eyeOpenIcon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeSlashIcon.classList.add('hidden');
+                eyeOpenIcon.classList.remove('hidden');
+            } else {
+                passwordInput.type = 'password';
+                eyeSlashIcon.classList.remove('hidden');
+                eyeOpenIcon.classList.add('hidden');
+            }
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            const remember = document.getElementById('rememberCheckbox').checked;
+        }
+    </script>
+</body>
+</html>

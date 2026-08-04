@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verification Result</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Font: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-[#F8F8FC] text-[#2D3748] flex min-h-screen antialiased">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-[#1E3A64] text-white flex flex-col shrink-0 min-h-screen">
+    <!-- Logo Header -->
+    <div class="px-6 py-5 border-b border-white/10 flex items-center gap-2">
+      <img src="./Assets/logo.svg" alt="Logo" class="h-8">
+    </div>
+
+    <!-- Navigation -->
+    <nav class="flex-1 py-6 space-y-1 px-3">
+      <!-- Unactive Item with Hover Icon Color Effect -->
+      <a href="#" class="group flex items-center gap-3 px-4 py-3 rounded-md text-sm text-gray-300 hover:bg-white/10 hover:text-white transition-all duration-200">
+        <i data-lucide="layout-grid" class="w-4 h-4 text-gray-400 group-hover:text-amber-400 transition-colors"></i>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="#" class="group flex items-center gap-3 px-4 py-3 rounded-md text-sm text-gray-300 hover:bg-white/10 hover:text-white transition-all duration-200">
+        <i data-lucide="file-plus" class="w-4 h-4 text-gray-400 group-hover:text-amber-400 transition-colors"></i>
+        <span>Issue Credential</span>
+      </a>
+
+      <a href="#" class="group flex items-center gap-3 px-4 py-3 rounded-md text-sm text-gray-300 hover:bg-white/10 hover:text-white transition-all duration-200">
+        <i data-lucide="files" class="w-4 h-4 text-gray-400 group-hover:text-amber-400 transition-colors"></i>
+        <span>Issued Credentials</span>
+      </a>
+
+      <!-- Active Menu Item -->
+      <a href="#" class="group flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium text-white bg-[#2B4C7E] shadow-sm">
+        <i data-lucide="folder-check" class="w-4 h-4 text-amber-500 fill-amber-500"></i>
+        <span>Verification Request</span>
+      </a>
+
+      <a href="#" class="group flex items-center gap-3 px-4 py-3 rounded-md text-sm text-gray-300 hover:bg-white/10 hover:text-white transition-all duration-200">
+        <i data-lucide="building-2" class="w-4 h-4 text-gray-400 group-hover:text-amber-400 transition-colors"></i>
+        <span>Organization Profile</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col min-w-0">
+    <!-- Header -->
+    <header class="bg-[#F5F3FB] px-8 py-5 border-b border-gray-200/60">
+      <h2 class="text-2xl font-bold text-[#1A202C]">Verification Result</h2>
+    </header>
+
+    <!-- Page Body -->
+    <div class="p-8 max-w-6xl mx-auto w-full space-y-6">
+
+      <!-- Top Summary Card -->
+      <div class="bg-[#F5F3FB] rounded-xl p-8 flex items-center justify-between gap-6 shadow-sm">
+        <!-- Document Graphic Box -->
+        <div class="w-48 h-48 bg-[#9BF0A5] rounded-md flex items-center justify-center shrink-0">
+          <i data-lucide="file-text" class="w-24 h-24 text-[#2D3748] stroke-[1.25]"></i>
+        </div>
+
+        <!-- Document Metadata -->
+        <div class="flex-1 space-y-4">
+          <div>
+            <h3 class="text-base font-semibold text-[#2D3748]">B.Sc. Certificate</h3>
+            <p class="text-sm text-gray-500">Education</p>
+          </div>
+
+          <div>
+            <p class="text-xs text-gray-400 font-medium">Document ID</p>
+            <p class="text-sm font-semibold text-[#2D3748]">VD-2026-000123</p>
+          </div>
+
+          <div>
+            <p class="text-xs text-gray-400 font-medium">Date submitted</p>
+            <p class="text-sm font-semibold text-[#2D3748]">July 5, 2026. 09:10 AM</p>
+          </div>
+        </div>
+
+        <!-- Verified Status Box -->
+        <div class="w-80 h-48 bg-[#9BF0A5] rounded-xl flex flex-col items-center justify-center text-center p-6 shrink-0">
+          <svg width="32" height="40" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.776 39.9599C15.9267 40.0132 16.0767 40.0132 16.226 39.9599C18.168 39.2999 32 34.0359 32 18.5059V4.60788C32.0004 4.42914 31.941 4.25541 31.8311 4.1144C31.7213 3.97339 31.5674 3.87322 31.394 3.82988L16.194 0.0238789C16.0666 -0.00795962 15.9334 -0.00795962 15.806 0.0238789L0.606002 3.82988C0.432598 3.87322 0.278703 3.97339 0.168867 4.1144C0.0590317 4.25541 -0.000417456 4.42914 2.20669e-06 4.60788V18.5039C2.20669e-06 33.8779 13.838 39.2779 15.776 39.9599ZM25.626 13.1599C25.7786 12.9461 25.8876 12.7043 25.9468 12.4484C26.0059 12.1925 26.0141 11.9274 25.9708 11.6684C25.9276 11.4093 25.8337 11.1613 25.6946 10.9385C25.5554 10.7157 25.3738 10.5225 25.16 10.3699C24.9462 10.2173 24.7045 10.1083 24.4485 10.0491C24.1926 9.98996 23.9276 9.98178 23.6685 10.0251C23.4094 10.0683 23.1614 10.1622 22.9386 10.3013C22.7158 10.4404 22.5226 10.6221 22.37 10.8359L13.742 22.9159L9.412 18.5839C9.0348 18.2196 8.52959 18.018 8.0052 18.0225C7.48081 18.0271 6.97918 18.2374 6.60837 18.6082C6.23755 18.9791 6.02721 19.4807 6.02265 20.0051C6.0181 20.5295 6.21969 21.0347 6.584 21.4119L12.584 27.4119C12.7894 27.617 13.037 27.7749 13.3095 27.8747C13.5821 27.9744 13.8731 28.0137 14.1623 27.9897C14.4516 27.9658 14.7322 27.8791 14.9846 27.7358C15.237 27.5925 15.4552 27.396 15.624 27.1599L25.626 13.1599Z" fill="#2E7D32"/>
+          </svg>
+
+          <h4 class="text-xl font-bold text-[#2E7D32] mb-2">Verified</h4>
+          <p class="text-xs text-[#2D3748] leading-relaxed">
+            This document has been verified as genuine.<br />
+            <span class="text-[11px] text-gray-700">verified on July 5, 2026 . 02:45 PM</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Information Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Document Details Card -->
+        <div class="bg-[#F5F3FB] rounded-xl p-6 shadow-sm">
+          <h3 class="text-base font-bold text-[#1A202C] mb-6">Document Details</h3>
+          
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-sm">
+              <div class="flex items-center gap-2.5 text-gray-600">
+                <i data-lucide="file-badge" class="w-4 h-4 text-gray-500"></i>
+                <span>Document Type</span>
+              </div>
+              <span class="font-medium text-[#1A202C]">Education Certificate</span>
+            </div>
+
+            <div class="flex items-center justify-between text-sm">
+              <div class="flex items-center gap-2.5 text-gray-600">
+                <i data-lucide="user" class="w-4 h-4 text-gray-500"></i>
+                <span>Issued by</span>
+              </div>
+              <span class="font-medium text-[#1A202C]">University Of Lagos</span>
+            </div>
+
+            <div class="flex items-center justify-between text-sm">
+              <div class="flex items-center gap-2.5 text-gray-600">
+                <i data-lucide="user-check" class="w-4 h-4 text-gray-500"></i>
+                <span>Holder Name</span>
+              </div>
+              <span class="font-medium text-[#1A202C]">Adenike A.</span>
+            </div>
+
+            <div class="flex items-center justify-between text-sm">
+              <div class="flex items-center gap-2.5 text-gray-600">
+                <i data-lucide="calendar" class="w-4 h-4 text-gray-500"></i>
+                <span>Issue Date</span>
+              </div>
+              <span class="font-medium text-[#1A202C]">July 15 2024</span>
+            </div>
+
+            <div class="flex items-center justify-between text-sm pt-2">
+              <span class="text-gray-600 pl-6">Expiration Date</span>
+              <span class="font-medium text-[#1A202C]">---</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Verification Information Card -->
+        <div class="bg-[#F5F3FB] rounded-xl p-6 shadow-sm">
+          <h3 class="text-base font-bold text-[#1A202C] mb-6">Verification information</h3>
+          
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-sm">
+              <div class="flex items-center gap-2.5 text-gray-600">
+                <i data-lucide="user-check" class="w-4 h-4 text-gray-500"></i>
+                <span>Verified By</span>
+              </div>
+              <span class="font-medium text-[#1A202C]">University Of Lagos</span>
+            </div>
+
+            <div class="flex items-center justify-between text-sm">
+              <div class="flex items-center gap-2.5 text-gray-600">
+                <i data-lucide="search-code" class="w-4 h-4 text-gray-500"></i>
+                <span>Verification Method</span>
+              </div>
+              <span class="font-medium text-[#1A202C]">Direct Verification</span>
+            </div>
+
+            <div class="flex items-center justify-between text-sm">
+              <div class="flex items-center gap-2.5 text-gray-600">
+                <i data-lucide="check-square" class="w-4 h-4 text-gray-500"></i>
+                <span>Reference ID</span>
+              </div>
+              <span class="font-medium text-[#1A202C]">UL-VER-555667</span>
+            </div>
+
+            <div class="flex items-center justify-between text-sm">
+              <div class="flex items-center gap-2.5 text-gray-600">
+                <i data-lucide="file-text" class="w-4 h-4 text-gray-500"></i>
+                <span>Remark</span>
+              </div>
+              <span class="font-medium text-[#1A202C]">Document is genuine and valid</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Disclaimer & Action CTA -->
+      <div class="flex items-center justify-between pt-6">
+        <div class="flex items-center gap-2 text-xs text-gray-600">
+          <i data-lucide="shield" class="w-4 h-4 text-blue-600"></i>
+          <span>The verification confirms the authenticity of the document as of the date above.</span>
+        </div>
+
+        <!-- Download Button with Working JavaScript Handler -->
+        <button id="downloadBtn" onclick="downloadResult()" class="bg-[#1E3A64] hover:bg-[#152a4a] active:scale-95 text-white px-5 py-2.5 rounded-lg flex items-center gap-2 text-sm font-medium shadow transition-all duration-150">
+          <i data-lucide="download" class="w-4 h-4" id="downloadIcon"></i>
+          <span id="downloadBtnText">Download Result</span>
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Initialize Lucide Icons & Download Script -->
+  <script>
+    lucide.createIcons();
+
+    function downloadResult() {
+      const btn = document.getElementById('downloadBtn');
+      const btnText = document.getElementById('downloadBtnText');
+      
+      // Update state to loading
+      btn.disabled = true;
+      btnText.textContent = "Generating PDF...";
+      btn.classList.add('opacity-80', 'cursor-not-allowed');
+
+      setTimeout(() => {
+        // Trigger simulated file download
+        const blob = new Blob([documentDetails], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Verification-Result-VD-2026-000123.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+
+        // Reset button UI state
+        btn.disabled = false;
+        btnText.textContent = "Downloaded!";
+        btn.classList.remove('opacity-80', 'cursor-not-allowed');
+
+        setTimeout(() => {
+          btnText.textContent = "Download Result";
+        }, 2500);
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

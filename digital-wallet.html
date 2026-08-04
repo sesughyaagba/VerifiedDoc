@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Wallet</title>
+  
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+          },
+          colors: {
+            sidebar: '#1e325c',
+            'sidebar-active': 'rgba(255, 255, 255, 0.15)',
+            'btn-gold': '#be985f',
+            'btn-gold-hover': '#aa844c',
+            'card-blue': '#1c2d50',
+            'card-teal': '#1d5a67',
+            'card-gold': '#cca76f',
+            'card-gray': '#d4dbf0',
+            'border-light': '#eaecf0',
+            'text-muted': '#667085',
+            'badge-verified-bg': '#e6f4ea',
+            'badge-verified-text': '#1e7e34',
+            'badge-pending-bg': '#fef3e6',
+            'badge-pending-text': '#b96b00',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fc;
+    }
+    /* Custom Scrollbar for smooth visual */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="text-slate-800 antialiased bg-[#f8f9fc]">
+
+  <div class="flex min-h-screen">
+    
+    <!--  SIDEBAR  -->
+    <aside class="w-65 bg-sidebar text-white flex flex-col justify-between p-5 shrink-0">
+      <div>
+        <!-- Logo -->
+        <div class="flex items-center gap-2 mb-8 px-2">
+          <img src="./Assets/logo.svg" alt="Logo">
+        </div>
+        <!-- Navigation Links -->
+        <nav class="space-y-1.5 text-sm font-medium">
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 transition">
+            <i data-lucide="layout-grid" class="w-4 h-4"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 transition">
+            <i data-lucide="award" class="w-4 h-4"></i>
+            <span>My Credentials</span>
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-sidebar-active text-white font-semibold">
+            <i data-lucide="wallet" class="w-4 h-4"></i>
+            <span>Digital Wallet</span>
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 transition">
+            <i data-lucide="file-up" class="w-4 h-4"></i>
+            <span>Upload Documents</span>
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 transition">
+            <i data-lucide="share-2" class="w-4 h-4"></i>
+            <span>Share Credential</span>
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 transition">
+            <i data-lucide="activity" class="w-4 h-4"></i>
+            <span>Activity Log</span>
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 transition">
+            <i data-lucide="settings" class="w-4 h-4"></i>
+            <span>Account Settings</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- User Profile at Bottom -->
+      <div class="flex items-center gap-3 pt-4 border-t border-white/10 px-1">
+        <div class="w-9 h-9 rounded-full bg-amber-600/80 text-white font-semibold flex items-center justify-center text-sm shadow">
+          A
+        </div>
+        <div class="overflow-hidden">
+          <h4 class="text-xs font-semibold text-white truncate">Adenike A Adele</h4>
+          <p class="text-[11px] text-slate-400 truncate">Credential Holder</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT  -->
+    <main class="flex-1 p-8 overflow-y-auto">
+      
+      <!-- Top Header -->
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h1 class="text-2xl font-bold text-slate-900">Welcome back, Adenike</h1>
+          <p class="text-sm text-text-muted mt-0.5">Your secure digital identity. Your verified future.</p>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <button class="bg-btn-gold hover:bg-btn-gold-hover text-white text-xs font-semibold px-4 py-2.5 rounded-lg flex items-center gap-2 transition shadow-sm">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span>Add Credential</span>
+          </button>
+          
+          <button class="p-2 text-slate-600 hover:text-slate-900 bg-white border border-slate-200 rounded-lg shadow-sm hover:bg-slate-50 relative">
+            <i data-lucide="bell" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Overview Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        
+        <!-- Total Credentials -->
+        <div class="bg-card-blue text-white p-5 rounded-xl flex flex-col justify-between relative overflow-hidden shadow-sm h-32">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-medium text-slate-300">Total Credentials</span>
+            <div class="p-1.5 bg-white/10 rounded-md">
+              <i data-lucide="award" class="w-4 h-4 text-white"></i>
+            </div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold">12</div>
+            <div class="text-[11px] text-slate-300 mt-1">All verified and secure</div>
+          </div>
+        </div>
+
+        <!-- Active -->
+        <div class="bg-card-teal text-white p-5 rounded-xl flex flex-col justify-between relative overflow-hidden shadow-sm h-32">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-medium text-slate-200">Active</span>
+            <div class="p-1.5 bg-white/10 rounded-full">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-white"></i>
+            </div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold">8</div>
+            <div class="text-[11px] text-slate-200 mt-1">Active and trusted</div>
+          </div>
+        </div>
+
+        <!-- Pending -->
+        <div class="bg-[#d2ab6d] text-slate-900 p-5 rounded-xl flex flex-col justify-between relative overflow-hidden shadow-sm h-32">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-medium text-slate-800">Pending</span>
+            <div class="p-1.5 bg-black/5 rounded-full">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-800"></i>
+            </div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold">1</div>
+            <div class="text-[11px] text-slate-700 mt-1">Awaiting verification</div>
+          </div>
+        </div>
+
+        <!-- Expired -->
+        <div class="bg-card-gray text-slate-800 p-5 rounded-xl flex flex-col justify-between relative overflow-hidden shadow-sm h-32">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-medium text-slate-600">Expired</span>
+            <div class="p-1.5 bg-slate-300/50 rounded-full">
+              <i data-lucide="x" class="w-3.5 h-3.5 text-slate-600"></i>
+            </div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-slate-900">0</div>
+            <div class="text-[11px] text-slate-500 mt-1">No expired credentials</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Main Layout Grid (2 Columns: List + Details) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- LEFT COLUMN: Credentials List Section -->
+        <div class="lg:col-span-7 flex flex-col space-y-5">
+          
+          <!-- Filter Tabs & Search Bar -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <!-- Navigation Tabs -->
+            <div class="flex items-center space-x-6 border-b border-slate-200 text-xs font-semibold text-text-muted pb-1">
+              <button class="text-teal-700 border-b-2 border-teal-700 pb-2 -mb-1">All</button>
+              <button class="hover:text-slate-900 pb-2 -mb-1 transition">Academic</button>
+              <button class="hover:text-slate-900 pb-2 -mb-1 transition">Identity</button>
+              <button class="hover:text-slate-900 pb-2 -mb-1 transition">Employment</button>
+              <button class="hover:text-slate-900 pb-2 -mb-1 transition">Professional</button>
+            </div>
+
+            <!-- Search & Filter Controls -->
+            <div class="flex items-center gap-2">
+              <div class="relative">
+                <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" placeholder="Search credentials" class="pl-8 pr-3 py-1.5 text-xs bg-white border border-slate-200 rounded-md w-44 focus:outline-none focus:ring-1 focus:ring-teal-600">
+              </div>
+              <button class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-md text-xs font-medium text-slate-700 transition">
+                <i data-lucide="sliders-horizontal" class="w-3 h-3"></i>
+                <span>Filter</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- List Container -->
+          <div class="bg-white rounded-xl border border-slate-200 p-2 space-y-1 shadow-sm">
+            
+            <!-- Item 1 -->
+            <div class="flex items-center justify-between p-3.5 rounded-lg hover:bg-slate-50 transition cursor-pointer">
+              <div class="flex items-center gap-3.5">
+                <div class="p-2.5 bg-slate-100 rounded-lg text-slate-600">
+                  <i data-lucide="award" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h3 class="text-xs font-bold text-slate-900">UI/UX Design Certificate</h3>
+                  <div class="flex items-center gap-2 text-[11px] text-text-muted mt-0.5">
+                    <span>Juliana Ogi</span>
+                    <span>•</span>
+                    <span>Verified 2 days ago</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800">Verified</span>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+              </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="flex items-center justify-between p-3.5 rounded-lg hover:bg-slate-50 transition cursor-pointer">
+              <div class="flex items-center gap-3.5">
+                <div class="p-2.5 bg-slate-100 rounded-lg text-slate-600">
+                  <i data-lucide="award" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h3 class="text-xs font-bold text-slate-900">UI/UX Design Certificate</h3>
+                  <div class="flex items-center gap-2 text-[11px] text-text-muted mt-0.5">
+                    <span>Juliana Ogi</span>
+                    <span>•</span>
+                    <span>Verified 2 days ago</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800">Verified</span>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+              </div>
+            </div>
+
+            <!-- Item 3 (Pending) -->
+            <div class="flex items-center justify-between p-3.5 rounded-lg hover:bg-slate-50 transition cursor-pointer">
+              <div class="flex items-center gap-3.5">
+                <div class="p-2.5 bg-slate-100 rounded-lg text-slate-600">
+                  <i data-lucide="award" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h3 class="text-xs font-bold text-slate-900">UI/UX Design Certificate</h3>
+                  <div class="flex items-center gap-2 text-[11px] text-text-muted mt-0.5">
+                    <span>Juliana Ogi</span>
+                    <span>•</span>
+                    <span>Verified 2 days ago</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-800">Pending</span>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+              </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="flex items-center justify-between p-3.5 rounded-lg hover:bg-slate-50 transition cursor-pointer">
+              <div class="flex items-center gap-3.5">
+                <div class="p-2.5 bg-slate-100 rounded-lg text-slate-600">
+                  <i data-lucide="award" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h3 class="text-xs font-bold text-slate-900">UI/UX Design Certificate</h3>
+                  <div class="flex items-center gap-2 text-[11px] text-text-muted mt-0.5">
+                    <span>Juliana Ogi</span>
+                    <span>•</span>
+                    <span>Verified 2 days ago</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800">Verified</span>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+              </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="flex items-center justify-between p-3.5 rounded-lg hover:bg-slate-50 transition cursor-pointer">
+              <div class="flex items-center gap-3.5">
+                <div class="p-2.5 bg-slate-100 rounded-lg text-slate-600">
+                  <i data-lucide="award" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h3 class="text-xs font-bold text-slate-900">UI/UX Design Certificate</h3>
+                  <div class="flex items-center gap-2 text-[11px] text-text-muted mt-0.5">
+                    <span>Juliana Ogi</span>
+                    <span>•</span>
+                    <span>Verified 2 days ago</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800">Verified</span>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Security Banner Box -->
+          <div class="bg-slate-100/70 rounded-xl p-5 border border-slate-200 flex items-start justify-between">
+            <div class="flex gap-4 items-start">
+              <div class="p-2 bg-teal-800 rounded-lg text-white mt-0.5">
+                <i data-lucide="shield-check" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-slate-900">Your credentials are secure and verifiable</h4>
+                <p class="text-[11px] text-text-muted mt-1">You control who can access your verified credentials.</p>
+                <a href="#" class="inline-flex items-center gap-1 text-xs font-semibold text-teal-800 hover:underline mt-3">
+                  <span>Learn More</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: Preview & Details Section -->
+        <div class="lg:col-span-5 space-y-4">
+          
+          <h2 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Credential Preview</h2>
+
+          <!-- QR Card Container -->
+<div class="w-100%">
+  <img
+    src="./Assets/qrCode.png"
+    alt="QR Code"
+    class=""
+  >
+</div>
+
+          <!-- Carousel Dots -->
+          <div class="flex justify-center items-center gap-1.5 py-1">
+            <span class="w-5 h-1.5 bg-teal-700 rounded-full"></span>
+            <span class="w-1.5 h-1.5 bg-slate-300 rounded-full"></span>
+            <span class="w-1.5 h-1.5 bg-slate-300 rounded-full"></span>
+          </div>
+
+          <!-- Details Table/Card -->
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3">
+            <h3 class="text-xs font-bold text-slate-900 border-b border-slate-100 pb-2">About this credential</h3>
+            
+            <div class="space-y-2.5 text-xs">
+              <div class="flex justify-between items-center">
+                <span class="text-text-muted">Certificate Type</span>
+                <span class="font-bold text-slate-900">Bachelor of Science</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-text-muted">Institution</span>
+                <span class="font-bold text-slate-900">University of Lagos</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-text-muted">Field of Study</span>
+                <span class="font-bold text-slate-900">Computer Science</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-text-muted">Date Issued</span>
+                <span class="font-bold text-slate-900">May 20, 2023</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-text-muted">Status</span>
+                <span class="font-bold text-teal-700">Verified</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-text-muted">Valid Until</span>
+                <span class="font-bold text-slate-900">Lifetime</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons Grid -->
+          <div class="grid grid-cols-2 gap-3 pt-1">
+            <button class="flex items-center justify-center gap-2 px-3 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 text-xs font-semibold rounded-lg shadow-sm transition">
+              <i data-lucide="share-2" class="w-4 h-4 text-slate-600"></i>
+              <span>Share Credentials</span>
+            </button>
+            <button class="flex items-center justify-center gap-2 px-3 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 text-xs font-semibold rounded-lg shadow-sm transition">
+              <i data-lucide="download" class="w-4 h-4 text-slate-600"></i>
+              <span>Download</span>
+            </button>
+            <button class="flex items-center justify-center gap-2 px-3 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 text-xs font-semibold rounded-lg shadow-sm transition">
+              <i data-lucide="eye" class="w-4 h-4 text-slate-600"></i>
+              <span>View Details</span>
+            </button>
+            <button class="flex items-center justify-center gap-2 px-3 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 text-xs font-semibold rounded-lg shadow-sm transition">
+              <i data-lucide="shield-check" class="w-4 h-4 text-slate-600"></i>
+              <span>Request Verification</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Lucide Icon Initialization -->
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
