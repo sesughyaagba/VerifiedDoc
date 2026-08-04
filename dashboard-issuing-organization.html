@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Issuing Organization Dashboard</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Poppins Font CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              sidebar: '#1c2d5a',
+              activeNav: '#3b4e7a',
+              navy: '#19284d',
+              badgeGreenBg: '#e6f4ea',
+              badgeGreenText: '#1e7e34',
+              badgeRedBg: '#fce8e6',
+              badgeRedText: '#d93025',
+              border: '#e2e8f0',
+              graySub: '#6c757d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="font-sans bg-[#fafbfd] text-slate-800 antialiased flex min-h-screen">
+
+  <!-- SIDEBAR -->
+  <aside class="w-64 bg-[#1c2d5a] text-white flex flex-col shrink-0 min-h-screen">
+    <!-- Logo Area -->
+    <div class="px-6 py-6 border-b border-slate-700/40 flex items-center gap-2">
+      <img src="./Assets/logo.svg" alt="Logo">
+    </div>
+
+    <!-- Navigation -->
+    <nav class="flex-1 px-3 py-4 space-y-1 text-xs font-medium">
+      <!-- Active Item -->
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md bg-[#3b4e7a] text-white transition-colors">
+        <span class="w-4 h-4 rounded-sm bg-amber-400/80 inline-block"></span>
+        <span class="font-semibold">Dashboard</span>
+      </a>
+
+      <!-- Inactive Items -->
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
+        <span class="w-4 h-4 rounded-sm bg-slate-500/30 inline-block"></span>
+        <span>Issued Credentials</span>
+      </a>
+
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
+        <span class="w-4 h-4 rounded-sm bg-slate-500/30 inline-block"></span>
+        <span>Institutional Portal</span>
+      </a>
+
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
+        <span class="w-4 h-4 rounded-sm bg-slate-500/30 inline-block"></span>
+        <span>Verification Requests</span>
+      </a>
+
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
+        <span class="w-4 h-4 rounded-sm bg-slate-500/30 inline-block"></span>
+        <span>Organization Profile</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="flex-1 p-8 max-w-6xl mx-auto space-y-5">
+    
+    <!-- Top Header -->
+    <div class="flex items-center justify-between mb-2">
+      <div>
+        <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Welcome back, Brimatel Ltd</h1>
+        <p class="text-xs text-slate-400 mt-1">Here's an overview of your organization's credential activity</p>
+      </div>
+      <button class="bg-[#19284d] hover:bg-[#111c38] text-white text-xs font-medium px-4 py-2.5 rounded-md transition-colors shadow-sm">
+        + Issue a Credential
+      </button>
+    </div>
+
+    <!-- STAT CARD 1 -->
+    <div class="bg-white rounded-xl border border-slate-200/80 p-5 shadow-xs">
+      <h3 class="text-[11px] font-semibold tracking-wider text-slate-400 uppercase">Total Credentials Issued</h3>
+      <p class="text-3xl font-bold text-[#19284d] mt-1">142</p>
+      <p class="text-xs text-emerald-600 font-medium mt-1">+ 8 this month</p>
+    </div>
+
+    <!-- STAT CARD 2 -->
+    <div class="bg-white rounded-xl border border-slate-200/80 p-5 shadow-xs">
+      <h3 class="text-[11px] font-semibold tracking-wider text-slate-400 uppercase">Active Recipients</h3>
+      <p class="text-3xl font-bold text-[#19284d] mt-1">96</p>
+      <p class="text-xs text-emerald-700/80 font-medium mt-1">Across 5 programs</p>
+    </div>
+
+    <!-- STAT CARD 3 -->
+    <div class="bg-white rounded-xl border border-slate-200/80 p-5 shadow-xs">
+      <h3 class="text-[11px] font-semibold tracking-wider text-slate-400 uppercase">Pending Verification Requests</h3>
+      <p class="text-3xl font-bold text-[#19284d] mt-1">4</p>
+      <p class="text-xs text-amber-500 font-medium mt-1">Awaiting your response</p>
+    </div>
+
+    <!-- RECENTLY ISSUED SECTION -->
+    <div class="bg-white rounded-xl border border-slate-200/80 shadow-xs overflow-hidden">
+      <div class="p-4 px-5 flex justify-between items-center border-b border-slate-100">
+        <h2 class="text-sm font-bold text-slate-800">Recently Issued</h2>
+        <a href="#" class="text-xs text-slate-600 hover:text-slate-900 font-medium">View all</a>
+      </div>
+
+      <div class="divide-y divide-slate-100">
+        <!-- Item 1 -->
+        <div class="p-4 px-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
+          <div class="flex items-center gap-4">
+            <div class="w-9 h-9 rounded-md bg-[#19284d] flex shrink-0"></div>
+            <div>
+              <p class="text-xs font-bold text-slate-800">Data Analysis Certification</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">Issued to Juliana Ene Ogli . 03 May 2026</p>
+            </div>
+          </div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-emerald-100/70 text-emerald-700">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Active
+          </span>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="p-4 px-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
+          <div class="flex items-center gap-4">
+            <div class="w-9 h-9 rounded-md bg-[#19284d] flex shrink-0"></div>
+            <div>
+              <p class="text-xs font-bold text-slate-800">Professional Training Cert.</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">Issued to Ubong . 18 Feb 2026</p>
+            </div>
+          </div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-emerald-100/70 text-emerald-700">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Active
+          </span>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="p-4 px-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
+          <div class="flex items-center gap-4">
+            <div class="w-9 h-9 rounded-md bg-[#19284d] flex shrink-0"></div>
+            <div>
+              <p class="text-xs font-bold text-slate-800">Field Safety Certificate</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">Issued to Genesis Adegoke . 30 Jun 2026</p>
+            </div>
+          </div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-rose-100/80 text-rose-700">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-600"></span> Revoked
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- VERIFICATION REQUESTS SECTION -->
+    <div class="bg-white rounded-xl border border-slate-200/80 shadow-xs overflow-hidden">
+      <div class="p-4 px-5 border-b border-slate-100">
+        <h2 class="text-sm font-bold text-slate-800">Verification Requests</h2>
+      </div>
+
+      <div class="divide-y divide-slate-100">
+        <!-- Request 1 -->
+        <div class="p-4 px-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
+          <div>
+            <p class="text-xs text-slate-700">
+              <span class="font-bold text-slate-900">Brimatel HR</span> requests verification of Data Analysis Cert.
+            </p>
+            <p class="text-[11px] text-slate-400 mt-0.5">2 hours ago</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="handleAction('Approved')" class="px-3 py-1 rounded text-[11px] font-medium bg-emerald-100/70 text-emerald-800 hover:bg-emerald-200 transition-colors">
+              Approve
+            </button>
+            <button onclick="handleAction('Denied')" class="px-3 py-1 rounded text-[11px] font-medium bg-rose-100/70 text-rose-700 hover:bg-rose-200 transition-colors">
+              Deny
+            </button>
+          </div>
+        </div>
+
+        <!-- Request 2 -->
+        <div class="p-4 px-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
+          <div>
+            <p class="text-xs text-slate-700">
+              <span class="font-bold text-slate-900">Lumora Solutions</span> requests verification of Training Cert.
+            </p>
+            <p class="text-[11px] text-slate-400 mt-0.5">1 day ago</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="handleAction('Approved')" class="px-3 py-1 rounded text-[11px] font-medium bg-emerald-100/70 text-emerald-800 hover:bg-emerald-200 transition-colors">
+              Approve
+            </button>
+            <button onclick="handleAction('Denied')" class="px-3 py-1 rounded text-[11px] font-medium bg-rose-100/70 text-rose-700 hover:bg-rose-200 transition-colors">
+              Deny
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Interactive JavaScript logic -->
+  <script>
+    function handleAction(status) {
+      alert(`Request marked as: ${status}`);
+    }
+  </script>
+</body>
+</html>
