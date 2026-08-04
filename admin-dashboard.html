@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - VerifiedDoc</title>
+  
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+          },
+          colors: {
+            navy: {
+              DEFAULT: '#1c3057',
+              active: '#394d73',
+            },
+            teal: {
+              DEFAULT: '#1d6e83',
+              dark: '#165262',
+            },
+            verified: {
+              bg: '#e2f0e6',
+              text: '#4d8a5f',
+            },
+            pending: {
+              bg: '#fbf0d9',
+              text: '#d99d3d',
+            },
+            rejected: {
+              bg: '#fce4e4',
+              text: '#dc5c5c',
+            },
+            cardBg: '#fafbfc',
+            grayBorder: '#eef1f5',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    /* Smooth transition for table row updates */
+    tr {
+      transition: all 0.2s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-gray-800 antialiased font-poppins relative">
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col space-y-3"></div>
+
+  <!-- MODAL DIALOG -->
+  <div id="action-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs hidden">
+    <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl border border-gray-100 transform transition-all">
+      <div class="flex items-center justify-between mb-4">
+        <h3 id="modal-title" class="text-lg font-bold text-gray-900">Confirm Action</h3>
+        <button id="close-modal" class="text-gray-400 hover:text-gray-600 font-bold">&times;</button>
+      </div>
+      <p id="modal-body" class="text-sm text-gray-600 mb-6">Are you sure you want to proceed with this status update?</p>
+      <div class="flex justify-end space-x-3">
+        <button id="modal-cancel-btn" class="px-4 py-2 bg-gray-100 text-gray-700 text-xs font-semibold rounded-lg hover:bg-gray-200 transition">Cancel</button>
+        <button id="modal-confirm-btn" class="px-4 py-2 bg-teal text-white text-xs font-semibold rounded-lg hover:bg-teal-dark transition">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex min-h-screen">
+    
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-navy text-white flex flex-col justify-between shrink-0">
+      <div>
+        <!-- Logo Header -->
+        <div class="p-6 flex items-center space-x-2">
+          <div class="flex items-center space-x-2">
+            <span class="text-xl font-bold tracking-tight text-white">Verified<span class="text-[#c7913e]">Doc</span></span>
+          </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <nav class="mt-2 px-3 space-y-1" id="sidebar-nav">
+          <a href="#" data-page="Dashboard" class="nav-item flex items-center space-x-3 px-4 py-3 bg-navy-active rounded-lg text-white font-medium text-sm transition">
+            <span class="w-3 h-3 bg-[#c7913e] rounded-xs indicator"></span>
+            <span>Dashboard</span>
+          </a>
+
+          <a href="#" data-page="Organization Approvals" class="nav-item flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white rounded-lg text-sm font-medium transition">
+            <span class="w-3 h-3 border border-gray-400 rounded-xs indicator"></span>
+            <span>Organization Approvals</span>
+          </a>
+
+          <a href="#" data-page="Organization Management" class="nav-item flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white rounded-lg text-sm font-medium transition">
+            <span class="w-3 h-3 border border-gray-400 rounded-xs indicator"></span>
+            <span>Organization Mgt.</span>
+          </a>
+
+          <a href="#" data-page="Platform Activity Monitoring" class="nav-item flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white rounded-lg text-sm font-medium transition">
+            <span class="w-3 h-3 border border-gray-400 rounded-xs indicator"></span>
+            <span>Platform Activity Monitoring</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- User Profile at Sidebar Bottom -->
+      <div class="p-6 flex items-center space-x-3 border-t border-navy-active/40">
+        <div class="w-10 h-10 rounded-full bg-[#c7913e] flex items-center justify-center font-bold text-white text-sm">
+          A
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-white leading-snug">Adenike A Adele</h4>
+          <p class="text-xs text-gray-400">Superior Administrator</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 p-8 overflow-y-auto">
+      
+      <!-- Top Header -->
+      <header class="flex justify-between items-start mb-6">
+        <div>
+          <h1 id="page-heading" class="text-2xl font-bold text-gray-900 tracking-tight">Welcome back, Adenike</h1>
+          <p class="text-sm text-gray-500 mt-1 font-medium">Here's an overview of your platform.</p>
+        </div>
+        
+        <!-- Notification Container -->
+        <div class="relative">
+          <button id="notification-btn" class="p-2 text-teal relative hover:bg-gray-100 rounded-full transition focus:outline-none">
+            <svg class="w-7 h-7 fill-current text-teal" viewBox="0 0 24 24">
+              <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+            </svg>
+            <span id="notif-badge" class="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white"></span>
+          </button>
+
+          <!-- Notification Dropdown Menu -->
+          <div id="notification-dropdown" class="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-100 hidden z-40 overflow-hidden">
+            <div class="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+              <h4 class="text-xs font-bold text-gray-800">Notifications</h4>
+              <button id="mark-read-btn" class="text-[11px] font-medium text-teal hover:underline">Mark all as read</button>
+            </div>
+            <div class="divide-y divide-gray-100 max-h-64 overflow-y-auto" id="notif-list">
+              <div class="p-3.5 hover:bg-slate-50 transition flex items-start space-x-3">
+                <span class="w-2 h-2 mt-1.5 rounded-full bg-red-500 shrink-0"></span>
+                <div>
+                  <p class="text-xs text-gray-800 font-semibold">High Risk Flagged</p>
+                  <p class="text-[11px] text-gray-500 mt-0.5">John Doe uploaded a suspicious WAEC Certificate.</p>
+                </div>
+              </div>
+              <div class="p-3.5 hover:bg-slate-50 transition flex items-start space-x-3">
+                <span class="w-2 h-2 mt-1.5 rounded-full bg-amber-500 shrink-0"></span>
+                <div>
+                  <p class="text-xs text-gray-800 font-semibold">Approval Needed</p>
+                  <p class="text-[11px] text-gray-500 mt-0.5">Lumora Solutions requested verification.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- STAT CARDS GRID -->
+      <section class="grid grid-cols-4 gap-5 mb-6">
+        
+        <!-- Card 1: Total Users -->
+        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-2xs flex justify-between items-start">
+          <div>
+            <p class="text-xs font-semibold text-gray-500 mb-1">Total Users</p>
+            <h3 id="stat-users" class="text-2xl font-bold text-navy mb-2">2,543</h3>
+            <p class="text-xs font-semibold text-emerald-600 flex items-center">
+              <span class="mr-1">↑</span> 12.5% <span class="text-gray-400 font-normal ml-1">this month</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2: Institutions -->
+        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-2xs flex justify-between items-start">
+          <div>
+            <p class="text-xs font-semibold text-gray-500 mb-1">Institutions</p>
+            <h3 id="stat-institutions" class="text-2xl font-bold text-navy mb-2">245</h3>
+            <p class="text-xs font-semibold text-emerald-600 flex items-center">
+              <span class="mr-1">↑</span> 8.3% <span class="text-gray-400 font-normal ml-1">this month</span>
+            </p>
+          </div>
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 0L0 6V10H32V6L16 0ZM0 28H32V32H0V28ZM32 14V12H0V14H2V24H0V26H32V24H30V14H32ZM8 24H6V14H8V24ZM14 24H12V14H14V24ZM20 24H18V14H20V24ZM26 24H24V14H26V24Z" fill="#2C6E7F"/>
+          </svg>
+        </div>
+
+        <!-- Card 3: Documents -->
+        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-2xs flex justify-between items-start">
+          <div>
+            <p class="text-xs font-semibold text-gray-500 mb-1">Documents</p>
+            <h3 id="stat-documents" class="text-2xl font-bold text-navy mb-2">18,367</h3>
+            <p class="text-xs font-semibold text-emerald-600 flex items-center">
+              <span class="mr-1">↑</span> 9.7% <span class="text-gray-400 font-normal ml-1">this month</span>
+            </p>
+          </div>
+          <svg width="34" height="35" viewBox="0 0 34 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.5 28.3333C23.6667 28.3333 24.6528 27.9306 25.4583 27.125C26.2639 26.3194 26.6667 25.3333 26.6667 24.1667C26.6667 23 26.2639 22.0139 25.4583 21.2083C24.6528 20.4028 23.6667 20 22.5 20C21.3333 20 20.3472 20.4028 19.5417 21.2083C18.7361 22.0139 18.3333 23 18.3333 24.1667C18.3333 25.3333 18.7361 26.3194 19.5417 27.125C20.3472 27.9306 21.3333 28.3333 22.5 28.3333ZM31 35L26.5 30.5417C25.9167 30.9028 25.285 31.1806 24.605 31.375C23.925 31.5694 23.2233 31.6667 22.5 31.6667C20.4167 31.6667 18.6461 30.9378 17.1883 29.48C15.7306 28.0222 15.0011 26.2511 15 24.1667C14.9989 22.0822 15.7283 20.3117 17.1883 18.855C18.6483 17.3983 20.4189 16.6689 22.5 16.6667C24.5811 16.6644 26.3522 17.3939 27.8133 18.855C29.2744 20.3161 30.0033 22.0867 30 24.1667C30 24.9167 29.8961 25.6322 29.6883 26.3133C29.4806 26.9944 29.1956 27.6261 28.8333 28.2083L33.3333 32.6667L31 35ZM3.33333 33.3333C2.41667 33.3333 1.63222 33.0072 0.98 32.355C0.327778 31.7028 0.00111111 30.9178 0 30V3.33333C0 2.41667 0.326667 1.63222 0.98 0.98C1.63333 0.327778 2.41778 0.00111111 3.33333 0H16.6667L26.6667 10V14.1667C26 13.8889 25.3194 13.6806 24.625 13.5417C23.9306 13.4028 23.2222 13.3333 22.5 13.3333C19.0833 13.3333 16.41 14.4656 14.48 16.73C12.55 18.9944 11.5844 21.515 11.5833 24.2917C11.5833 26.0139 11.9933 27.6806 12.8133 29.2917C13.6333 30.9028 14.9317 32.25 16.7083 33.3333H3.33333ZM15 11.6667H23.3333L15 3.33333V11.6667Z" fill="#2C6E7F"/>
+          </svg>
+        </div>
+
+        <!-- Card 4: Verifications -->
+        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-2xs flex justify-between items-start">
+          <div>
+            <p class="text-xs font-semibold text-gray-500 mb-1">Verifications</p>
+            <h3 id="stat-verifications" class="text-2xl font-bold text-navy mb-2">96,782</h3>
+            <p class="text-xs font-semibold text-emerald-600 flex items-center">
+              <span class="mr-1">↑</span> 14.2% <span class="text-gray-400 font-normal ml-1">this month</span>
+            </p>
+          </div>
+          <svg class="w-8 h-8 text-teal fill-current" viewBox="0 0 24 24">
+            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-5.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+          </svg>
+        </div>
+
+      </section>
+
+      <!-- RECENT VERIFICATION REQUESTS TABLE -->
+      <section class="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
+          <h2 class="text-lg font-bold text-gray-900">Recent Verification Requests</h2>
+          
+          <!-- Dynamic Search & Filter Controls -->
+          <div class="flex items-center space-x-3">
+            <input type="text" id="table-search" placeholder="Search organization..." class="px-3.5 py-1.5 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-teal w-48 transition" />
+            <select id="status-filter" class="px-3 py-1.5 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-teal text-gray-600 font-medium">
+              <option value="ALL">All Statuses</option>
+              <option value="Verified">Verified</option>
+              <option value="Pending">Pending</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse" id="requests-table">
+            <thead>
+              <tr class="text-sm font-semibold text-gray-800 border-b border-gray-100">
+                <th class="pb-4 font-bold">Organization</th>
+                <th class="pb-4 font-bold">Document</th>
+                <th class="pb-4 font-bold text-center">Status</th>
+                <th class="pb-4 font-bold text-center">Verified At</th>
+                <th class="pb-4 font-bold text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 text-sm" id="table-body">
+              
+              <!-- Row 1 -->
+              <tr data-org="TechCrush" data-status="Verified">
+                <td class="py-4 flex items-center space-x-3">
+                  <div class="w-9 h-9 rounded-xl bg-[#c5dadf] flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5 text-teal fill-current" viewBox="0 0 24 24">
+                      <path d="M12 2L2 7v2h20V7L12 2zm-7 8v8h2v-8H5zm4 0v8h2v-8H9zm4 0v8h2v-8h-2zm4 0v8h2v-8h-2zM3 19v2h18v-2H3z"/>
+                    </svg>
+                  </div>
+                  <span class="font-semibold text-gray-900 org-name">TechCrush</span>
+                </td>
+                <td class="py-4 text-gray-700 font-medium">Product Design Cert.</td>
+                <td class="py-4 text-center status-cell">
+                  <span class="inline-block px-5 py-1.5 bg-verified-bg text-verified-text rounded-md font-semibold text-xs">Verified</span>
+                </td>
+                <td class="py-4 text-center text-gray-700 font-medium">10 hrs ago</td>
+                <td class="py-4 text-right">
+                  <div class="flex items-center justify-end space-x-2">
+                    <button class="action-btn-approve text-xs font-semibold text-emerald-600 hover:text-emerald-800 px-2 py-1 rounded bg-emerald-50 hover:bg-emerald-100 transition">Approve</button>
+                    <button class="action-btn-reject text-xs font-semibold text-red-600 hover:text-red-800 px-2 py-1 rounded bg-red-50 hover:bg-red-100 transition">Reject</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 2 -->
+              <tr data-org="Lumora Solutions" data-status="Pending">
+                <td class="py-4 flex items-center space-x-3">
+                  <div class="w-9 h-9 rounded-xl bg-[#c5dadf] flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5 text-teal fill-current" viewBox="0 0 24 24">
+                      <path d="M12 2L2 7v2h20V7L12 2zm-7 8v8h2v-8H5zm4 0v8h2v-8H9zm4 0v8h2v-8h-2zm4 0v8h2v-8h-2zM3 19v2h18v-2H3z"/>
+                    </svg>
+                  </div>
+                  <span class="font-semibold text-gray-900 org-name">Lumora Solutions</span>
+                </td>
+                <td class="py-4 text-gray-700 font-medium">Professional Training cert.</td>
+                <td class="py-4 text-center status-cell">
+                  <span class="inline-block px-5 py-1.5 bg-pending-bg text-pending-text rounded-md font-semibold text-xs">Pending</span>
+                </td>
+                <td class="py-4 text-center text-gray-700 font-medium">20 hrs ago</td>
+                <td class="py-4 text-right">
+                  <div class="flex items-center justify-end space-x-2">
+                    <button class="action-btn-approve text-xs font-semibold text-emerald-600 hover:text-emerald-800 px-2 py-1 rounded bg-emerald-50 hover:bg-emerald-100 transition">Approve</button>
+                    <button class="action-btn-reject text-xs font-semibold text-red-600 hover:text-red-800 px-2 py-1 rounded bg-red-50 hover:bg-red-100 transition">Reject</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 3 -->
+              <tr data-org="Greenfield University" data-status="Verified">
+                <td class="py-4 flex items-center space-x-3">
+                  <div class="w-9 h-9 rounded-xl bg-[#c5dadf] flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5 text-teal fill-current" viewBox="0 0 24 24">
+                      <path d="M12 2L2 7v2h20V7L12 2zm-7 8v8h2v-8H5zm4 0v8h2v-8H9zm4 0v8h2v-8h-2zm4 0v8h2v-8h-2zM3 19v2h18v-2H3z"/>
+                    </svg>
+                  </div>
+                  <span class="font-semibold text-gray-900 org-name">Greenfield University</span>
+                </td>
+                <td class="py-4 text-gray-700 font-medium">BSc Certificate</td>
+                <td class="py-4 text-center status-cell">
+                  <span class="inline-block px-5 py-1.5 bg-verified-bg text-verified-text rounded-md font-semibold text-xs">Verified</span>
+                </td>
+                <td class="py-4 text-center text-gray-700 font-medium">1 day ago</td>
+                <td class="py-4 text-right">
+                  <div class="flex items-center justify-end space-x-2">
+                    <button class="action-btn-approve text-xs font-semibold text-emerald-600 hover:text-emerald-800 px-2 py-1 rounded bg-emerald-50 hover:bg-emerald-100 transition">Approve</button>
+                    <button class="action-btn-reject text-xs font-semibold text-red-600 hover:text-red-800 px-2 py-1 rounded bg-red-50 hover:bg-red-100 transition">Reject</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 4 -->
+              <tr data-org="NYSC" data-status="Rejected">
+                <td class="py-4 flex items-center space-x-3">
+                  <div class="w-9 h-9 rounded-xl bg-[#c5dadf] flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5 text-teal fill-current" viewBox="0 0 24 24">
+                      <path d="M12 2L2 7v2h20V7L12 2zm-7 8v8h2v-8H5zm4 0v8h2v-8H9zm4 0v8h2v-8h-2zm4 0v8h2v-8h-2zM3 19v2h18v-2H3z"/>
+                    </svg>
+                  </div>
+                  <span class="font-semibold text-gray-900 org-name">NYSC</span>
+                </td>
+                <td class="py-4 text-gray-700 font-medium">NYSC Certificate</td>
+                <td class="py-4 text-center status-cell">
+                  <span class="inline-block px-5 py-1.5 bg-rejected-bg text-rejected-text rounded-md font-semibold text-xs">Rejected</span>
+                </td>
+                <td class="py-4 text-center text-gray-700 font-medium">2 days ago</td>
+                <td class="py-4 text-right">
+                  <div class="flex items-center justify-end space-x-2">
+                    <button class="action-btn-approve text-xs font-semibold text-emerald-600 hover:text-emerald-800 px-2 py-1 rounded bg-emerald-50 hover:bg-emerald-100 transition">Approve</button>
+                    <button class="action-btn-reject text-xs font-semibold text-red-600 hover:text-red-800 px-2 py-1 rounded bg-red-50 hover:bg-red-100 transition">Reject</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 5 -->
+              <tr data-org="The Polytechnic Ibadan" data-status="Verified">
+                <td class="py-4 flex items-center space-x-3">
+                  <div class="w-9 h-9 rounded-xl bg-[#c5dadf] flex items-center justify-center shrink-0">
+                    <svg class="w-5 h-5 text-teal fill-current" viewBox="0 0 24 24">
+                      <path d="M12 2L2 7v2h20V7L12 2zm-7 8v8h2v-8H5zm4 0v8h2v-8H9zm4 0v8h2v-8h-2zm4 0v8h2v-8h-2zM3 19v2h18v-2H3z"/>
+                    </svg>
+                  </div>
+                  <span class="font-semibold text-gray-900 org-name">The Polytechnic Ibadan</span>
+                </td>
+                <td class="py-4 text-gray-700 font-medium">HND Certificate</td>
+                <td class="py-4 text-center status-cell">
+                  <span class="inline-block px-5 py-1.5 bg-verified-bg text-verified-text rounded-md font-semibold text-xs">Verified</span>
+                </td>
+                <td class="py-4 text-center text-gray-700 font-medium">3 days ago</td>
+                <td class="py-4 text-right">
+                  <div class="flex items-center justify-end space-x-2">
+                    <button class="action-btn-approve text-xs font-semibold text-emerald-600 hover:text-emerald-800 px-2 py-1 rounded bg-emerald-50 hover:bg-emerald-100 transition">Approve</button>
+                    <button class="action-btn-reject text-xs font-semibold text-red-600 hover:text-red-800 px-2 py-1 rounded bg-red-50 hover:bg-red-100 transition">Reject</button>
+                  </div>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- BOTTOM SECTION: FRAUD ALERTS & QUICK ACTIONS -->
+      <section class="grid grid-cols-12 gap-6">
+        
+        <!-- Fraud Alerts Panel (Col 7) -->
+        <div class="col-span-7 bg-white rounded-xl border border-gray-200 p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-5">
+              <h3 class="text-base font-bold text-gray-900">Fraud Alerts</h3>
+              <a href="#" id="view-alerts-btn" class="text-xs font-semibold text-teal hover:underline">View all</a>
+            </div>
+
+            <div class="space-y-4" id="alerts-container">
+              <!-- Alert 1 -->
+              <div class="alert-item flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 transition">
+                <div class="flex items-center space-x-3">
+                  <div class="w-10 h-10 rounded-xl bg-red-100 border border-red-200 flex items-center justify-center text-red-500 shrink-0">
+                    <svg class="w-5 h-5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="text-xs font-bold text-gray-900">High Risk Document Detected</h4>
+                    <p class="text-[11px] text-gray-500 font-medium mt-0.5">WAEC Certificate . Uploaded by John Doe</p>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs font-semibold text-red-500 shrink-0 mr-2">30m ago</span>
+                  <button class="dismiss-alert-btn text-gray-400 hover:text-gray-600 text-xs font-bold px-1.5 py-0.5">&times;</button>
+                </div>
+              </div>
+
+              <!-- Alert 2 -->
+              <div class="alert-item flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 transition">
+                <div class="flex items-center space-x-3">
+                  <div class="w-10 h-10 rounded-xl bg-red-100 border border-red-200 flex items-center justify-center text-red-500 shrink-0">
+                    <svg class="w-5 h-5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="text-xs font-bold text-gray-900">Multiple Verification Failures</h4>
+                    <p class="text-[11px] text-gray-500 font-medium mt-0.5">National ID . Uploaded by Jane Smith</p>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs font-semibold text-red-500 shrink-0 mr-2">2hrs ago</span>
+                  <button class="dismiss-alert-btn text-gray-400 hover:text-gray-600 text-xs font-bold px-1.5 py-0.5">&times;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions Panel (Col 5) -->
+        <div class="col-span-5 bg-white rounded-xl border border-gray-200 p-6">
+          <h3 class="text-base font-bold text-gray-900 mb-4">Quick Actions</h3>
+          
+          <div class="grid grid-cols-2 gap-3">
+            
+            <!-- Quick Action 1 -->
+            <button class="quick-action-btn flex items-center space-x-2 p-3 bg-slate-50 border border-slate-200 rounded-xl hover:bg-slate-100 transition text-left" data-action="Exported today's verifications report.">
+              <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 0L0 6V10H32V6L16 0ZM0 28H32V32H0V28ZM32 14V12H0V14H2V24H0V26H32V24H30V14H32ZM8 24H6V14H8V24ZM14 24H12V14H14V24ZM20 24H18V14H20V24ZM26 24H24V14H26V24Z" fill="#2C6E7F"/>
+              </svg>
+              <span class="text-xs font-bold text-gray-800">Export Report</span>
+            </button>
+
+            <!-- Quick Action 2 -->
+            <button class="quick-action-btn flex items-center space-x-2 p-3 bg-emerald-50/60 border border-emerald-100 rounded-xl hover:bg-emerald-100/60 transition text-left" data-action="Added new institution record.">
+              <svg width="24" height="24" viewBox="0 0 40 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 33V27.225C0 26.0563 0.265455 24.9824 0.796364 24.0034C1.32727 23.0244 2.03152 22.2764 2.90909 21.7594C4.78788 20.6938 6.69697 19.8949 8.63636 19.3628C10.5758 18.8306 12.5455 18.5639 14.5455 18.5625C16.5455 18.5611 18.5152 18.8279 20.4545 19.3628C22.3939 19.8976 24.303 20.6965 26.1818 21.7594C27.0606 22.275 27.7655 23.023 28.2964 24.0034C28.8273 24.9838 29.0921 26.0576 29.0909 27.225V33H0ZM32.7273 33V26.8125C32.7273 25.3 32.3564 23.8473 31.6145 22.4545C30.8727 21.0616 29.8194 19.8674 28.4545 18.8719C30 19.0781 31.4545 19.4308 32.8182 19.93C34.1818 20.4291 35.4545 21.0389 36.6364 21.7594C37.7273 22.4469 38.5606 23.2114 39.1364 24.0529C39.7121 24.8944 40 25.8143 40 26.8125V33H32.7273ZM9.40909 14.0766C7.98485 12.461 7.27273 10.5188 7.27273 8.25004C7.27273 5.98129 7.98485 4.03911 9.40909 2.42349C10.8333 0.807864 12.5455 5.28838e-05 14.5455 5.28838e-05C16.5455 5.28838e-05 18.2576 0.807864 19.6818 2.42349C21.1061 4.03911 21.8182 5.98129 21.8182 8.25004C21.8182 10.5188 21.1061 12.461 19.6818 14.0766C18.2576 15.6922 16.5455 16.5 14.5455 16.5C12.5455 16.5 10.8333 15.6922 9.40909 14.0766ZM30.5909 14.0766C29.1667 15.6922 27.4545 16.5 25.4545 16.5C25.1212 16.5 24.697 16.4574 24.1818 16.3722C23.6667 16.2869 23.2424 16.192 22.9091 16.0875C23.7273 14.9875 24.3564 13.7672 24.7964 12.4266C25.2364 11.086 25.4558 9.69379 25.4545 8.25004C25.4533 6.80629 25.2339 5.41411 24.7964 4.07348C24.3588 2.73286 23.7297 1.51255 22.9091 0.412552C23.3333 0.240677 23.7576 0.128616 24.1818 0.0763656C24.6061 0.0241157 25.0303 -0.00132211 25.4545 5.28838e-05C27.4545 5.28838e-05 29.1667 0.807864 30.5909 2.42349C32.0152 4.03911 32.7273 5.98129 32.7273 8.25004C32.7273 10.5188 32.0152 12.461 30.5909 14.0766Z" fill="#2C6E7F"/>
+              </svg>
+              <span class="text-xs font-bold text-gray-800">Add Institution</span>
+            </button>
+
+            <!-- Quick Action 3 -->
+            <button class="quick-action-btn flex items-center space-x-2 p-3 bg-slate-50 border border-slate-200 rounded-xl hover:bg-slate-100 transition text-left" data-action="Initiated automated verification bulk run.">
+              <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.05263 22.7368L0 27.6884V13.4737H5.05263M13.4737 19.6379L10.8295 17.3811L8.42105 19.6042V6.73684H13.4737M21.8947 16.8421L16.8421 21.8947V0H21.8947M26.6274 16.5221L23.5789 13.4737H32V21.8947L28.9853 18.88L16.8421 30.9221L10.9979 25.8358L4.63158 32H0L10.8968 21.3221L16.8421 26.3411" fill="#2C6E7F"/>
+              </svg>
+              <span class="text-xs font-bold text-gray-800">Batch Verification</span>
+            </button>
+
+            <!-- Quick Action 4 -->
+            <button class="quick-action-btn flex items-center space-x-2 p-3 bg-amber-50/60 border border-amber-100 rounded-xl hover:bg-amber-100/60 transition text-left" data-action="Opened security and fraud settings.">
+              <svg width="24" height="24" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M14.6836 0.000408072H20.2586C21.0986 -0.0120919 21.9211 0.262908 22.5836 0.780408C23.2511 1.30541 23.7136 2.04291 23.8836 2.87291L24.3711 5.21041C24.5828 5.32374 24.7911 5.44041 24.9961 5.56041L27.3586 4.78541C27.8446 4.62855 28.3578 4.574 28.866 4.6252C29.3741 4.6764 29.8661 4.83224 30.3111 5.08291C30.8611 5.39291 31.3236 5.83791 31.6461 6.38291L34.4586 11.0229C34.9132 11.7419 35.0926 12.601 34.9634 13.4419C34.8343 14.2827 34.4055 15.0485 33.7561 15.5979H33.7511L31.8961 17.1804V17.8254L33.7286 19.4579C34.3655 19.9984 34.7897 20.7475 34.9257 21.5716C35.0617 22.3958 34.9006 23.2415 34.4711 23.9579L31.7461 28.6079V28.6129C31.4218 29.1555 30.9622 29.6046 30.4122 29.9162C29.8622 30.2278 29.2407 30.3912 28.6086 30.3904C28.2177 30.3925 27.8288 30.3335 27.4561 30.2154L27.4436 30.2104L25.1011 29.4379C24.8928 29.5612 24.6811 29.6787 24.4661 29.7904L23.9811 32.1254C23.8099 32.9558 23.3491 33.6983 22.6811 34.2204C22.0169 34.74 21.1943 35.0154 20.3511 35.0004H14.7311C13.8896 35.0143 13.0689 34.7389 12.4061 34.2204C11.7385 33.6989 11.2778 32.9574 11.1061 32.1279L10.6186 29.7879C10.4075 29.6762 10.1991 29.5595 9.9936 29.4379L7.6311 30.2129C7.14508 30.3698 6.63185 30.4243 6.12371 30.3731C5.61558 30.3219 5.12355 30.1661 4.6786 29.9154C4.12784 29.6081 3.66748 29.1616 3.3436 28.6204L0.528595 23.9704C0.0921106 23.266 -0.082234 22.4303 0.0361782 21.6101C0.15459 20.7899 0.558188 20.0376 1.1761 19.4854L3.0436 17.1304L1.2611 15.5429C0.623382 15.0018 0.198818 14.2517 0.0632587 13.4264C-0.0723007 12.6011 0.0899756 11.7545 0.521095 11.0379L0.526095 11.0329L3.3436 6.38291C3.66316 5.84538 4.11635 5.39966 4.65911 5.08907C5.20188 4.77849 5.81576 4.61359 6.4411 4.61041C6.81776 4.59041 7.18943 4.62624 7.5561 4.71791L7.6111 4.73291L9.9486 5.55541C10.1536 5.43541 10.3619 5.32041 10.5736 5.21041L11.0586 2.87541C11.2298 2.04501 11.6905 1.30249 12.3586 0.780408C13.0186 0.262908 13.8436 -0.0120919 14.6836 0.000408072ZM17.5011 12.5004C16.175 12.5004 14.9032 13.0272 13.9656 13.9649C13.0279 14.9026 12.5011 16.1743 12.5011 17.5004C12.5011 18.8265 13.0279 20.0983 13.9656 21.0359C14.9032 21.9736 16.175 22.5004 17.5011 22.5004C18.8272 22.5004 20.0989 21.9736 21.0366 21.0359C21.9743 20.0983 22.5011 18.8265 22.5011 17.5004C22.5011 16.1743 21.9743 14.9026 21.0366 13.9649C20.0989 13.0272 18.8272 12.5004 17.5011 12.5004ZM10.0011 17.5004C10.0011 15.5113 10.7913 13.6036 12.1978 12.1971C13.6043 10.7906 15.512 10.0004 17.5011 10.0004C19.4902 10.0004 21.3979 10.7906 22.8044 12.1971C24.2109 13.6036 25.0011 15.5113 25.0011 17.5004C25.0011 19.4895 24.2109 21.3972 22.8044 22.8037C21.3979 24.2102 19.4902 25.0004 17.5011 25.0004C15.512 25.0004 13.6043 24.2102 12.1978 22.8037C10.7913 21.3972 10.0011 19.4895 10.0011 17.5004Z" fill="#2C6E7F"/>
+              </svg>
+              <span class="text-xs font-bold text-gray-800">Security Settings</span>
+            </button>
+
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- JavaScript for dynamic actions -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log("VerifiedDoc Dashboard Initialized.");
+
+      // DOM Elements
+      const navItems = document.querySelectorAll(".nav-item");
+      const pageHeading = document.getElementById("page-heading");
+      const notifBtn = document.getElementById("notification-btn");
+      const notifDropdown = document.getElementById("notification-dropdown");
+      const notifBadge = document.getElementById("notif-badge");
+      const markReadBtn = document.getElementById("mark-read-btn");
+      const tableSearch = document.getElementById("table-search");
+      const statusFilter = document.getElementById("status-filter");
+      const tableRows = document.querySelectorAll("#table-body tr");
+      const modal = document.getElementById("action-modal");
+      const closeModal = document.getElementById("close-modal");
+      const modalCancelBtn = document.getElementById("modal-cancel-btn");
+      const modalConfirmBtn = document.getElementById("modal-confirm-btn");
+      const modalTitle = document.getElementById("modal-title");
+      const modalBody = document.getElementById("modal-body");
+      const toastContainer = document.getElementById("toast-container");
+      const quickActionBtns = document.querySelectorAll(".quick-action-btn");
+      const dismissAlertBtns = document.querySelectorAll(".dismiss-alert-btn");
+
+      let currentActionTarget = null;
+      let currentNewStatus = null;
+
+      // 1. Toast Notification Helper Function
+      function showToast(message, type = "info") {
+        const toast = document.createElement("div");
+        const bgColor = type === "success" ? "bg-emerald-600" : type === "error" ? "bg-red-600" : "bg-navy";
+        
+        toast.className = `${bgColor} text-white text-xs font-semibold px-4 py-3 rounded-lg shadow-lg flex items-center justify-between space-x-4 transform translate-y-2 opacity-0 transition-all duration-300 min-w-[240px]`;
+        toast.innerHTML = `
+          <span>${message}</span>
+          <button class="toast-close text-white/80 hover:text-white font-bold ml-2">&times;</button>
+        `;
+
+        toastContainer.appendChild(toast);
+
+        // Animate in
+        setTimeout(() => {
+          toast.classList.remove("translate-y-2", "opacity-0");
+        }, 10);
+
+        // Dismiss action
+        toast.querySelector(".toast-close").addEventListener("click", () => {
+          dismissToast(toast);
+        });
+
+        // Auto remove after 3s
+        setTimeout(() => {
+          dismissToast(toast);
+        }, 3500);
+      }
+
+      function dismissToast(toast) {
+        toast.classList.add("opacity-0", "translate-y-2");
+        setTimeout(() => {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 300);
+      }
+
+      // 2. Sidebar Navigation Toggle
+      navItems.forEach(item => {
+        item.addEventListener("click", (e) => {
+          e.preventDefault();
+          navItems.forEach(nav => {
+            nav.classList.remove("bg-navy-active", "text-white");
+            nav.classList.add("text-gray-300");
+            const indicator = nav.querySelector(".indicator");
+            if (indicator) {
+              indicator.classList.remove("bg-[#c7913e]");
+              indicator.classList.add("border", "border-gray-400");
+            }
+          });
+
+          item.classList.add("bg-navy-active", "text-white");
+          item.classList.remove("text-gray-300");
+          const activeIndicator = item.querySelector(".indicator");
+          if (activeIndicator) {
+            activeIndicator.classList.add("bg-[#c7913e]");
+            activeIndicator.classList.remove("border", "border-gray-400");
+          }
+
+          const pageName = item.getAttribute("data-page");
+          pageHeading.textContent = pageName === "Dashboard" ? "Welcome back, Adenike" : pageName;
+          showToast(`Navigated to ${pageName}`);
+        });
+      });
+
+      // 3. Notification Dropdown Actions
+      notifBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        notifDropdown.classList.toggle("hidden");
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!notifDropdown.contains(e.target) && !notifBtn.contains(e.target)) {
+          notifDropdown.classList.add("hidden");
+        }
+      });
+
+      markReadBtn.addEventListener("click", () => {
+        notifBadge.classList.add("hidden");
+        showToast("Notifications marked as read", "info");
+      });
+
+      // 4. Dynamic Table Search & Status Filter
+      function filterTable() {
+        const query = tableSearch.value.toLowerCase().trim();
+        const selectedStatus = statusFilter.value;
+
+        tableRows.forEach(row => {
+          const orgName = row.getAttribute("data-org").toLowerCase();
+          const rowStatus = row.getAttribute("data-status");
+
+          const matchesSearch = orgName.includes(query);
+          const matchesStatus = selectedStatus === "ALL" || rowStatus === selectedStatus;
+
+          if (matchesSearch && matchesStatus) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+
+      tableSearch.addEventListener("input", filterTable);
+      statusFilter.addEventListener("change", filterTable);
+
+      // 5. Table Row Status Update Modal Logic
+      function openModal(row, newStatus) {
+        currentActionTarget = row;
+        currentNewStatus = newStatus;
+        const orgName = row.getAttribute("data-org");
+
+        modalTitle.textContent = `Update Status for ${orgName}`;
+        modalBody.textContent = `Are you sure you want to mark ${orgName}'s verification request as "${newStatus}"?`;
+        modal.classList.remove("hidden");
+      }
+
+      function closeModalDialog() {
+        modal.classList.add("hidden");
+        currentActionTarget = null;
+        currentNewStatus = null;
+      }
+
+      closeModal.addEventListener("click", closeModalDialog);
+      modalCancelBtn.addEventListener("click", closeModalDialog);
+
+      modalConfirmBtn.addEventListener("click", () => {
+        if (currentActionTarget && currentNewStatus) {
+          const statusCell = currentActionTarget.querySelector(".status-cell");
+          const orgName = currentActionTarget.getAttribute("data-org");
+
+          if (currentNewStatus === "Verified") {
+            statusCell.innerHTML = `<span class="inline-block px-5 py-1.5 bg-verified-bg text-verified-text rounded-md font-semibold text-xs">Verified</span>`;
+            currentActionTarget.setAttribute("data-status", "Verified");
+            showToast(`${orgName} status updated to Verified`, "success");
+          } else if (currentNewStatus === "Rejected") {
+            statusCell.innerHTML = `<span class="inline-block px-5 py-1.5 bg-rejected-bg text-rejected-text rounded-md font-semibold text-xs">Rejected</span>`;
+            currentActionTarget.setAttribute("data-status", "Rejected");
+            showToast(`${orgName} status updated to Rejected`, "error");
+          }
+
+          filterTable(); // Re-apply current active filters
+          closeModalDialog();
+        }
+      });
+
+      // Delegate Approve/Reject buttons inside table
+      document.getElementById("table-body").addEventListener("click", (e) => {
+        const row = e.target.closest("tr");
+        if (!row) return;
+
+        if (e.target.classList.contains("action-btn-approve")) {
+          openModal(row, "Verified");
+        } else if (e.target.classList.contains("action-btn-reject")) {
+          openModal(row, "Rejected");
+        }
+      });
+
+      // 6. Dismiss Fraud Alerts
+      dismissAlertBtns.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const alertItem = e.target.closest(".alert-item");
+          if (alertItem) {
+            alertItem.style.opacity = "0";
+            setTimeout(() => {
+              alertItem.remove();
+              showToast("Fraud alert dismissed", "info");
+            }, 200);
+          }
+        });
+      });
+
+      // 7. Quick Actions Trigger
+      quickActionBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const actionText = btn.getAttribute("data-action");
+          showToast(actionText, "success");
+        });
+      });
+
+    });
+  </script>
+</body>
+</html>

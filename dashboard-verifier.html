@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verifier-Dashboard</title>
+  <link rel="stylesheet" href="./src/output.css">
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-[#F8FAFC] text-slate-800 antialiased min-h-screen flex">
+
+  <!-- SIDEBAR -->
+  <aside class="w-64 bg-[#21355E] text-white flex flex-col justify-between p-4 shrink-0 min-h-screen">
+    <div>
+      <!-- Brand / Logo -->
+      <div class="flex items-center space-x-2.5 px-2 py-3 mb-6">
+        <img src="./Assets/logo.svg" alt="Logo">
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="space-y-1.5" id="sidebar-nav">
+        <!-- Dashboard (Active) -->
+        <a href="#"
+          class="nav-item flex items-center space-x-3 px-3.5 py-2.5 rounded-lg bg-white/15 text-white font-semibold text-sm transition">
+          <div class="icon-indicator w-4 h-4 bg-[#C5A059] rounded-sm shrink-0"></div>
+          <span>Dashboard</span>
+        </a>
+
+        <!-- Verify a Credential -->
+        <a href="#"
+          class="nav-item flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white font-medium text-sm transition">
+          <div class="icon-indicator w-4 h-4 bg-slate-500/50 rounded-sm shrink-0"></div>
+          <span>Verify a Credential</span>
+        </a>
+
+        <!-- Verification History -->
+        <a href="#"
+          class="nav-item flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white font-medium text-sm transition">
+          <div class="icon-indicator w-4 h-4 bg-slate-500/50 rounded-sm shrink-0"></div>
+          <span>Verification History</span>
+        </a>
+
+        <!-- Verification Result -->
+        <a href="#"
+          class="nav-item flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white font-medium text-sm transition">
+          <div class="icon-indicator w-4 h-4 bg-slate-500/50 rounded-sm shrink-0"></div>
+          <span>Verification Result</span>
+        </a>
+
+        <!-- Saved Organizations -->
+        <a href="#"
+          class="nav-item flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white font-medium text-sm transition">
+          <div class="icon-indicator w-4 h-4 bg-slate-500/50 rounded-sm shrink-0"></div>
+          <span>Saved Organizations</span>
+        </a>
+
+        <!-- Account Settings -->
+        <a href="#"
+          class="nav-item flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white font-medium text-sm transition">
+          <div class="icon-indicator w-4 h-4 bg-slate-500/50 rounded-sm shrink-0"></div>
+          <span>Account Settings</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Sidebar Bottom Divider -->
+    <div class="pt-4 border-t border-slate-700/50"></div>
+  </aside>
+
+  <!-- MAIN CONTENT  -->
+  <main class="flex-1 p-8 max-w-6xl overflow-y-auto">
+
+    <!-- Top Bar Header -->
+    <div class="flex items-start justify-between mb-8">
+      <div>
+        <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Welcome back, Seyitan</h2>
+        <p class="text-sm text-slate-500 mt-1">Verify a credential or review your verification history</p>
+      </div>
+      <button
+        class="bg-[#21355E] hover:bg-[#1a2b4c] text-white px-4 py-2.5 rounded-lg font-medium text-sm shadow-sm transition flex items-center space-x-2">
+        <span>+ New Verification</span>
+      </button>
+    </div>
+
+    <!-- STATS CARDS -->
+    <div class="space-y-4 mb-6">
+
+      <!-- Card 1: Total Credentials Issued -->
+      <div class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-2xs">
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Total Credentials Issued</p>
+        <h3 class="text-3xl font-extrabold text-[#21355E] leading-tight">58</h3>
+        <p class="text-xs text-emerald-600 font-medium mt-1">+ 6 this month</p>
+      </div>
+
+      <!-- Card 2: Verified This Month -->
+      <div class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-2xs">
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Verified This Month</p>
+        <h3 class="text-3xl font-extrabold text-[#21355E] leading-tight">6</h3>
+        <p class="text-xs text-emerald-600 font-medium mt-1">All confirmed valid</p>
+      </div>
+
+      <!-- Card 3: Failed Verifications -->
+      <div class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-2xs">
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Failed Verifications</p>
+        <h3 class="text-3xl font-extrabold text-[#21355E] leading-tight">2</h3>
+        <p class="text-xs text-rose-500 font-medium mt-1">Flagged as invalid</p>
+      </div>
+
+    </div>
+
+    <!-- SEARCH / VERIFY INPUT CARD -->
+    <div class="bg-white border border-slate-200/80 rounded-xl p-6 mb-6 shadow-2xs">
+      <h3 class="text-base font-bold text-slate-900 mb-4">Verify a Credential</h3>
+
+      <div class="flex items-center max-w-2xl">
+        <div class="relative flex-1">
+          <input type="text" placeholder="Enter credential ID or scan QR code..."
+            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-200 rounded-lg text-slate-700 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" />
+        </div>
+        <button class="w-25 h-10.5 rounded-lg border border-[#1F3864] bg-[#1F3864]">
+          <!-- Search / Action Icon Placeholder -->
+          <i data-lucide="search" class="w-4 h-4 opacity-0 hidden"></i>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-400 mt-3">You can verify any credential shared directly with you, or search by
+        ID</p>
+    </div>
+
+    <!-- VERIFICATION HISTORY CONTAINER (HIGHLIGHTED BOX) -->
+    <div class="border-2 border-blue-500 rounded-2xl p-5 bg-white shadow-xs">
+      <h3 class="text-base font-bold text-slate-900 mb-4">Verification History</h3>
+
+      <div class="space-y-3">
+
+        <!-- Card 1 -->
+        <div class="bg-white border border-slate-200/80 rounded-xl p-3.5 flex items-center justify-between">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-9 h-9 bg-[#3B738D] rounded-md shrink-0"></div>
+            <div>
+              <h4 class="text-sm font-bold text-slate-800 leading-tight">UI/UX Design Certificate</h4>
+              <p class="text-xs text-slate-400 mt-0.5">Juliana Ene Ogli . Verified 2 days ago</p>
+            </div>
+          </div>
+          <span
+            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100/60 text-emerald-700">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>
+            Valid
+          </span>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white border border-slate-200/80 rounded-xl p-3.5 flex items-center justify-between">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-9 h-9 bg-[#3B738D] rounded-md shrink-0"></div>
+            <div>
+              <h4 class="text-sm font-bold text-slate-800 leading-tight">Data Analysis Certification</h4>
+              <p class="text-xs text-slate-400 mt-0.5">Tunde Bakare . Verified 5 days ago</p>
+            </div>
+          </div>
+          <span
+            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100/60 text-emerald-700">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>
+            Valid
+          </span>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white border border-slate-200/80 rounded-xl p-3.5 flex items-center justify-between">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-9 h-9 bg-[#3B738D] rounded-md shrink-0"></div>
+            <div>
+              <h4 class="text-sm font-bold text-slate-800 leading-tight">Field Safety Certificate</h4>
+              <p class="text-xs text-slate-400 mt-0.5">Musa Aliyu . Checked 1 week ago</p>
+            </div>
+          </div>
+          <span
+            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-rose-100/60 text-rose-600">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-500 mr-1.5"></span>
+            invalid
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Dynamic Sidebar Handler
+    document.querySelectorAll('#sidebar-nav .nav-item').forEach(item => {
+      item.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+
+        // Prevent navigation if the link is a placeholder ('#')
+        if (!href || href === '#') {
+          e.preventDefault();
+        }
+
+        // Reset all navigation links to inactive styles
+        document.querySelectorAll('#sidebar-nav .nav-item').forEach(nav => {
+          nav.className = 'nav-item flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white font-medium text-sm transition';
+          
+          const icon = nav.querySelector('.icon-indicator');
+          if (icon) {
+            icon.className = 'icon-indicator w-4 h-4 bg-slate-500/50 rounded-sm shrink-0';
+          }
+        });
+
+        // Apply active styles to the clicked item
+        this.className = 'nav-item flex items-center space-x-3 px-3.5 py-2.5 rounded-lg bg-white/15 text-white font-semibold text-sm transition';
+        
+        const icon = this.querySelector('.icon-indicator');
+        if (icon) {
+          icon.className = 'icon-indicator w-4 h-4 bg-[#C5A059] rounded-sm shrink-0';
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
