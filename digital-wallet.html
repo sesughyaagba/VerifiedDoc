@@ -63,7 +63,7 @@
   <div class="flex min-h-screen">
     
     <!--  SIDEBAR  -->
-    <aside class="w-[260px] bg-sidebar text-white flex flex-col justify-between p-5 shrink-0">
+    <aside class="w-65 bg-sidebar text-white flex flex-col justify-between p-5 shrink-0">
       <div>
         <!-- Logo -->
         <div class="flex items-center gap-2 mb-8 px-2">
@@ -362,21 +362,13 @@
           <h2 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Credential Preview</h2>
 
           <!-- QR Card Container -->
-          <div class="bg-[#12424c] rounded-xl p-6 text-white flex flex-col items-center justify-center relative shadow-sm h-[200px]">
-            <!-- Simulated QR Code SVG -->
-            <div class="bg-white p-2 rounded-lg shadow-md">
-
-              <svg class="w-24 h-24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 0H40V40H0V0ZM10 10V30H30V10H10Z" fill="#000"/>
-                <path d="M15 15H25V25H15V15Z" fill="#000"/>
-                <path d="M60 0H100V40H60V0ZM70 10V30H90V10H70Z" fill="#000"/>
-                <path d="M75 15H85V25H75V15Z" fill="#000"/>
-                <path d="M0 60H40V100H0V60ZM10 70V90H30V70H10Z" fill="#000"/>
-                <path d="M15 75H25V85H15V75Z" fill="#000"/>
-                <path d="M60 60H70V70H60V60ZM80 60H90V70H80V60ZM70 70H80V80H70V70ZM90 70H100V80H90V70ZM60 80H70V90H60V80ZM80 80H100V100H80V80ZM70 90H80V100H70V90Z" fill="#000"/>
-              </svg>
-            </div>
-          </div>
+<div class="w-100%">
+  <img
+    src="./Assets/qrCode.png"
+    alt="QR Code"
+    class=""
+  >
+</div>
 
           <!-- Carousel Dots -->
           <div class="flex justify-center items-center gap-1.5 py-1">

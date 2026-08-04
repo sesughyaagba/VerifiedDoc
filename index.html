@@ -1,13 +1,63 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="src/output.css" rel="stylesheet" />
-  </head>
-  <body class="bg-slate-100 flex items-center justify-center h-screen">
-    <h1 class="text-4xl font-bold text-blue-600 underline">
-      Tailwind Setup Complete!
-    </h1>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VerifiedDoc - Splash</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter / Sans-Serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brandNavy: '#1E3A75',
+                        brandGreen: '#2D8A4E',
+                        brandGray: '#718096',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white min-h-screen flex items-center justify-center font-sans antialiased select-none">
+
+    <!-- Splash Screen Container -->
+    <div class="flex flex-col items-center justify-center text-center px-4">
+        
+        <!-- Logo Section -->
+        <div class="flex items-center space-x-3.5 mb-6">
+            
+       <img src="./Assets/splashLogo.svg" alt="Verified Logo">
+
+        </div>
+
+        <!-- Green Accent Divider Line -->
+        <div class="w-16 h-[3px] bg-brandGreen rounded-full mb-8"></div>
+
+        <!-- Taglines -->
+        <div class="space-y-1.5">
+            <p class="text-[17px] font-bold">
+                <span class="text-brandGreen">Secure</span><span class="text-brandGray">,Fast,Reliable</span>
+            </p>
+            <p class="text-[17px] text-brandGray font-semibold tracking-wide">
+                Employer Certificate Verification Made <span class="text-brandGreen font-bold">Simple</span>
+            </p>
+        </div>
+
+    </div>
+    <!-- 5-Second Splash Redirect Script -->
+    <script>
+        setTimeout(() => {
+            window.location.href = 'hero.html'; 
+        }, 3000);
+    </script>
+</body>
 </html>

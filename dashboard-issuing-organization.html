@@ -46,31 +46,31 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="flex-1 px-3 py-4 space-y-1 text-xs font-medium">
+    <nav class="flex-1 px-3 py-4 space-y-1 text-xs font-medium" id="sidebar-nav">
       <!-- Active Item -->
-      <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md bg-[#3b4e7a] text-white transition-colors">
-        <span class="w-4 h-4 rounded-sm bg-amber-400/80 inline-block"></span>
+      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-md bg-[#3b4e7a] text-white transition-colors">
+        <span class="icon-indicator w-4 h-4 rounded-sm bg-amber-400/80 inline-block"></span>
         <span class="font-semibold">Dashboard</span>
       </a>
 
       <!-- Inactive Items -->
-      <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
-        <span class="w-4 h-4 rounded-sm bg-slate-500/30 inline-block"></span>
+      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
+        <span class="icon-indicator w-4 h-4 rounded-sm bg-slate-500/30 inline-block"></span>
         <span>Issued Credentials</span>
       </a>
 
-      <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
-        <span class="w-4 h-4 rounded-sm bg-slate-500/30 inline-block"></span>
+      <a href="institution-portal.html" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
+        <span class="icon-indicator w-4 h-4 rounded-sm bg-slate-500/30 inline-block"></span>
         <span>Institutional Portal</span>
       </a>
 
-      <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
-        <span class="w-4 h-4 rounded-sm bg-slate-500/30 inline-block"></span>
+      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
+        <span class="icon-indicator w-4 h-4 rounded-sm bg-slate-500/30 inline-block"></span>
         <span>Verification Requests</span>
       </a>
 
-      <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
-        <span class="w-4 h-4 rounded-sm bg-slate-500/30 inline-block"></span>
+      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
+        <span class="icon-indicator w-4 h-4 rounded-sm bg-slate-500/30 inline-block"></span>
         <span>Organization Profile</span>
       </a>
     </nav>
@@ -215,6 +215,40 @@
     function handleAction(status) {
       alert(`Request marked as: ${status}`);
     }
+
+    // Sidebar highlight and navigation control
+    document.querySelectorAll('#sidebar-nav .nav-item').forEach(item => {
+      item.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+
+        // Prevent default page jumps for unlinked items (`#`)
+        if (!href || href === '#') {
+          e.preventDefault();
+        }
+
+        // Reset all navigation items to inactive styling
+        document.querySelectorAll('#sidebar-nav .nav-item').forEach(nav => {
+          nav.className = 'nav-item flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors';
+          const title = nav.querySelector('span:not(.icon-indicator)');
+          if (title) title.classList.remove('font-semibold');
+
+          const icon = nav.querySelector('.icon-indicator');
+          if (icon) {
+            icon.className = 'icon-indicator w-4 h-4 rounded-sm bg-slate-500/30 inline-block';
+          }
+        });
+
+        // Apply active styling to clicked item
+        this.className = 'nav-item flex items-center gap-3 px-3 py-2.5 rounded-md bg-[#3b4e7a] text-white transition-colors';
+        const title = this.querySelector('span:not(.icon-indicator)');
+        if (title) title.classList.add('font-semibold');
+
+        const icon = this.querySelector('.icon-indicator');
+        if (icon) {
+          icon.className = 'icon-indicator w-4 h-4 rounded-sm bg-amber-400/80 inline-block';
+        }
+      });
+    });
   </script>
 </body>
 </html>
