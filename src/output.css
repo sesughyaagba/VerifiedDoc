@@ -355,6 +355,9 @@
   .top-10 {
     top: calc(var(--spacing) * 10);
   }
+  .top-11 {
+    top: calc(var(--spacing) * 11);
+  }
   .top-11\.25 {
     top: calc(var(--spacing) * 11.25);
   }
@@ -771,6 +774,9 @@
   }
   .w-32 {
     width: calc(var(--spacing) * 32);
+  }
+  .w-34 {
+    width: calc(var(--spacing) * 34);
   }
   .w-34\.25 {
     width: calc(var(--spacing) * 34.25);
