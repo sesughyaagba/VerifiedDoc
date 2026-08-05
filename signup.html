@@ -82,7 +82,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-6">
 
       <!-- Card 1: Credential Holder -->
-      <div class="border border-slate-200 rounded-lg p-6 flex flex-col items-center justify-between min-h-77.5 bg-white transition hover:shadow-sm">
+      <div data-role="holder" class="role-card border border-slate-200 rounded-lg p-6 flex flex-col items-center justify-between min-h-77.5 bg-white transition hover:shadow-sm cursor-pointer">
         <div class="flex flex-col items-center w-full">
           <!-- Circle Icon -->
           <div class="w-16 h-16 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center mb-4 text-[#0f766e]">
@@ -90,20 +90,20 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
             </svg>
           </div>
-          <h3 class="font-bold text-sm text-[#1e305e] mb-3">Creditial Holder</h3>
+          <h3 class="font-bold text-sm text-[#1e305e] mb-3">Credential Holder</h3>
           <ul class="text-[11px] text-slate-500 leading-relaxed text-left w-full space-y-2">
             <li>uploads and manage certificates</li>
             <li>share verified credentials securely</li>
             <li>Track verification history</li>
           </ul>
         </div>
-        <button class="w-full mt-4 py-2 px-4 rounded border border-slate-300 text-slate-600 text-xs font-semibold hover:bg-slate-50 transition">
-          Continue
+        <button type="button" class="btn-select w-full mt-4 py-2 px-4 rounded border border-slate-300 text-slate-600 text-xs font-semibold hover:bg-slate-50 transition">
+          Select
         </button>
       </div>
 
-      <!-- Card 2: Verifier (Active/Selected) -->
-      <div class="border-2 border-[#1e305e] rounded-lg p-6 flex flex-col items-center justify-between min-h-77.5 bg-white shadow-sm">
+      <!-- Card 2: Verifier -->
+      <div data-role="verifier" class="role-card border border-slate-200 rounded-lg p-6 flex flex-col items-center justify-between min-h-77.5 bg-white transition hover:shadow-sm cursor-pointer">
         <div class="flex flex-col items-center w-full">
           <!-- Circle Icon -->
           <div class="w-16 h-16 rounded-full bg-teal-50/50 border border-teal-100 flex items-center justify-center mb-4 text-[#0f766e]">
@@ -118,13 +118,13 @@
             <li>Download verification reports</li>
           </ul>
         </div>
-        <button class="w-full mt-4 py-2.5 px-4 rounded bg-[#1e305e] text-white text-xs font-semibold hover:bg-[#162345] transition">
-          Continue
+        <button type="button" class="btn-select w-full mt-4 py-2 px-4 rounded border border-slate-300 text-slate-600 text-xs font-semibold hover:bg-slate-50 transition">
+          Select
         </button>
       </div>
 
       <!-- Card 3: Issuing Institution -->
-      <div class="border border-slate-200 rounded-lg p-6 flex flex-col items-center justify-between min-h-77.5 bg-white transition hover:shadow-sm">
+      <div data-role="issuer" class="role-card border border-slate-200 rounded-lg p-6 flex flex-col items-center justify-between min-h-77.5 bg-white transition hover:shadow-sm cursor-pointer">
         <div class="flex flex-col items-center w-full">
           <!-- Circle Icon -->
           <div class="w-16 h-16 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center mb-4 text-[#0f766e]">
@@ -140,8 +140,8 @@
             <li>Manage issued crediatials</li>
           </ul>
         </div>
-        <button class="w-full mt-4 py-2 px-4 rounded border border-slate-300 text-slate-600 text-xs font-semibold hover:bg-slate-50 transition">
-          Continue
+        <button type="button" class="btn-select w-full mt-4 py-2 px-4 rounded border border-slate-300 text-slate-600 text-xs font-semibold hover:bg-slate-50 transition">
+          Select
         </button>
       </div>
 
@@ -152,16 +152,16 @@
       <svg class="w-4 h-4 text-slate-800 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
       </svg>
-      <span class="text-xs font-bold text-[#1e305e] tracking-tight">Selected Organization</span>
+      <span id="selected-role-text" class="text-xs font-bold text-[#1e305e] tracking-tight">Selected Organization</span>
     </div>
 
     <!-- Dynamic Form Header -->
     <div class="text-center mb-8">
-      <h2 class="text-xl font-bold text-[#1e305e]">Create Organisation Account</h2>
+      <h2 id="dynamic-form-title" class="text-xl font-bold text-[#1e305e]">Create Account</h2>
     </div>
 
     <!-- Signup Form -->
-    <form class="max-w-3xl mx-auto space-y-5" onsubmit="event.preventDefault();">
+    <form id="signup-form" class="max-w-3xl mx-auto space-y-5">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
         
         <!-- Company Name -->
@@ -272,5 +272,87 @@
     </form>
   </main>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let selectedRole = 'verifier'; // Default state
+
+      const routes = {
+        holder: 'prototype-dashboard-creHolder.html',
+        verifier: 'dashboard-verifier.html',
+        issuer: 'dashboard-issuing-organization.html'
+      };
+
+      const roleTitles = {
+        holder: 'Credential Holder',
+        verifier: 'Verifier Organization',
+        issuer: 'Issuing Institution'
+      };
+
+      const cards = document.querySelectorAll('.role-card');
+      const roleTextEl = document.getElementById('selected-role-text');
+      const formTitleEl = document.getElementById('dynamic-form-title');
+      const form = document.getElementById('signup-form');
+
+      // Style configurations
+      const activeCardClasses = ['border-2', 'border-[#1e305e]', 'shadow-sm'];
+      const inactiveCardClasses = ['border', 'border-slate-200'];
+      
+      const activeButtonClasses = ['bg-[#1e305e]', 'text-white', 'hover:bg-[#162345]', 'py-2.5'];
+      const inactiveButtonClasses = ['border', 'border-slate-300', 'text-slate-600', 'hover:bg-slate-50', 'py-2'];
+
+      function setRole(role) {
+        selectedRole = role;
+
+        cards.forEach(card => {
+          const isSelected = card.dataset.role === role;
+          const button = card.querySelector('.btn-select');
+
+          if (isSelected) {
+            // Apply active styles to Card
+            card.classList.remove(...inactiveCardClasses);
+            card.classList.add(...activeCardClasses);
+
+            // Apply active styles to Button
+            button.classList.remove(...inactiveButtonClasses);
+            button.classList.add(...activeButtonClasses);
+            button.textContent = 'Selected';
+          } else {
+            // Apply inactive styles to Card
+            card.classList.remove(...activeCardClasses);
+            card.classList.add(...inactiveCardClasses);
+
+            // Apply inactive styles to Button
+            button.classList.remove(...activeButtonClasses);
+            button.classList.add(...inactiveButtonClasses);
+            button.textContent = 'Select';
+          }
+        });
+
+        // Update Labels dynamically
+        if (roleTextEl) roleTextEl.textContent = `Selected: ${roleTitles[role]}`;
+        if (formTitleEl) formTitleEl.textContent = `Create ${roleTitles[role]} Account`;
+      }
+
+      // Handle card clicks
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          setRole(card.dataset.role);
+        });
+      });
+
+      // Handle Form Submit & Routing
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        
+        const targetUrl = routes[selectedRole];
+        if (targetUrl) {
+          window.location.href = targetUrl;
+        }
+      });
+
+      // Initialize default UI state
+      setRole(selectedRole);
+    });
+  </script>
 </body>
 </html>
