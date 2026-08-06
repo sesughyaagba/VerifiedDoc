@@ -195,63 +195,62 @@
 
     <!-- Interactive JavaScript -->
     <script src="./js/auth.js"></script>
-    <script>
-        const {
-            loginAccount,
-            saveAuthSession,
-            logoutAccount,
-            clearAuthSession,
-        } = window.VerifiedDocAuth;
+<script>
+function togglePassword() {
+    const passwordInput = document.getElementById('passwordInput');
+    const eyeSlashIcon = document.getElementById('eyeSlashIcon');
+    const eyeOpenIcon = document.getElementById('eyeOpenIcon');
 
-        function togglePassword() {
-            const passwordInput = document.getElementById('passwordInput');
-            const eyeSlashIcon = document.getElementById('eyeSlashIcon');
-            const eyeOpenIcon = document.getElementById('eyeOpenIcon');
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeSlashIcon.classList.add('hidden');
+        eyeOpenIcon.classList.remove('hidden');
+    } else {
+        passwordInput.type = 'password';
+        eyeSlashIcon.classList.remove('hidden');
+        eyeOpenIcon.classList.add('hidden');
+    }
+}
 
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeSlashIcon.classList.add('hidden');
-                eyeOpenIcon.classList.remove('hidden');
-            } else {
-                passwordInput.type = 'password';
-                eyeSlashIcon.classList.remove('hidden');
-                eyeOpenIcon.classList.add('hidden');
-            }
-        }
+async function handleFormSubmit(event) {
+    event.preventDefault();
 
-        async function handleFormSubmit(event) {
-            event.preventDefault();
-            const email = document.getElementById('emailInput').value.trim();
-            const password = document.getElementById('passwordInput').value;
-            const errorEl = document.getElementById('login-error');
-            const submitBtn = document.getElementById('signInBtn');
+    const email = document.getElementById('emailInput').value.trim();
+    const password = document.getElementById('passwordInput').value;
+    const errorEl = document.getElementById('login-error');
+    const submitBtn = document.getElementById('signInBtn');
 
-            errorEl.classList.add('hidden');
-            errorEl.textContent = '';
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Signing In...';
+    errorEl.classList.add('hidden');
+    errorEl.textContent = '';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Signing In...';
 
+    try {
+        const session = await window.VerifiedDocAuth.loginAccount({
+            email,
+            password,
+        });
+
+        window.VerifiedDocAuth.saveAuthSession(session);
+
+        if (session?.user?.role !== 'PLATFORM_ADMIN') {
             try {
-                const session = await loginAccount({ email, password });
-                saveAuthSession(session);
-
-                if (session?.user?.role !== 'PLATFORM_ADMIN') {
-                    try {
-                        await logoutAccount();
-                    } catch {
-                        clearAuthSession();
-                    }
-                    throw new Error('Access denied. Platform admin credentials required.');
-                }
-
-                window.location.href = 'admin-dashboard.html';
-            } catch (err) {
-                errorEl.textContent = err.message || 'Sign in failed. Please try again.';
-                errorEl.classList.remove('hidden');
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Sign In';
+                await window.VerifiedDocAuth.logoutAccount();
+            } catch {
+                window.VerifiedDocAuth.clearAuthSession();
             }
+
+            throw new Error('Access denied. Platform admin credentials required.');
         }
-    </script>
+
+        window.location.href = 'admin-dashboard.html';
+    } catch (err) {
+        errorEl.textContent = err.message || 'Sign in failed. Please try again.';
+        errorEl.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign In';
+    }
+}
+</script>
 </body>
 </html>

@@ -205,7 +205,7 @@
 
     <script src="../js/auth.js"></script>
     <script>
-      const { requestPasswordReset } = window.VerifiedDocAuth;
+      const auth = window.VerifiedDocAuth;
       const sendBtn = document.getElementById("send-btn");
       const emailInput = document.getElementById("reset-email");
       const errorEl = document.getElementById("reset-error");
@@ -220,32 +220,35 @@
         errorEl.classList.remove("hidden");
       }
 
-      sendBtn.addEventListener("click", async () => {
-        const email = emailInput.value.trim();
-        if (!email) {
-          setError("Please enter your email address.");
-          return;
-        }
+sendBtn.addEventListener("click", async () => {
+  const email = emailInput.value.trim();
+  if (!email) {
+    setError("Please enter your email address.");
+    return;
+  }
 
-        setError("");
-        sendBtn.disabled = true;
-        sendBtn.textContent = "Sending...";
+  setError("");
+  sendBtn.disabled = true;
+  sendBtn.textContent = "Sending...";
 
-        try {
-          const result = await requestPasswordReset(email);
-          const requestId = result?.requestId || result?.data?.requestId;
-          if (!requestId) {
-            throw new Error("Reset request started, but no requestId was returned.");
-          }
-          sessionStorage.setItem("vd_reset_requestId", requestId);
-          sessionStorage.setItem("vd_reset_email", email);
-          window.location.href = "prototype-OTP.html";
-        } catch (err) {
-          setError(err.message || "Could not send reset code. Please try again.");
-          sendBtn.disabled = false;
-          sendBtn.textContent = "Send";
-        }
-      });
+  try {
+    const result = await auth.requestPasswordReset(email);
+    const requestId = result?.requestId || result?.data?.requestId;
+
+    if (!requestId) {
+      throw new Error("Reset request started, but no requestId was returned.");
+    }
+
+    sessionStorage.setItem("vd_reset_requestId", requestId);
+    sessionStorage.setItem("vd_reset_email", email);
+
+    window.location.href = "prototype-OTP.html";
+  } catch (err) {
+    setError(err.message || "Could not send reset code. Please try again.");
+    sendBtn.disabled = false;
+    sendBtn.textContent = "Send";
+  }
+});
     </script>
   </body>
 </html>

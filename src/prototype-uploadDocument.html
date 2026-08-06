@@ -622,13 +622,8 @@
 
     <script src="../js/auth.js"></script>
     <script>
-      const {
-        requireAuth,
-        getAuthSession,
-        uploadHolderDocument,
-      } = window.VerifiedDocAuth;
-
-      const session = requireAuth("../hero.html");
+    const auth = window.VerifiedDocAuth;
+      const session = auth.requireAuth("../hero.html");
       if (!session) {
         // Redirect in progress.
       } else {
@@ -639,7 +634,7 @@
         }
 
         function hydrateUser() {
-          const user = getAuthSession()?.user || {};
+          const user = auth.getAuthSession()?.user || {};
           const name =
             user.fullName ||
             [user.firstName, user.lastName].filter(Boolean).join(" ") ||
@@ -677,7 +672,11 @@
           const fileInput = document.getElementById(fileInputId);
           const dropzone = document.getElementById(dropzoneId);
 
-          browseBtn.addEventListener("click", () => fileInput.click());
+          browseBtn.addEventListener("click", () => {
+  console.log("Browse button clicked");
+  console.log("File input:", fileInput);
+  fileInput.click();
+});
 
           fileInput.addEventListener("change", () => {
             setFile(fileInput.files[0]);
@@ -751,35 +750,51 @@
           };
         }
 
-        async function handleSubmit(isMobile) {
-          setMessage("");
-          if (!selectedFile) {
-            setMessage("Please select a document file first.", true);
-            return;
-          }
-          const { title, documentType } = readForm(isMobile);
-          if (!title) {
-            setMessage("Please enter a credential title.", true);
-            return;
-          }
+async function handleSubmit(isMobile) {
+  setMessage("");
 
-          setSubmitting(true);
-          try {
-            await uploadHolderDocument({
-              file: selectedFile,
-              title,
-              documentType,
-            });
-            setMessage("Document uploaded successfully for verification.", false);
-          } catch (err) {
-            setMessage(
-              err.message || "Upload failed. Please try again.",
-              true,
-            );
-          } finally {
-            setSubmitting(false);
-          }
-        }
+  console.log("1. Submit clicked");
+
+  if (!selectedFile) {
+    console.log("2. No file selected");
+    setMessage("Please select a document file first.", true);
+    return;
+  }
+
+  console.log("3. Selected file:", selectedFile);
+
+  const { title, documentType } = readForm(isMobile);
+
+  console.log("4. Title:", title);
+  console.log("5. Document Type:", documentType);
+
+  if (!title) {
+    console.log("6. No title entered");
+    setMessage("Please enter a credential title.", true);
+    return;
+  }
+
+  setSubmitting(true);
+
+  try {
+    console.log("7. Calling uploadHolderDocument...");
+
+    const response = await auth.uploadHolderDocument({
+      file: selectedFile,
+      title,
+      documentType,
+    });
+
+    console.log("8. Upload successful:", response);
+
+    setMessage("Document uploaded successfully for verification.", false);
+  } catch (err) {
+    console.error("9. Upload failed:", err);
+    setMessage(err.message || "Upload failed. Please try again.", true);
+  } finally {
+    setSubmitting(false);
+  }
+}
 
         hydrateUser();
         wireUploader("browse-btn", "file-input", "dropzone");
