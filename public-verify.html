@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VerifiedDoc | Public Verify</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { poppins: ["Poppins", "sans-serif"] },
+          colors: {
+            navy: "#021C3E",
+            teal: "#12677F",
+            gold: "#C98A2C",
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { font-family: "Poppins", sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 text-navy antialiased">
+  <header class="px-6 sm:px-10 py-6 flex items-center justify-between">
+    <a href="./hero.html" class="flex items-center gap-2">
+      <img src="./Assets/logo.svg" alt="VerifiedDoc" class="h-9" />
+    </a>
+    <a href="./hero.html" class="text-sm font-medium text-teal hover:underline">Sign in</a>
+  </header>
+
+  <main class="max-w-xl mx-auto px-6 pb-16">
+    <div class="text-center mb-8">
+      <p class="text-gold text-xs font-semibold tracking-wider uppercase mb-2">VerifiedDoc</p>
+      <h1 class="text-3xl font-bold text-navy">Verify a credential</h1>
+      <p class="text-slate-500 text-sm mt-2">
+        Enter a share token or open a verification link to confirm authenticity.
+      </p>
+    </div>
+
+    <form id="verify-form" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
+      <div>
+        <label for="token-input" class="block text-sm font-semibold text-navy mb-1.5">Verification token</label>
+        <input
+          id="token-input"
+          type="text"
+          required
+          placeholder="Paste token here"
+          class="w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+        />
+      </div>
+      <p id="verify-error" class="hidden text-xs text-red-600"></p>
+      <button
+        id="verify-btn"
+        type="submit"
+        class="w-full bg-navy text-white font-semibold text-sm rounded-xl py-3.5 hover:opacity-90 transition disabled:opacity-60"
+      >
+        Verify
+      </button>
+    </form>
+
+    <section id="result-card" class="hidden mt-6 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+      <div class="flex items-start justify-between gap-4 mb-4">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Result</p>
+          <h2 id="result-title" class="text-xl font-bold text-navy mt-1">—</h2>
+          <p id="result-subtitle" class="text-sm text-slate-500 mt-1"></p>
+        </div>
+        <span id="result-status" class="text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 text-slate-600"></span>
+      </div>
+      <dl class="space-y-3 text-sm" id="result-details"></dl>
+    </section>
+  </main>
+
+  <script src="./js/auth.js"></script>
+  <script>
+    const { publicVerify } = window.VerifiedDocAuth;
+    const form = document.getElementById("verify-form");
+    const tokenInput = document.getElementById("token-input");
+    const verifyBtn = document.getElementById("verify-btn");
+    const errorEl = document.getElementById("verify-error");
+    const resultCard = document.getElementById("result-card");
+    const resultTitle = document.getElementById("result-title");
+    const resultSubtitle = document.getElementById("result-subtitle");
+    const resultStatus = document.getElementById("result-status");
+    const resultDetails = document.getElementById("result-details");
+
+    function setError(message) {
+      if (!message) {
+        errorEl.classList.add("hidden");
+        errorEl.textContent = "";
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove("hidden");
+    }
+
+    function statusStyle(status) {
+      const key = String(status || "").toUpperCase();
+      if (["VALID", "VERIFIED", "ACTIVE", "AUTHENTIC"].includes(key)) {
+        return { label: status || "Valid", classes: "bg-emerald-100 text-emerald-700" };
+      }
+      if (["INVALID", "REVOKED", "EXPIRED", "FAILED"].includes(key)) {
+        return { label: status || "Invalid", classes: "bg-red-100 text-red-700" };
+      }
+      return { label: status || "Unknown", classes: "bg-slate-100 text-slate-600" };
+    }
+
+    function formatDate(iso) {
+      if (!iso) return "—";
+      const date = new Date(iso);
+      if (Number.isNaN(date.getTime())) return String(iso);
+      return date.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      });
+    }
+
+    function renderResult(data) {
+      const credential = data?.credential || data?.result || data || {};
+      const title =
+        credential.title ||
+        credential.credentialTitle ||
+        data?.title ||
+        "Credential";
+      const issuer =
+        credential.organization?.name ||
+        credential.issuerName ||
+        data?.issuerName ||
+        "";
+      const rawStatus =
+        data?.status ||
+        credential.effectiveStatus ||
+        credential.status ||
+        null;
+      const status =
+        rawStatus ||
+        (data?.valid === true
+          ? "Valid"
+          : data?.valid === false
+            ? "Invalid"
+            : "Checked");
+      const style = statusStyle(status);
+
+      resultTitle.textContent = title;
+      resultSubtitle.textContent = issuer ? `Issued by ${issuer}` : "";
+      resultStatus.textContent = style.label;
+      resultStatus.className = `text-xs font-semibold px-3 py-1 rounded-full ${style.classes}`;
+
+      const rows = [
+        ["Holder", credential.holderName || credential.recipientName || data?.holderName],
+        ["Type", credential.credentialType || credential.documentType || data?.type],
+        ["Issued", formatDate(credential.issuedAt || data?.issuedAt)],
+        ["Valid until", formatDate(credential.expiresAt || data?.expiresAt) || "Lifetime"],
+        ["Public ID", credential.publicId || data?.publicId || data?.token],
+      ].filter(([, value]) => value);
+
+      resultDetails.innerHTML = rows
+        .map(
+          ([label, value]) => `
+          <div class="flex justify-between gap-4 border-b border-slate-100 pb-2">
+            <dt class="text-slate-500">${label}</dt>
+            <dd class="font-semibold text-navy text-right">${String(value)}</dd>
+          </div>`,
+        )
+        .join("");
+
+      resultCard.classList.remove("hidden");
+    }
+
+    async function runVerify(token) {
+      const value = String(token || "").trim();
+      if (!value) {
+        setError("Please enter a verification token.");
+        return;
+      }
+      setError("");
+      resultCard.classList.add("hidden");
+      verifyBtn.disabled = true;
+      verifyBtn.textContent = "Verifying...";
+      try {
+        const result = await publicVerify(value);
+        renderResult(result);
+      } catch (err) {
+        setError(err.message || "Verification failed.");
+      } finally {
+        verifyBtn.disabled = false;
+        verifyBtn.textContent = "Verify";
+      }
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      runVerify(tokenInput.value);
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    const tokenFromQuery = params.get("token");
+    if (tokenFromQuery) {
+      tokenInput.value = tokenFromQuery;
+      runVerify(tokenFromQuery);
+    }
+  </script>
+</body>
+</html>

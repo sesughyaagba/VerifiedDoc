@@ -116,12 +116,12 @@
 
       <!-- User Profile at Sidebar Bottom -->
       <div class="p-6 flex items-center space-x-3 border-t border-navy-active/40">
-        <div class="w-10 h-10 rounded-full bg-[#c7913e] flex items-center justify-center font-bold text-white text-sm">
+        <div id="admin-avatar" class="w-10 h-10 rounded-full bg-[#c7913e] flex items-center justify-center font-bold text-white text-sm">
           A
         </div>
-        <div>
-          <h4 class="text-sm font-semibold text-white leading-snug">Adenike A Adele</h4>
-          <p class="text-xs text-gray-400">Superior Administrator</p>
+        <div class="min-w-0">
+          <h4 id="admin-name" class="text-sm font-semibold text-white leading-snug truncate">Admin</h4>
+          <p class="text-xs text-gray-400">Platform Administrator</p>
         </div>
       </div>
     </aside>
@@ -480,9 +480,205 @@
   </div>
 
   <!-- JavaScript for dynamic actions -->
+  <script src="./js/auth.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      console.log("VerifiedDoc Dashboard Initialized.");
+    document.addEventListener("DOMContentLoaded", async () => {
+      const {
+        requireAuth,
+        getAuthSession,
+        getAdminDashboard,
+        getAdminOrganizations,
+        getAdminFraudAlerts,
+        reviewAdminOrganization,
+      } = window.VerifiedDocAuth;
+
+      const session = requireAuth("admin-login.html");
+      if (!session) return;
+      if (session.user?.role !== "PLATFORM_ADMIN") {
+        window.location.href = "admin-login.html";
+        return;
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function formatRelative(iso) {
+        if (!iso) return "";
+        const date = new Date(iso);
+        if (Number.isNaN(date.getTime())) return "";
+        const diffMs = Date.now() - date.getTime();
+        const mins = Math.floor(diffMs / 60000);
+        if (mins < 1) return "Just now";
+        if (mins < 60) return `${mins}m ago`;
+        const hours = Math.floor(mins / 60);
+        if (hours < 24) return `${hours}hrs ago`;
+        const days = Math.floor(hours / 24);
+        return `${days}d ago`;
+      }
+
+      function hydrateAdminUser() {
+        const user = getAuthSession()?.user || {};
+        const name =
+          user.fullName ||
+          [user.firstName, user.lastName].filter(Boolean).join(" ") ||
+          user.email ||
+          "Admin";
+        const initial = (user.firstName || name || "?").charAt(0).toUpperCase();
+        document.getElementById("admin-avatar").textContent = initial;
+        document.getElementById("admin-name").textContent = name;
+        document.getElementById("page-heading").textContent =
+          `Welcome back, ${user.firstName || name}`;
+      }
+
+      function bindStats(data) {
+        const stats = data?.stats || data || {};
+        const users =
+          stats.totalUsers ?? stats.users ?? stats.userCount ?? "—";
+        const institutions =
+          stats.totalOrganizations ??
+          stats.organizations ??
+          stats.institutions ??
+          stats.organizationCount ??
+          "—";
+        const documents =
+          stats.totalDocuments ?? stats.documents ?? stats.documentCount ?? "—";
+        const verifications =
+          stats.totalVerifications ??
+          stats.verifications ??
+          stats.verificationCount ??
+          "—";
+
+        document.getElementById("stat-users").textContent = users;
+        document.getElementById("stat-institutions").textContent = institutions;
+        document.getElementById("stat-documents").textContent = documents;
+        document.getElementById("stat-verifications").textContent = verifications;
+      }
+
+      function renderFraudAlerts(payload) {
+        const container = document.getElementById("alerts-container");
+        const alerts = Array.isArray(payload)
+          ? payload
+          : payload?.items || payload?.alerts || payload?.data || [];
+        if (!alerts.length) {
+          container.innerHTML =
+            `<p class="text-xs text-gray-500 py-4">No fraud alerts right now.</p>`;
+          return;
+        }
+        container.innerHTML = alerts
+          .slice(0, 8)
+          .map((alert) => {
+            const title =
+              alert.title ||
+              alert.type ||
+              alert.severity ||
+              "Fraud alert";
+            const detail =
+              alert.message ||
+              alert.description ||
+              [alert.documentTitle, alert.uploaderName]
+                .filter(Boolean)
+                .join(" · ") ||
+              "Review required";
+            const when = formatRelative(
+              alert.createdAt || alert.updatedAt || alert.detectedAt,
+            );
+            return `<div class="alert-item flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 transition">
+              <div class="flex items-center space-x-3 min-w-0">
+                <div class="w-10 h-10 rounded-xl bg-red-100 border border-red-200 flex items-center justify-center text-red-500 shrink-0">
+                  <svg class="w-5 h-5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                  </svg>
+                </div>
+                <div class="min-w-0">
+                  <h4 class="text-xs font-bold text-gray-900 truncate">${escapeHtml(title)}</h4>
+                  <p class="text-[11px] text-gray-500 font-medium mt-0.5 truncate">${escapeHtml(detail)}</p>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2 shrink-0">
+                <span class="text-xs font-semibold text-red-500 mr-2">${escapeHtml(when)}</span>
+                <button class="dismiss-alert-btn text-gray-400 hover:text-gray-600 text-xs font-bold px-1.5 py-0.5">&times;</button>
+              </div>
+            </div>`;
+          })
+          .join("");
+
+        container.querySelectorAll(".dismiss-alert-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const alertItem = e.target.closest(".alert-item");
+            if (alertItem) {
+              alertItem.remove();
+              showToast("Fraud alert dismissed", "info");
+            }
+          });
+        });
+      }
+
+      function statusBadgeHtml(status) {
+        const key = String(status || "").toUpperCase();
+        if (key === "APPROVED" || key === "VERIFIED" || key === "ACTIVE") {
+          return `<span class="inline-block px-5 py-1.5 bg-verified-bg text-verified-text rounded-md font-semibold text-xs">Verified</span>`;
+        }
+        if (key === "REJECTED" || key === "DENIED") {
+          return `<span class="inline-block px-5 py-1.5 bg-rejected-bg text-rejected-text rounded-md font-semibold text-xs">Rejected</span>`;
+        }
+        return `<span class="inline-block px-5 py-1.5 bg-pending-bg text-pending-text rounded-md font-semibold text-xs">Pending</span>`;
+      }
+
+      function renderOrganizations(payload) {
+        const tbody = document.getElementById("table-body");
+        const orgs = Array.isArray(payload)
+          ? payload
+          : payload?.items || payload?.organizations || payload?.data || [];
+        if (!orgs.length) {
+          tbody.innerHTML =
+            `<tr><td colspan="5" class="py-8 text-center text-sm text-gray-500">No organizations found.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = orgs
+          .map((org) => {
+            const name = org.name || org.organizationName || "Organization";
+            const doc =
+              org.documentType ||
+              org.registrationType ||
+              org.type ||
+              "Registration";
+            const status = org.status || org.reviewStatus || "PENDING";
+            const when = formatRelative(org.updatedAt || org.createdAt) || "—";
+            const id = org.id || "";
+            const displayStatus =
+              String(status).toUpperCase() === "APPROVED" ||
+              String(status).toUpperCase() === "ACTIVE"
+                ? "Verified"
+                : String(status).toUpperCase() === "REJECTED"
+                  ? "Rejected"
+                  : "Pending";
+            return `<tr data-org="${escapeHtml(name)}" data-status="${displayStatus}" data-org-id="${escapeHtml(id)}">
+              <td class="py-4 flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-xl bg-[#c5dadf] flex items-center justify-center shrink-0">
+                  <svg class="w-5 h-5 text-teal fill-current" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7v2h20V7L12 2zm-7 8v8h2v-8H5zm4 0v8h2v-8H9zm4 0v8h2v-8h-2zm4 0v8h2v-8h-2zM3 19v2h18v-2H3z"/>
+                  </svg>
+                </div>
+                <span class="font-semibold text-gray-900 org-name">${escapeHtml(name)}</span>
+              </td>
+              <td class="py-4 text-gray-700 font-medium">${escapeHtml(doc)}</td>
+              <td class="py-4 text-center status-cell">${statusBadgeHtml(status)}</td>
+              <td class="py-4 text-center text-gray-700 font-medium">${escapeHtml(when)}</td>
+              <td class="py-4 text-right">
+                <div class="flex items-center justify-end space-x-2">
+                  <button class="action-btn-approve text-xs font-semibold text-emerald-600 hover:text-emerald-800 px-2 py-1 rounded bg-emerald-50 hover:bg-emerald-100 transition">Approve</button>
+                  <button class="action-btn-reject text-xs font-semibold text-red-600 hover:text-red-800 px-2 py-1 rounded bg-red-50 hover:bg-red-100 transition">Reject</button>
+                </div>
+              </td>
+            </tr>`;
+          })
+          .join("");
+      }
 
       // DOM Elements
       const navItems = document.querySelectorAll(".nav-item");
@@ -493,7 +689,6 @@
       const markReadBtn = document.getElementById("mark-read-btn");
       const tableSearch = document.getElementById("table-search");
       const statusFilter = document.getElementById("status-filter");
-      const tableRows = document.querySelectorAll("#table-body tr");
       const modal = document.getElementById("action-modal");
       const closeModal = document.getElementById("close-modal");
       const modalCancelBtn = document.getElementById("modal-cancel-btn");
@@ -502,12 +697,11 @@
       const modalBody = document.getElementById("modal-body");
       const toastContainer = document.getElementById("toast-container");
       const quickActionBtns = document.querySelectorAll(".quick-action-btn");
-      const dismissAlertBtns = document.querySelectorAll(".dismiss-alert-btn");
 
       let currentActionTarget = null;
       let currentNewStatus = null;
+      let orgsLoaded = false;
 
-      // 1. Toast Notification Helper Function
       function showToast(message, type = "info") {
         const toast = document.createElement("div");
         const bgColor = type === "success" ? "bg-emerald-600" : type === "error" ? "bg-red-600" : "bg-navy";
@@ -520,17 +714,14 @@
 
         toastContainer.appendChild(toast);
 
-        // Animate in
         setTimeout(() => {
           toast.classList.remove("translate-y-2", "opacity-0");
         }, 10);
 
-        // Dismiss action
         toast.querySelector(".toast-close").addEventListener("click", () => {
           dismissToast(toast);
         });
 
-        // Auto remove after 3s
         setTimeout(() => {
           dismissToast(toast);
         }, 3500);
@@ -543,9 +734,19 @@
         }, 300);
       }
 
-      // 2. Sidebar Navigation Toggle
+      async function loadApprovalsTab() {
+        try {
+          const orgs = await getAdminOrganizations({ status: "PENDING" });
+          renderOrganizations(orgs);
+          orgsLoaded = true;
+          showToast("Organization approvals loaded", "info");
+        } catch (err) {
+          showToast(err.message || "Could not load organizations", "error");
+        }
+      }
+
       navItems.forEach(item => {
-        item.addEventListener("click", (e) => {
+        item.addEventListener("click", async (e) => {
           e.preventDefault();
           navItems.forEach(nav => {
             nav.classList.remove("bg-navy-active", "text-white");
@@ -566,12 +767,20 @@
           }
 
           const pageName = item.getAttribute("data-page");
-          pageHeading.textContent = pageName === "Dashboard" ? "Welcome back, Adenike" : pageName;
-          showToast(`Navigated to ${pageName}`);
+          const user = getAuthSession()?.user || {};
+          pageHeading.textContent =
+            pageName === "Dashboard"
+              ? `Welcome back, ${user.firstName || user.fullName || "Admin"}`
+              : pageName;
+
+          if (pageName === "Organization Approvals") {
+            await loadApprovalsTab();
+          } else {
+            showToast(`Navigated to ${pageName}`);
+          }
         });
       });
 
-      // 3. Notification Dropdown Actions
       notifBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         notifDropdown.classList.toggle("hidden");
@@ -588,14 +797,15 @@
         showToast("Notifications marked as read", "info");
       });
 
-      // 4. Dynamic Table Search & Status Filter
       function filterTable() {
         const query = tableSearch.value.toLowerCase().trim();
         const selectedStatus = statusFilter.value;
+        const tableRows = document.querySelectorAll("#table-body tr");
 
         tableRows.forEach(row => {
-          const orgName = row.getAttribute("data-org").toLowerCase();
+          const orgName = (row.getAttribute("data-org") || "").toLowerCase();
           const rowStatus = row.getAttribute("data-status");
+          if (!row.getAttribute("data-org")) return;
 
           const matchesSearch = orgName.includes(query);
           const matchesStatus = selectedStatus === "ALL" || rowStatus === selectedStatus;
@@ -611,7 +821,6 @@
       tableSearch.addEventListener("input", filterTable);
       statusFilter.addEventListener("change", filterTable);
 
-      // 5. Table Row Status Update Modal Logic
       function openModal(row, newStatus) {
         currentActionTarget = row;
         currentNewStatus = newStatus;
@@ -631,27 +840,34 @@
       closeModal.addEventListener("click", closeModalDialog);
       modalCancelBtn.addEventListener("click", closeModalDialog);
 
-      modalConfirmBtn.addEventListener("click", () => {
-        if (currentActionTarget && currentNewStatus) {
-          const statusCell = currentActionTarget.querySelector(".status-cell");
-          const orgName = currentActionTarget.getAttribute("data-org");
+      modalConfirmBtn.addEventListener("click", async () => {
+        if (!(currentActionTarget && currentNewStatus)) return;
+        const statusCell = currentActionTarget.querySelector(".status-cell");
+        const orgName = currentActionTarget.getAttribute("data-org");
+        const orgId = currentActionTarget.getAttribute("data-org-id");
+        const decision =
+          currentNewStatus === "Verified" ? "APPROVED" : "REJECTED";
 
+        try {
+          if (orgId && orgsLoaded) {
+            await reviewAdminOrganization(orgId, { decision, status: decision });
+          }
           if (currentNewStatus === "Verified") {
-            statusCell.innerHTML = `<span class="inline-block px-5 py-1.5 bg-verified-bg text-verified-text rounded-md font-semibold text-xs">Verified</span>`;
+            statusCell.innerHTML = statusBadgeHtml("APPROVED");
             currentActionTarget.setAttribute("data-status", "Verified");
             showToast(`${orgName} status updated to Verified`, "success");
-          } else if (currentNewStatus === "Rejected") {
-            statusCell.innerHTML = `<span class="inline-block px-5 py-1.5 bg-rejected-bg text-rejected-text rounded-md font-semibold text-xs">Rejected</span>`;
+          } else {
+            statusCell.innerHTML = statusBadgeHtml("REJECTED");
             currentActionTarget.setAttribute("data-status", "Rejected");
             showToast(`${orgName} status updated to Rejected`, "error");
           }
-
-          filterTable(); // Re-apply current active filters
+          filterTable();
           closeModalDialog();
+        } catch (err) {
+          showToast(err.message || "Could not update organization", "error");
         }
       });
 
-      // Delegate Approve/Reject buttons inside table
       document.getElementById("table-body").addEventListener("click", (e) => {
         const row = e.target.closest("tr");
         if (!row) return;
@@ -663,8 +879,7 @@
         }
       });
 
-      // 6. Dismiss Fraud Alerts
-      dismissAlertBtns.forEach(btn => {
+      document.querySelectorAll(".dismiss-alert-btn").forEach(btn => {
         btn.addEventListener("click", (e) => {
           const alertItem = e.target.closest(".alert-item");
           if (alertItem) {
@@ -677,7 +892,6 @@
         });
       });
 
-      // 7. Quick Actions Trigger
       quickActionBtns.forEach(btn => {
         btn.addEventListener("click", () => {
           const actionText = btn.getAttribute("data-action");
@@ -685,6 +899,21 @@
         });
       });
 
+      hydrateAdminUser();
+
+      try {
+        const dashboard = await getAdminDashboard();
+        bindStats(dashboard);
+      } catch (err) {
+        showToast(err.message || "Could not load dashboard stats", "error");
+      }
+
+      try {
+        const alerts = await getAdminFraudAlerts();
+        renderFraudAlerts(alerts);
+      } catch (err) {
+        showToast(err.message || "Could not load fraud alerts", "error");
+      }
     });
   </script>
 </body>

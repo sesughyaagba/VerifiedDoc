@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VerifiedDoc | Share Credential</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { poppins: ["Poppins", "sans-serif"] },
+            colors: {
+              navy: "#021C3E",
+              sidebar: "#1F3864",
+              teal: "#12677F",
+              gold: "#C98A2C",
+              gold2: "#B08D57",
+              pagebg: "#F7F2FA",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: #1f3864;
+        box-shadow: 0 0 0 3px rgba(31, 56, 100, 0.12);
+      }
+    </style>
+  </head>
+  <body class="bg-white">
+    <!-- ============ DESKTOP LAYOUT ============ -->
+    <div class="hidden lg:flex min-h-screen">
+      <aside class="w-60 flex-shrink-0 bg-sidebar flex flex-col py-6 px-5">
+        <div class="mb-4 px-1">
+          <img src="assets/logo.svg" alt="VerifiedDoc logo" class="w-20 h-10" />
+        </div>
+
+        <nav class="flex flex-col gap-1 flex-1">
+          <a
+            href="./prototype-dashboard-creHolder.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm hover:bg-white/5 hover:text-white transition"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+              <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+              <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+              <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+            </svg>
+            Dashboard
+          </a>
+          <a
+            href="./prototype-credentials-creHolder.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm hover:bg-white/5 hover:text-white transition"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="6"></circle>
+              <path d="M8.5 13.5L6 22l6-3.5 6 3.5-2.5-8.5"></path>
+            </svg>
+            My Credentials
+          </a>
+          <a
+            href="../digital-wallet.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm hover:bg-white/5 hover:text-white transition"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="6" width="20" height="14" rx="2"></rect>
+              <path d="M2 10h20"></path>
+              <circle cx="17" cy="14.5" r="1"></circle>
+            </svg>
+            Digital wallet
+          </a>
+          <a
+            href="./prototype-uploadDocument.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm hover:bg-white/5 hover:text-white transition"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            Upload Document
+          </a>
+          <a
+            href="./prototype-share-creHolder.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-white/10 text-white text-sm font-medium"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.6" y1="13.5" x2="15.4" y2="17.5"></line>
+              <line x1="15.4" y1="6.5" x2="8.6" y2="10.5"></line>
+            </svg>
+            Share Credential
+          </a>
+          <a
+            href="./prototype-activity-creHolder.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm hover:bg-white/5 hover:text-white transition"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Activity Log
+          </a>
+          <a
+            href="./prototype-settings-creHolder.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm hover:bg-white/5 hover:text-white transition"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"></path>
+            </svg>
+            Account Settings
+          </a>
+        </nav>
+
+        <div class="flex items-center gap-2.5 px-1 pt-4 border-t border-white/10">
+          <div
+            id="user-avatar"
+            class="w-8 h-8 rounded-full bg-gold2 flex items-center justify-center text-navy text-sm font-semibold flex-shrink-0"
+          >
+            —
+          </div>
+          <div class="leading-tight min-w-0">
+            <p id="user-name" class="text-white text-sm font-medium truncate">Loading...</p>
+            <p class="text-slate-400 text-xs">Credential Holder</p>
+          </div>
+        </div>
+      </aside>
+
+      <main class="flex-1 bg-pagebg px-10 py-8 overflow-y-auto">
+        <div class="mb-6">
+          <h1 class="text-navy font-bold text-2xl">Share Credential</h1>
+          <p class="text-slate-500 text-sm mt-1">
+            Create a time-limited verification link for an active credential
+          </p>
+          <p id="page-error" class="hidden text-red-600 text-xs font-medium mt-2"></p>
+        </div>
+
+        <div class="max-w-xl">
+          <form id="share-form" class="bg-white rounded-xl border border-slate-200 p-6 space-y-5">
+            <div>
+              <label for="credential-select" class="block text-navy text-sm font-medium mb-1.5">Credential</label>
+              <select
+                id="credential-select"
+                required
+                class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-navy bg-white"
+              >
+                <option value="">Loading credentials...</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="expires-hours" class="block text-navy text-sm font-medium mb-1.5">Expires in (hours)</label>
+              <input
+                id="expires-hours"
+                type="number"
+                min="1"
+                max="168"
+                value="24"
+                required
+                class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-navy"
+              />
+              <p class="text-slate-400 text-xs mt-1">Between 1 and 168 hours</p>
+            </div>
+
+            <div>
+              <label for="max-views" class="block text-navy text-sm font-medium mb-1.5">Max views <span class="text-slate-400 font-normal">(optional)</span></label>
+              <input
+                id="max-views"
+                type="number"
+                min="1"
+                placeholder="Unlimited"
+                class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-navy"
+              />
+            </div>
+
+            <div class="space-y-3 pt-1">
+              <label class="flex items-center gap-2.5 cursor-pointer">
+                <input id="include-holder-name" type="checkbox" checked class="w-4 h-4 rounded border-slate-300 text-sidebar accent-sidebar" />
+                <span class="text-sm text-navy">Include holder name</span>
+              </label>
+              <label class="flex items-center gap-2.5 cursor-pointer">
+                <input id="include-reference-no" type="checkbox" checked class="w-4 h-4 rounded border-slate-300 text-sidebar accent-sidebar" />
+                <span class="text-sm text-navy">Include reference number</span>
+              </label>
+            </div>
+
+            <p id="form-error" class="hidden text-red-600 text-xs font-medium"></p>
+
+            <button
+              id="submit-btn"
+              type="submit"
+              class="w-full bg-sidebar text-white text-sm font-semibold px-4 py-3 rounded-lg hover:opacity-90 transition disabled:opacity-50"
+            >
+              Create share link
+            </button>
+          </form>
+
+          <div id="success-panel" class="hidden mt-5 bg-white rounded-xl border border-emerald-200 p-6">
+            <p class="text-emerald-700 text-sm font-semibold mb-1">Share link created</p>
+            <p class="text-slate-500 text-xs mb-4">
+              Copy the verification URL below. The token is shown only once — save it now.
+            </p>
+            <label class="block text-navy text-sm font-medium mb-1.5">Verification URL</label>
+            <div class="flex gap-2">
+              <input
+                id="verification-url"
+                type="text"
+                readonly
+                class="flex-1 border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-navy bg-slate-50 font-mono"
+              />
+              <button
+                id="copy-btn"
+                type="button"
+                class="flex-shrink-0 bg-sidebar text-white text-xs font-medium px-4 py-2.5 rounded-lg hover:opacity-90 transition"
+              >
+                Copy
+              </button>
+            </div>
+            <p id="token-note" class="text-amber-700 text-xs mt-3 bg-amber-50 border border-amber-100 rounded-lg px-3 py-2"></p>
+            <p id="copy-feedback" class="hidden text-emerald-600 text-xs mt-2 font-medium">Copied to clipboard</p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ============ MOBILE LAYOUT ============ -->
+    <div class="flex lg:hidden flex-col min-h-screen bg-pagebg">
+      <header class="bg-sidebar flex items-center gap-3 px-4 py-4 flex-shrink-0">
+        <a href="./prototype-dashboard-creHolder.html" class="text-white">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </a>
+        <p class="text-white font-semibold text-sm flex-1 text-center pr-6">Share Credential</p>
+      </header>
+
+      <div class="flex-1 px-5 pt-4 pb-8 overflow-y-auto">
+        <p class="text-slate-500 text-sm mb-4">Create a time-limited verification link for an active credential</p>
+        <p id="page-error-m" class="hidden text-red-600 text-xs font-medium mb-3"></p>
+
+        <form id="share-form-m" class="bg-white rounded-xl border border-slate-200 p-5 space-y-4">
+          <div>
+            <label for="credential-select-m" class="block text-navy text-sm font-medium mb-1.5">Credential</label>
+            <select
+              id="credential-select-m"
+              required
+              class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-navy bg-white"
+            >
+              <option value="">Loading credentials...</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="expires-hours-m" class="block text-navy text-sm font-medium mb-1.5">Expires in (hours)</label>
+            <input
+              id="expires-hours-m"
+              type="number"
+              min="1"
+              max="168"
+              value="24"
+              required
+              class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-navy"
+            />
+          </div>
+
+          <div>
+            <label for="max-views-m" class="block text-navy text-sm font-medium mb-1.5">Max views (optional)</label>
+            <input
+              id="max-views-m"
+              type="number"
+              min="1"
+              placeholder="Unlimited"
+              class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-navy"
+            />
+          </div>
+
+          <div class="space-y-3">
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input id="include-holder-name-m" type="checkbox" checked class="w-4 h-4 rounded border-slate-300 accent-sidebar" />
+              <span class="text-sm text-navy">Include holder name</span>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input id="include-reference-no-m" type="checkbox" checked class="w-4 h-4 rounded border-slate-300 accent-sidebar" />
+              <span class="text-sm text-navy">Include reference number</span>
+            </label>
+          </div>
+
+          <p id="form-error-m" class="hidden text-red-600 text-xs font-medium"></p>
+
+          <button
+            id="submit-btn-m"
+            type="submit"
+            class="w-full bg-sidebar text-white text-sm font-semibold px-4 py-3.5 rounded-lg disabled:opacity-50"
+          >
+            Create share link
+          </button>
+        </form>
+
+        <div id="success-panel-m" class="hidden mt-4 bg-white rounded-xl border border-emerald-200 p-5">
+          <p class="text-emerald-700 text-sm font-semibold mb-1">Share link created</p>
+          <p class="text-slate-500 text-xs mb-3">
+            The token is shown only once — save it now.
+          </p>
+          <label class="block text-navy text-sm font-medium mb-1.5">Verification URL</label>
+          <input
+            id="verification-url-m"
+            type="text"
+            readonly
+            class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-navy bg-slate-50 font-mono mb-2"
+          />
+          <button
+            id="copy-btn-m"
+            type="button"
+            class="w-full bg-sidebar text-white text-xs font-medium px-4 py-2.5 rounded-lg"
+          >
+            Copy URL
+          </button>
+          <p id="token-note-m" class="text-amber-700 text-xs mt-3 bg-amber-50 border border-amber-100 rounded-lg px-3 py-2"></p>
+          <p id="copy-feedback-m" class="hidden text-emerald-600 text-xs mt-2 font-medium">Copied to clipboard</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const {
+          requireAuth,
+          getAuthSession,
+          getHolderCredentials,
+          createShareLink,
+          clearAuthSession,
+        } = window.VerifiedDocAuth;
+
+        const session = requireAuth("../hero.html");
+        if (!session) return;
+
+        function escapeHtml(value) {
+          return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+
+        function showError(message) {
+          ["page-error", "page-error-m"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.textContent = message || "";
+            el.classList.toggle("hidden", !message);
+          });
+        }
+
+        function showFormError(message) {
+          ["form-error", "form-error-m"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.textContent = message || "";
+            el.classList.toggle("hidden", !message);
+          });
+        }
+
+        function hydrateUser() {
+          const user = getAuthSession()?.user || {};
+          const name =
+            user.fullName ||
+            [user.firstName, user.lastName].filter(Boolean).join(" ") ||
+            user.email ||
+            "Credential Holder";
+          const initial = (user.firstName || name || "?").charAt(0).toUpperCase();
+          const avatar = document.getElementById("user-avatar");
+          const nameEl = document.getElementById("user-name");
+          if (avatar) avatar.textContent = initial;
+          if (nameEl) nameEl.textContent = name;
+        }
+
+        function handle401(err) {
+          if (err.status === 401) {
+            clearAuthSession();
+            window.location.href = "../hero.html";
+          }
+        }
+
+        function fillSelects(credentials) {
+          const options = credentials.length
+            ? credentials
+                .map((c) => {
+                  const id = c.id || c.publicId;
+                  const label = `${c.title || "Untitled"}${c.organization?.name ? ` — ${c.organization.name}` : ""}`;
+                  return `<option value="${escapeHtml(id)}">${escapeHtml(label)}</option>`;
+                })
+                .join("")
+            : '<option value="">No active credentials</option>';
+
+          ["credential-select", "credential-select-m"].forEach((id) => {
+            const el = document.getElementById(id);
+            el.innerHTML = credentials.length
+              ? `<option value="">Select a credential</option>${options}`
+              : options;
+          });
+        }
+
+        function showSuccess(result) {
+          const url =
+            result.verificationUrl ||
+            result.url ||
+            result.shareLink?.verificationUrl ||
+            "";
+          const token =
+            result.token ||
+            result.shareLink?.token ||
+            "";
+
+          ["verification-url", "verification-url-m"].forEach((id) => {
+            document.getElementById(id).value = url;
+          });
+
+          const note = token
+            ? `Token (shown once): ${token}`
+            : "This token is shown only once. Copy the verification URL now.";
+          ["token-note", "token-note-m"].forEach((id) => {
+            document.getElementById(id).textContent = note;
+          });
+
+          document.getElementById("success-panel").classList.remove("hidden");
+          document.getElementById("success-panel-m").classList.remove("hidden");
+        }
+
+        async function loadCredentials() {
+          showError("");
+          try {
+            const response = await getHolderCredentials({
+              limit: 50,
+              status: "ACTIVE",
+            });
+            const credentials = response.data || response.items || [];
+            fillSelects(credentials);
+          } catch (err) {
+            showError(err.message || "Failed to load credentials.");
+            fillSelects([]);
+            handle401(err);
+          }
+        }
+
+        async function handleSubmit(e, isMobile) {
+          e.preventDefault();
+          showFormError("");
+
+          const suffix = isMobile ? "-m" : "";
+          const credentialId = document.getElementById(`credential-select${suffix}`).value;
+          const expiresInHours = Number(
+            document.getElementById(`expires-hours${suffix}`).value,
+          );
+          const maxViewsRaw = document.getElementById(`max-views${suffix}`).value;
+          const includeHolderName = document.getElementById(
+            `include-holder-name${suffix}`,
+          ).checked;
+          const includeReferenceNo = document.getElementById(
+            `include-reference-no${suffix}`,
+          ).checked;
+
+          if (!credentialId) {
+            showFormError("Please select a credential.");
+            return;
+          }
+          if (!expiresInHours || expiresInHours < 1 || expiresInHours > 168) {
+            showFormError("Expires in hours must be between 1 and 168.");
+            return;
+          }
+
+          const payload = {
+            expiresInHours,
+            includeHolderName,
+            includeReferenceNo,
+          };
+          if (maxViewsRaw) {
+            const maxViews = Number(maxViewsRaw);
+            if (!maxViews || maxViews < 1) {
+              showFormError("Max views must be a positive number.");
+              return;
+            }
+            payload.maxViews = maxViews;
+          }
+
+          const btn = document.getElementById(`submit-btn${suffix}`);
+          btn.disabled = true;
+          btn.textContent = "Creating...";
+
+          try {
+            const result = await createShareLink(credentialId, payload);
+            showSuccess(result);
+          } catch (err) {
+            showFormError(err.message || "Failed to create share link.");
+            handle401(err);
+          } finally {
+            btn.disabled = false;
+            btn.textContent = "Create share link";
+          }
+        }
+
+        async function copyUrl(isMobile) {
+          const input = document.getElementById(
+            isMobile ? "verification-url-m" : "verification-url",
+          );
+          const feedback = document.getElementById(
+            isMobile ? "copy-feedback-m" : "copy-feedback",
+          );
+          try {
+            await navigator.clipboard.writeText(input.value);
+            feedback.classList.remove("hidden");
+            setTimeout(() => feedback.classList.add("hidden"), 2000);
+          } catch {
+            input.select();
+            document.execCommand("copy");
+            feedback.classList.remove("hidden");
+            setTimeout(() => feedback.classList.add("hidden"), 2000);
+          }
+        }
+
+        document.getElementById("share-form").addEventListener("submit", (e) =>
+          handleSubmit(e, false),
+        );
+        document.getElementById("share-form-m").addEventListener("submit", (e) =>
+          handleSubmit(e, true),
+        );
+        document.getElementById("copy-btn").addEventListener("click", () => copyUrl(false));
+        document.getElementById("copy-btn-m").addEventListener("click", () => copyUrl(true));
+
+        // Keep desktop/mobile fields roughly in sync for credential select
+        document.getElementById("credential-select").addEventListener("change", (e) => {
+          document.getElementById("credential-select-m").value = e.target.value;
+        });
+        document.getElementById("credential-select-m").addEventListener("change", (e) => {
+          document.getElementById("credential-select").value = e.target.value;
+        });
+
+        hydrateUser();
+        loadCredentials();
+      });
+    </script>
+  </body>
+</html>

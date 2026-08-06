@@ -71,11 +71,11 @@
         </div>
         <!-- Navigation Links -->
         <nav class="space-y-1.5 text-sm font-medium">
-          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 transition">
+          <a href="./src/prototype-dashboard-creHolder.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 transition">
             <i data-lucide="layout-grid" class="w-4 h-4"></i>
             <span>Dashboard</span>
           </a>
-          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 transition">
+          <a href="./src/prototype-credentials-creHolder.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 transition">
             <i data-lucide="award" class="w-4 h-4"></i>
             <span>My Credentials</span>
           </a>
@@ -104,11 +104,11 @@
 
       <!-- User Profile at Bottom -->
       <div class="flex items-center gap-3 pt-4 border-t border-white/10 px-1">
-        <div class="w-9 h-9 rounded-full bg-amber-600/80 text-white font-semibold flex items-center justify-center text-sm shadow">
+        <div id="user-avatar" class="w-9 h-9 rounded-full bg-amber-600/80 text-white font-semibold flex items-center justify-center text-sm shadow">
           A
         </div>
         <div class="overflow-hidden">
-          <h4 class="text-xs font-semibold text-white truncate">Adenike A Adele</h4>
+          <h4 id="user-name" class="text-xs font-semibold text-white truncate">Loading...</h4>
           <p class="text-[11px] text-slate-400 truncate">Credential Holder</p>
         </div>
       </div>
@@ -120,7 +120,7 @@
       <!-- Top Header -->
       <div class="flex items-center justify-between mb-8">
         <div>
-          <h1 class="text-2xl font-bold text-slate-900">Welcome back, Adenike</h1>
+          <h1 id="welcome-title" class="text-2xl font-bold text-slate-900">Welcome back</h1>
           <p class="text-sm text-text-muted mt-0.5">Your secure digital identity. Your verified future.</p>
         </div>
 
@@ -148,7 +148,7 @@
             </div>
           </div>
           <div>
-            <div class="text-2xl font-bold">12</div>
+            <div class="text-2xl font-bold" id="stat-total">0</div>
             <div class="text-[11px] text-slate-300 mt-1">All verified and secure</div>
           </div>
         </div>
@@ -162,7 +162,7 @@
             </div>
           </div>
           <div>
-            <div class="text-2xl font-bold">8</div>
+            <div class="text-2xl font-bold" id="stat-active">0</div>
             <div class="text-[11px] text-slate-200 mt-1">Active and trusted</div>
           </div>
         </div>
@@ -176,7 +176,7 @@
             </div>
           </div>
           <div>
-            <div class="text-2xl font-bold">1</div>
+            <div class="text-2xl font-bold" id="stat-pending">0</div>
             <div class="text-[11px] text-slate-700 mt-1">Awaiting verification</div>
           </div>
         </div>
@@ -190,7 +190,7 @@
             </div>
           </div>
           <div>
-            <div class="text-2xl font-bold text-slate-900">0</div>
+            <div class="text-2xl font-bold text-slate-900" id="stat-expired">0</div>
             <div class="text-[11px] text-slate-500 mt-1">No expired credentials</div>
           </div>
         </div>
@@ -228,113 +228,8 @@
           </div>
 
           <!-- List Container -->
-          <div class="bg-white rounded-xl border border-slate-200 p-2 space-y-1 shadow-sm">
-            
-            <!-- Item 1 -->
-            <div class="flex items-center justify-between p-3.5 rounded-lg hover:bg-slate-50 transition cursor-pointer">
-              <div class="flex items-center gap-3.5">
-                <div class="p-2.5 bg-slate-100 rounded-lg text-slate-600">
-                  <i data-lucide="award" class="w-5 h-5"></i>
-                </div>
-                <div>
-                  <h3 class="text-xs font-bold text-slate-900">UI/UX Design Certificate</h3>
-                  <div class="flex items-center gap-2 text-[11px] text-text-muted mt-0.5">
-                    <span>Juliana Ogi</span>
-                    <span>•</span>
-                    <span>Verified 2 days ago</span>
-                  </div>
-                </div>
-              </div>
-              <div class="flex items-center gap-3">
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800">Verified</span>
-                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
-              </div>
-            </div>
-
-            <!-- Item 2 -->
-            <div class="flex items-center justify-between p-3.5 rounded-lg hover:bg-slate-50 transition cursor-pointer">
-              <div class="flex items-center gap-3.5">
-                <div class="p-2.5 bg-slate-100 rounded-lg text-slate-600">
-                  <i data-lucide="award" class="w-5 h-5"></i>
-                </div>
-                <div>
-                  <h3 class="text-xs font-bold text-slate-900">UI/UX Design Certificate</h3>
-                  <div class="flex items-center gap-2 text-[11px] text-text-muted mt-0.5">
-                    <span>Juliana Ogi</span>
-                    <span>•</span>
-                    <span>Verified 2 days ago</span>
-                  </div>
-                </div>
-              </div>
-              <div class="flex items-center gap-3">
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800">Verified</span>
-                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
-              </div>
-            </div>
-
-            <!-- Item 3 (Pending) -->
-            <div class="flex items-center justify-between p-3.5 rounded-lg hover:bg-slate-50 transition cursor-pointer">
-              <div class="flex items-center gap-3.5">
-                <div class="p-2.5 bg-slate-100 rounded-lg text-slate-600">
-                  <i data-lucide="award" class="w-5 h-5"></i>
-                </div>
-                <div>
-                  <h3 class="text-xs font-bold text-slate-900">UI/UX Design Certificate</h3>
-                  <div class="flex items-center gap-2 text-[11px] text-text-muted mt-0.5">
-                    <span>Juliana Ogi</span>
-                    <span>•</span>
-                    <span>Verified 2 days ago</span>
-                  </div>
-                </div>
-              </div>
-              <div class="flex items-center gap-3">
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-800">Pending</span>
-                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
-              </div>
-            </div>
-
-            <!-- Item 4 -->
-            <div class="flex items-center justify-between p-3.5 rounded-lg hover:bg-slate-50 transition cursor-pointer">
-              <div class="flex items-center gap-3.5">
-                <div class="p-2.5 bg-slate-100 rounded-lg text-slate-600">
-                  <i data-lucide="award" class="w-5 h-5"></i>
-                </div>
-                <div>
-                  <h3 class="text-xs font-bold text-slate-900">UI/UX Design Certificate</h3>
-                  <div class="flex items-center gap-2 text-[11px] text-text-muted mt-0.5">
-                    <span>Juliana Ogi</span>
-                    <span>•</span>
-                    <span>Verified 2 days ago</span>
-                  </div>
-                </div>
-              </div>
-              <div class="flex items-center gap-3">
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800">Verified</span>
-                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
-              </div>
-            </div>
-
-            <!-- Item 5 -->
-            <div class="flex items-center justify-between p-3.5 rounded-lg hover:bg-slate-50 transition cursor-pointer">
-              <div class="flex items-center gap-3.5">
-                <div class="p-2.5 bg-slate-100 rounded-lg text-slate-600">
-                  <i data-lucide="award" class="w-5 h-5"></i>
-                </div>
-                <div>
-                  <h3 class="text-xs font-bold text-slate-900">UI/UX Design Certificate</h3>
-                  <div class="flex items-center gap-2 text-[11px] text-text-muted mt-0.5">
-                    <span>Juliana Ogi</span>
-                    <span>•</span>
-                    <span>Verified 2 days ago</span>
-                  </div>
-                </div>
-              </div>
-              <div class="flex items-center gap-3">
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800">Verified</span>
-                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
-              </div>
-            </div>
-
+          <div id="credentials-list" class="bg-white rounded-xl border border-slate-200 p-2 space-y-1 shadow-sm">
+            <p class="text-xs text-slate-400 py-6 text-center">Loading credentials...</p>
           </div>
 
           <!-- Security Banner Box -->
@@ -437,8 +332,142 @@
   </div>
 
   <!-- Lucide Icon Initialization -->
+  <script src="./js/auth.js"></script>
   <script>
     lucide.createIcons();
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const {
+        requireAuth,
+        getAuthSession,
+        getHolderCredentials,
+      } = window.VerifiedDocAuth;
+
+      const session = requireAuth("hero.html");
+      if (!session) return;
+
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function formatRelative(iso) {
+        if (!iso) return "";
+        const date = new Date(iso);
+        if (Number.isNaN(date.getTime())) return "";
+        const diffMs = Date.now() - date.getTime();
+        const mins = Math.floor(diffMs / 60000);
+        if (mins < 1) return "Just now";
+        if (mins < 60) return `${mins} min ago`;
+        const hours = Math.floor(mins / 60);
+        if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+        const days = Math.floor(hours / 24);
+        return `${days} day${days === 1 ? "" : "s"} ago`;
+      }
+
+      function statusBadge(status) {
+        const key = String(status || "").toUpperCase();
+        if (key === "ACTIVE" || key === "VERIFIED") {
+          return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800">Verified</span>`;
+        }
+        if (key === "PENDING") {
+          return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-800">Pending</span>`;
+        }
+        if (key === "EXPIRED") {
+          return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-slate-200 text-slate-700">Expired</span>`;
+        }
+        return `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-600">${escapeHtml(key || "Unknown")}</span>`;
+      }
+
+      function hydrateUser() {
+        const user = getAuthSession()?.user || {};
+        const name =
+          user.fullName ||
+          [user.firstName, user.lastName].filter(Boolean).join(" ") ||
+          user.email ||
+          "Credential Holder";
+        const firstName = user.firstName || name;
+        document.getElementById("user-name").textContent = name;
+        document.getElementById("user-avatar").textContent = (
+          user.firstName || name || "?"
+        )
+          .charAt(0)
+          .toUpperCase();
+        document.getElementById("welcome-title").textContent =
+          `Welcome back, ${firstName}`;
+      }
+
+      function renderList(items) {
+        const list = document.getElementById("credentials-list");
+        if (!items.length) {
+          list.innerHTML =
+            `<p class="text-xs text-slate-400 py-6 text-center">No credentials in your wallet yet.</p>`;
+          lucide.createIcons();
+          return;
+        }
+
+        list.innerHTML = items
+          .map((cred) => {
+            const org = cred.organization?.name || "Unknown issuer";
+            const when = formatRelative(cred.issuedAt || cred.updatedAt);
+            const status = cred.effectiveStatus || cred.status;
+            return `<div class="flex items-center justify-between p-3.5 rounded-lg hover:bg-slate-50 transition cursor-pointer">
+              <div class="flex items-center gap-3.5 min-w-0">
+                <div class="p-2.5 bg-slate-100 rounded-lg text-slate-600 shrink-0">
+                  <i data-lucide="award" class="w-5 h-5"></i>
+                </div>
+                <div class="min-w-0">
+                  <h3 class="text-xs font-bold text-slate-900 truncate">${escapeHtml(cred.title || "Untitled")}</h3>
+                  <div class="flex items-center gap-2 text-[11px] text-text-muted mt-0.5">
+                    <span class="truncate">${escapeHtml(org)}</span>
+                    ${when ? `<span>•</span><span>${escapeHtml(when)}</span>` : ""}
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 shrink-0">
+                ${statusBadge(status)}
+                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+              </div>
+            </div>`;
+          })
+          .join("");
+        lucide.createIcons();
+      }
+
+      function updateStats(items) {
+        const total = items.length;
+        let active = 0;
+        let pending = 0;
+        let expired = 0;
+        items.forEach((cred) => {
+          const key = String(cred.effectiveStatus || cred.status || "").toUpperCase();
+          if (key === "ACTIVE" || key === "VERIFIED") active += 1;
+          else if (key === "PENDING") pending += 1;
+          else if (key === "EXPIRED") expired += 1;
+        });
+        document.getElementById("stat-total").textContent = total;
+        document.getElementById("stat-active").textContent = active;
+        document.getElementById("stat-pending").textContent = pending;
+        document.getElementById("stat-expired").textContent = expired;
+      }
+
+      hydrateUser();
+
+      try {
+        const response = await getHolderCredentials({ limit: 50 });
+        const items = Array.isArray(response)
+          ? response
+          : response?.items || response?.credentials || response?.data || [];
+        updateStats(items);
+        renderList(items);
+      } catch (err) {
+        document.getElementById("credentials-list").innerHTML =
+          `<p class="text-xs text-red-500 py-6 text-center">${escapeHtml(err.message || "Could not load credentials.")}</p>`;
+      }
+    });
   </script>
 </body>
 </html>

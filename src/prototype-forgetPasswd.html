@@ -82,6 +82,8 @@
       <!-- RIGHT: reset method form -->
       <div class="w-full lg:w-1/2 flex flex-col px-6 sm:px-12 py-9 lg:py-12">
         <button
+          type="button"
+          onclick="window.history.back()"
           class="hidden lg:flex items-center gap-1 text-navy font-semibold text-sm self-start mb-8"
         >
           <svg
@@ -129,10 +131,21 @@
           <p
             class="text-slate-500 text-sm text-center mt-4 max-w-[340px] mx-auto leading-relaxed"
           >
-            We found the following information associated with your account
+            Enter the email associated with your account and we will send a one-time code.
           </p>
 
-          <div class="flex flex-col gap-4 mt-8">
+          <div class="mt-8">
+            <label for="reset-email" class="text-navy text-sm font-semibold">Email Address</label>
+            <input
+              type="email"
+              id="reset-email"
+              required
+              placeholder="you@example.com"
+              class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm text-navy mt-1.5 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+            />
+          </div>
+
+          <div class="flex flex-col gap-4 mt-6">
             <label
               class="flex items-center gap-3 text-sm text-slate-600 cursor-pointer"
             >
@@ -141,30 +154,36 @@
                 name="reset-method"
                 value="email"
                 class="w-4 h-4"
+                checked
               />
-              Email a link to Adenji*************om
+              Email a verification code
             </label>
             <label
-              class="flex items-center gap-3 text-sm text-slate-600 cursor-pointer"
+              class="flex items-center gap-3 text-sm text-slate-400 cursor-not-allowed"
             >
               <input
                 type="radio"
                 name="reset-method"
                 value="phone"
                 class="w-4 h-4"
-                checked
+                disabled
               />
-              send a code to a phone number that ends with 98
+              Send a code to phone (coming soon)
             </label>
           </div>
 
-          <button type="button" onclick="window.location.href='../password-create.html'"
-            class="bg-navy text-white font-semibold text-sm rounded-lg py-3.5 mt-8 hover:opacity-90 active:opacity-80 transition"
+          <p id="reset-error" class="hidden text-center text-xs text-red-500 mt-4"></p>
+
+          <button
+            type="button"
+            id="send-btn"
+            class="bg-navy text-white font-semibold text-sm rounded-lg py-3.5 mt-8 hover:opacity-90 active:opacity-80 transition disabled:opacity-60"
           >
             Send
           </button>
 
           <button
+            type="button"
             class="text-slate-500 text-sm text-center mt-4 hover:text-navy transition"
           >
             I cant access my account
@@ -184,14 +203,48 @@
       </div>
     </div>
 
+    <script src="../js/auth.js"></script>
     <script>
+      const { requestPasswordReset } = window.VerifiedDocAuth;
       const sendBtn = document.getElementById("send-btn");
-      sendBtn.addEventListener("click", () => {
-        const selected = document.querySelector(
-          'input[name="reset-method"]:checked',
-        );
-        console.log("Reset method chosen:", selected ? selected.value : null);
-        // Hook your send-reset-instructions API call here.
+      const emailInput = document.getElementById("reset-email");
+      const errorEl = document.getElementById("reset-error");
+
+      function setError(message) {
+        if (!message) {
+          errorEl.classList.add("hidden");
+          errorEl.textContent = "";
+          return;
+        }
+        errorEl.textContent = message;
+        errorEl.classList.remove("hidden");
+      }
+
+      sendBtn.addEventListener("click", async () => {
+        const email = emailInput.value.trim();
+        if (!email) {
+          setError("Please enter your email address.");
+          return;
+        }
+
+        setError("");
+        sendBtn.disabled = true;
+        sendBtn.textContent = "Sending...";
+
+        try {
+          const result = await requestPasswordReset(email);
+          const requestId = result?.requestId || result?.data?.requestId;
+          if (!requestId) {
+            throw new Error("Reset request started, but no requestId was returned.");
+          }
+          sessionStorage.setItem("vd_reset_requestId", requestId);
+          sessionStorage.setItem("vd_reset_email", email);
+          window.location.href = "prototype-OTP.html";
+        } catch (err) {
+          setError(err.message || "Could not send reset code. Please try again.");
+          sendBtn.disabled = false;
+          sendBtn.textContent = "Send";
+        }
       });
     </script>
   </body>

@@ -163,96 +163,66 @@
     <!-- Signup Form -->
     <form id="signup-form" class="max-w-3xl mx-auto space-y-5">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
-        
-        <!-- Company Name -->
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1.5">Company Name</label>
-          <div class="relative flex items-center">
-            <span class="absolute left-3.5 text-teal-700">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-              </svg>
-            </span>
-            <input type="text" placeholder="Enter Your Company Name" class="w-full text-xs pl-10 pr-4 py-3 bg-slate-50/50 border border-slate-200 rounded-md focus:outline-none focus:border-[#1e305e] text-slate-700 placeholder-slate-400">
-          </div>
-        </div>
 
-        <!-- Work Email -->
+        <!-- First Name -->
         <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1.5">Work Email</label>
-          <div class="relative flex items-center">
-            <span class="absolute left-3.5 text-teal-700">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-              </svg>
-            </span>
-            <input type="email" placeholder="Enter Your Work Email" class="w-full text-xs pl-10 pr-4 py-3 bg-slate-50/50 border border-slate-200 rounded-md focus:outline-none focus:border-[#1e305e] text-slate-700 placeholder-slate-400">
-          </div>
-        </div>
-
-        <!-- Industry -->
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1.5">Industry</label>
-          <div class="relative flex items-center">
-            <span class="absolute left-3.5 text-teal-700">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0V11m0 0h4m-4 0v4m0 0h4"></path>
-              </svg>
-            </span>
-            <select class="w-full text-xs pl-10 pr-10 py-3 bg-slate-50/50 border border-slate-200 rounded-md focus:outline-none focus:border-[#1e305e] text-slate-400 appearance-none cursor-pointer">
-              <option value="" disabled selected>Select Industry</option>
-              <option value="tech">Technology</option>
-              <option value="finance">Finance</option>
-              <option value="education">Education</option>
-            </select>
-            <span class="absolute right-3.5 text-slate-600 pointer-events-none">
-              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-              </svg>
-            </span>
-          </div>
-        </div>
-
-        <!-- Phone Number -->
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1.5">Phone Number</label>
-          <div class="relative flex items-center">
-            <span class="absolute left-3.5 text-teal-700">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-              </svg>
-            </span>
-            <input type="tel" placeholder="Enter Your Phone Number" class="w-full text-xs pl-10 pr-4 py-3 bg-slate-50/50 border border-slate-200 rounded-md focus:outline-none focus:border-[#1e305e] text-slate-700 placeholder-slate-400">
-          </div>
-        </div>
-
-        <!-- HR Contact Name -->
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1.5">Hr Contact Name</label>
+          <label for="first-name" class="block text-xs font-semibold text-slate-700 mb-1.5">First Name</label>
           <div class="relative flex items-center">
             <span class="absolute left-3.5 text-teal-700">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
               </svg>
             </span>
-            <input type="text" placeholder="Enter Full name" class="w-full text-xs pl-10 pr-4 py-3 bg-slate-50/50 border border-slate-200 rounded-md focus:outline-none focus:border-[#1e305e] text-slate-700 placeholder-slate-400">
+            <input id="first-name" name="firstName" type="text" required placeholder="Enter Your First Name" class="w-full text-xs pl-10 pr-4 py-3 bg-slate-50/50 border border-slate-200 rounded-md focus:outline-none focus:border-[#1e305e] text-slate-700 placeholder-slate-400">
+          </div>
+        </div>
+
+        <!-- Last Name -->
+        <div>
+          <label for="last-name" class="block text-xs font-semibold text-slate-700 mb-1.5">Last Name</label>
+          <div class="relative flex items-center">
+            <span class="absolute left-3.5 text-teal-700">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+              </svg>
+            </span>
+            <input id="last-name" name="lastName" type="text" required placeholder="Enter Your Last Name" class="w-full text-xs pl-10 pr-4 py-3 bg-slate-50/50 border border-slate-200 rounded-md focus:outline-none focus:border-[#1e305e] text-slate-700 placeholder-slate-400">
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label for="email" class="block text-xs font-semibold text-slate-700 mb-1.5">Email Address</label>
+          <div class="relative flex items-center">
+            <span class="absolute left-3.5 text-teal-700">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+            </span>
+            <input id="email" name="email" type="email" required placeholder="Enter Your Email" class="w-full text-xs pl-10 pr-4 py-3 bg-slate-50/50 border border-slate-200 rounded-md focus:outline-none focus:border-[#1e305e] text-slate-700 placeholder-slate-400">
           </div>
         </div>
 
         <!-- Password -->
         <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1.5">Password</label>
+          <label for="password" class="block text-xs font-semibold text-slate-700 mb-1.5">Password</label>
           <div class="relative flex items-center">
             <span class="absolute left-3.5 text-teal-700">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
               </svg>
             </span>
-            <input type="password" placeholder="Create a Strong Password" class="w-full text-xs pl-10 pr-4 py-3 bg-slate-50/50 border border-slate-200 rounded-md focus:outline-none focus:border-[#1e305e] text-slate-700 placeholder-slate-400">
+            <input id="password" name="password" type="password" required minlength="8" placeholder="Create a Strong Password" class="w-full text-xs pl-10 pr-4 py-3 bg-slate-50/50 border border-slate-200 rounded-md focus:outline-none focus:border-[#1e305e] text-slate-700 placeholder-slate-400">
           </div>
+          <p class="text-[10px] text-slate-400 mt-1.5">Min 8 characters with uppercase, lowercase, number, and special character</p>
         </div>
 
       </div>
+
+      <p id="form-error" class="hidden text-center text-xs font-semibold text-red-600"></p>
+      <p id="issuer-note" class="hidden text-center text-xs font-medium text-slate-500">
+        Issuing institutions cannot self-register. Select Credential Holder or Verifier, or contact support to apply as an issuer.
+      </p>
 
       <!-- Terms Checkbox -->
       <div class="flex items-center justify-center gap-2 pt-3 pb-2">
@@ -264,7 +234,7 @@
 
       <!-- Submit Button -->
       <div class="pt-2">
-        <button type="submit" class="w-full py-3.5 bg-[#1e305e] text-white text-sm font-semibold rounded hover:bg-[#162345] transition shadow-sm">
+        <button id="submit-btn" type="submit" class="w-full py-3.5 bg-[#1e305e] text-white text-sm font-semibold rounded hover:bg-[#162345] transition shadow-sm disabled:opacity-60 disabled:cursor-not-allowed">
           Create Account
         </button>
       </div>
@@ -272,15 +242,12 @@
     </form>
   </main>
 
+  <script src="./js/auth.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      let selectedRole = 'verifier'; // Default state
+      const { UI_ROLE_TO_API, registerAccount, saveAuthSession, redirectForRole } = window.VerifiedDocAuth;
 
-      const routes = {
-        holder: 'prototype-dashboard-creHolder.html',
-        verifier: 'dashboard-verifier.html',
-        issuer: 'dashboard-issuing-organization.html'
-      };
+      let selectedRole = 'holder';
 
       const roleTitles = {
         holder: 'Credential Holder',
@@ -292,13 +259,24 @@
       const roleTextEl = document.getElementById('selected-role-text');
       const formTitleEl = document.getElementById('dynamic-form-title');
       const form = document.getElementById('signup-form');
+      const submitBtn = document.getElementById('submit-btn');
+      const formError = document.getElementById('form-error');
+      const issuerNote = document.getElementById('issuer-note');
 
-      // Style configurations
       const activeCardClasses = ['border-2', 'border-[#1e305e]', 'shadow-sm'];
       const inactiveCardClasses = ['border', 'border-slate-200'];
-      
       const activeButtonClasses = ['bg-[#1e305e]', 'text-white', 'hover:bg-[#162345]', 'py-2.5'];
       const inactiveButtonClasses = ['border', 'border-slate-300', 'text-slate-600', 'hover:bg-slate-50', 'py-2'];
+
+      function setError(message) {
+        if (!message) {
+          formError.classList.add('hidden');
+          formError.textContent = '';
+          return;
+        }
+        formError.textContent = message;
+        formError.classList.remove('hidden');
+      }
 
       function setRole(role) {
         selectedRole = role;
@@ -308,49 +286,70 @@
           const button = card.querySelector('.btn-select');
 
           if (isSelected) {
-            // Apply active styles to Card
             card.classList.remove(...inactiveCardClasses);
             card.classList.add(...activeCardClasses);
-
-            // Apply active styles to Button
             button.classList.remove(...inactiveButtonClasses);
             button.classList.add(...activeButtonClasses);
             button.textContent = 'Selected';
           } else {
-            // Apply inactive styles to Card
             card.classList.remove(...activeCardClasses);
             card.classList.add(...inactiveCardClasses);
-
-            // Apply inactive styles to Button
             button.classList.remove(...activeButtonClasses);
             button.classList.add(...inactiveButtonClasses);
             button.textContent = 'Select';
           }
         });
 
-        // Update Labels dynamically
         if (roleTextEl) roleTextEl.textContent = `Selected: ${roleTitles[role]}`;
         if (formTitleEl) formTitleEl.textContent = `Create ${roleTitles[role]} Account`;
+
+        const isIssuer = role === 'issuer';
+        issuerNote.classList.toggle('hidden', !isIssuer);
+        submitBtn.disabled = isIssuer;
+        setError('');
       }
 
-      // Handle card clicks
       cards.forEach(card => {
-        card.addEventListener('click', () => {
-          setRole(card.dataset.role);
-        });
+        card.addEventListener('click', () => setRole(card.dataset.role));
       });
 
-      // Handle Form Submit & Routing
-      form.addEventListener('submit', (event) => {
+      form.addEventListener('submit', async (event) => {
         event.preventDefault();
-        
-        const targetUrl = routes[selectedRole];
-        if (targetUrl) {
-          window.location.href = targetUrl;
+        setError('');
+
+        if (!document.getElementById('terms').checked) {
+          setError('Please agree to the Terms of Service and Privacy Policy.');
+          return;
+        }
+
+        const apiRole = UI_ROLE_TO_API[selectedRole];
+        if (!apiRole) {
+          setError('Issuing institutions cannot self-register. Choose Credential Holder or Verifier.');
+          return;
+        }
+
+        const payload = {
+          firstName: document.getElementById('first-name').value.trim(),
+          lastName: document.getElementById('last-name').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          password: document.getElementById('password').value,
+          role: apiRole,
+        };
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Creating Account...';
+
+        try {
+          const session = await registerAccount(payload);
+          saveAuthSession(session);
+          redirectForRole(session.user.role);
+        } catch (err) {
+          setError(err.message || 'Registration failed. Please try again.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Create Account';
         }
       });
 
-      // Initialize default UI state
       setRole(selectedRole);
     });
   </script>

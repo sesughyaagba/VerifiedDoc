@@ -50,7 +50,7 @@
         </div>
         <nav class="flex flex-col gap-1">
           <a
-            href="#"
+            href="./prototype-dashboard-creHolder.html"
             class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-white/10 text-white text-sm font-medium"
           >
             <svg
@@ -71,7 +71,7 @@
             Dashboard
           </a>
           <a
-            href="#"
+            href="./prototype-credentials-creHolder.html"
             class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm hover:bg-white/5 hover:text-white transition"
           >
             <svg
@@ -130,7 +130,7 @@
             Upload Documents
           </a>
           <a
-            href="#"
+            href="./prototype-share-creHolder.html"
             class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm hover:bg-white/5 hover:text-white transition"
           >
             <svg
@@ -152,7 +152,7 @@
             Share Credential
           </a>
           <a
-            href="#"
+            href="./prototype-activity-creHolder.html"
             class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm hover:bg-white/5 hover:text-white transition"
           >
             <svg
@@ -171,7 +171,7 @@
             Activity Log
           </a>
           <a
-            href="#"
+            href="./prototype-settings-creHolder.html"
             class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm hover:bg-white/5 hover:text-white transition"
           >
             <svg
@@ -198,10 +198,11 @@
       <main class="flex-1 px-10 py-8 overflow-y-auto">
         <div class="flex items-start justify-between mb-8">
           <div>
-            <h1 class="text-navy font-bold text-2xl">Welcome back, Adenike</h1>
+            <h1 id="welcome-title" class="text-navy font-bold text-2xl">Welcome back</h1>
             <p class="text-slate-500 text-sm mt-1">
               Here's what's happening with your credentials
             </p>
+            <p id="dashboard-error" class="hidden text-red-600 text-xs font-medium mt-2"></p>
           </div>
           <button
             class="flex items-center gap-2 bg-sidebar text-white text-sm font-medium px-4 py-2.5 rounded-lg hover:opacity-90 transition"
@@ -216,22 +217,22 @@
             <p class="text-[11px] tracking-wide text-slate-400 uppercase">
               Total Credentials
             </p>
-            <p class="text-navy font-bold text-3xl mt-2">6</p>
-            <p class="text-emerald-600 text-xs mt-1">+ 1 this month</p>
+            <p id="stat-total" class="text-navy font-bold text-3xl mt-2">—</p>
+            <p id="stat-total-sub" class="text-emerald-600 text-xs mt-1">Loading...</p>
           </div>
           <div class="border border-slate-200 rounded-xl p-5">
             <p class="text-[11px] tracking-wide text-slate-400 uppercase">
               Shared This Month
             </p>
-            <p class="text-navy font-bold text-3xl mt-2">3</p>
-            <p class="text-emerald-600 text-xs mt-1">Last shared 2 days ago</p>
+            <p id="stat-shared" class="text-navy font-bold text-3xl mt-2">—</p>
+            <p id="stat-shared-sub" class="text-emerald-600 text-xs mt-1">Loading...</p>
           </div>
           <div class="border border-slate-200 rounded-xl p-5">
             <p class="text-[11px] tracking-wide text-slate-400 uppercase">
               Pending Verifications
             </p>
-            <p class="text-gold font-bold text-3xl mt-2">1</p>
-            <p class="text-gold text-xs mt-1">Awaiting verifier action</p>
+            <p id="stat-pending" class="text-gold font-bold text-3xl mt-2">—</p>
+            <p id="stat-pending-sub" class="text-gold text-xs mt-1">Loading...</p>
           </div>
         </div>
 
@@ -243,75 +244,13 @@
             >
               <p class="text-navy font-semibold">My Credentials</p>
               <a
-                href="#"
+                href="./prototype-credentials-creHolder.html"
                 class="text-sidebar text-sm font-medium hover:underline"
                 >View all</a
               >
             </div>
-            <div class="divide-y divide-slate-100">
-              <div class="flex items-center justify-between px-6 py-4">
-                <div class="flex items-center gap-3">
-                  <div
-                    class="w-9 h-9 rounded-lg bg-sidebar flex-shrink-0"
-                  ></div>
-                  <div>
-                    <p class="text-navy text-sm font-medium">
-                      UI/UX Design Certificate
-                    </p>
-                    <p class="text-slate-400 text-xs mt-0.5">
-                      Issued by Techcrush . 12 Jun 2026
-                    </p>
-                  </div>
-                </div>
-                <span
-                  class="flex items-center gap-1.5 bg-emerald-100 text-emerald-700 text-xs font-medium px-2.5 py-1 rounded-full"
-                >
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                  Verified
-                </span>
-              </div>
-              <div class="flex items-center justify-between px-6 py-4">
-                <div class="flex items-center gap-3">
-                  <div
-                    class="w-9 h-9 rounded-lg bg-sidebar flex-shrink-0"
-                  ></div>
-                  <div>
-                    <p class="text-navy text-sm font-medium">
-                      Data Analysis Certification
-                    </p>
-                    <p class="text-slate-400 text-xs mt-0.5">
-                      Issued by Brimatel . 03 May 2026
-                    </p>
-                  </div>
-                </div>
-                <span
-                  class="flex items-center gap-1.5 bg-amber-100 text-amber-700 text-xs font-medium px-2.5 py-1 rounded-full"
-                >
-                  <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                  Pending
-                </span>
-              </div>
-              <div class="flex items-center justify-between px-6 py-4">
-                <div class="flex items-center gap-3">
-                  <div
-                    class="w-9 h-9 rounded-lg bg-sidebar flex-shrink-0"
-                  ></div>
-                  <div>
-                    <p class="text-navy text-sm font-medium">
-                      Professional Training Cert.
-                    </p>
-                    <p class="text-slate-400 text-xs mt-0.5">
-                      Issued by Techcrush . 18 Feb 2026
-                    </p>
-                  </div>
-                </div>
-                <span
-                  class="flex items-center gap-1.5 bg-emerald-100 text-emerald-700 text-xs font-medium px-2.5 py-1 rounded-full"
-                >
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                  Verified
-                </span>
-              </div>
+            <div id="credentials-list" class="divide-y divide-slate-100">
+              <p class="px-6 py-8 text-slate-400 text-sm">Loading credentials...</p>
             </div>
           </div>
 
@@ -319,40 +258,8 @@
             <div class="px-6 py-4 border-b border-slate-100">
               <p class="text-navy font-semibold">Recent Activity</p>
             </div>
-            <div class="divide-y divide-slate-100">
-              <div class="px-6 py-4">
-                <div class="flex gap-2">
-                  <span
-                    class="w-1.5 h-1.5 rounded-full bg-sidebar mt-1.5 flex-shrink-0"
-                  ></span>
-                  <p class="text-navy text-sm leading-snug">
-                    You shared UI/UX Design Certificate with Brimatel HR
-                  </p>
-                </div>
-                <p class="text-slate-400 text-xs mt-1 ml-3.5">2 days ago</p>
-              </div>
-              <div class="px-6 py-4">
-                <div class="flex gap-2">
-                  <span
-                    class="w-1.5 h-1.5 rounded-full bg-sidebar mt-1.5 flex-shrink-0"
-                  ></span>
-                  <p class="text-navy text-sm leading-snug">
-                    Data Analysis Certification Submitted for verification
-                  </p>
-                </div>
-                <p class="text-slate-400 text-xs mt-1 ml-3.5">5 days ago</p>
-              </div>
-              <div class="px-6 py-4">
-                <div class="flex gap-2">
-                  <span
-                    class="w-1.5 h-1.5 rounded-full bg-sidebar mt-1.5 flex-shrink-0"
-                  ></span>
-                  <p class="text-navy text-sm leading-snug">
-                    Techcrush issued you a new Credential
-                  </p>
-                </div>
-                <p class="text-slate-400 text-xs mt-1 ml-3.5">1 week ago</p>
-              </div>
+            <div id="activity-list" class="divide-y divide-slate-100">
+              <p class="px-6 py-8 text-slate-400 text-sm">Loading activity...</p>
             </div>
           </div>
         </div>
@@ -393,7 +300,8 @@
 
       <!-- Content -->
       <div class="flex-1 px-5 pt-5 pb-24 overflow-y-auto">
-        <h1 class="text-navy font-bold text-xl">Hello Mrs Adenike</h1>
+        <h1 id="welcome-title-m" class="text-navy font-bold text-xl">Hello</h1>
+        <p id="dashboard-error-m" class="hidden text-red-600 text-xs font-medium mt-2"></p>
 
         <p class="text-navy font-semibold text-sm mt-5 mb-3">Quick Actions</p>
         <div class="grid grid-cols-3 gap-2.5">
@@ -458,111 +366,34 @@
           </button>
         </div>
 
-        <div class="flex items-center justify-between mt-6 mb-3">
-          <p class="text-navy font-semibold text-sm">Recent Creditials</p>
-          <a href="#" class="text-gold2 text-xs font-medium underline"
-            >View All</a
-          >
-        </div>
-        <div class="flex gap-3 overflow-x-auto no-scrollbar -mx-5 px-5 pb-1">
-          <div class="bg-slate-100 rounded-xl p-4 min-w-[190px] flex-shrink-0">
-            <div class="flex items-center gap-2">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="text-navy"
-              >
-                <path d="M22 10L12 5 2 10l10 5 10-5z"></path>
-                <path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"></path>
-              </svg>
-              <p class="text-navy text-sm font-medium">University Degree</p>
-              <span
-                class="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0"
-              ></span>
-            </div>
-            <p class="text-slate-400 text-xs mt-2">Issued: 2024</p>
+        <div class="grid grid-cols-3 gap-2 mt-5">
+          <div class="border border-slate-200 rounded-xl p-3 text-center">
+            <p class="text-[10px] tracking-wide text-slate-400 uppercase">Total</p>
+            <p id="stat-total-m" class="text-navy font-bold text-xl mt-1">—</p>
           </div>
-          <div class="bg-slate-100 rounded-xl p-4 min-w-[190px] flex-shrink-0">
-            <div class="flex items-center gap-2">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="text-navy"
-              >
-                <rect x="2" y="5" width="20" height="14" rx="2"></rect>
-                <circle cx="8" cy="12" r="2"></circle>
-                <line x1="13" y1="10" x2="19" y2="10"></line>
-                <line x1="13" y1="14" x2="19" y2="14"></line>
-              </svg>
-              <p class="text-navy text-sm font-medium">National ID Card</p>
-            </div>
-            <p class="text-slate-400 text-xs mt-2">Issued: 2022</p>
+          <div class="border border-slate-200 rounded-xl p-3 text-center">
+            <p class="text-[10px] tracking-wide text-slate-400 uppercase">Shared</p>
+            <p id="stat-shared-m" class="text-navy font-bold text-xl mt-1">—</p>
+          </div>
+          <div class="border border-slate-200 rounded-xl p-3 text-center">
+            <p class="text-[10px] tracking-wide text-slate-400 uppercase">Pending</p>
+            <p id="stat-pending-m" class="text-gold font-bold text-xl mt-1">—</p>
           </div>
         </div>
 
+        <div class="flex items-center justify-between mt-6 mb-3">
+          <p class="text-navy font-semibold text-sm">Recent Credentials</p>
+          <a href="./prototype-credentials-creHolder.html" class="text-gold2 text-xs font-medium underline"
+            >View All</a
+          >
+        </div>
+        <div id="credentials-list-m" class="flex gap-3 overflow-x-auto no-scrollbar -mx-5 px-5 pb-1">
+          <p class="text-slate-400 text-sm py-4">Loading credentials...</p>
+        </div>
+
         <p class="text-navy font-semibold text-sm mt-6 mb-3">Recent Activity</p>
-        <div class="flex flex-col gap-2.5">
-          <div
-            class="flex items-center justify-between bg-slate-100 rounded-xl px-4 py-3.5"
-          >
-            <div class="flex items-center gap-3">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="text-navy flex-shrink-0"
-              >
-                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
-                <polyline points="17 8 12 3 7 8"></polyline>
-                <line x1="12" y1="3" x2="12" y2="15"></line>
-              </svg>
-              <p class="text-navy text-sm font-medium">
-                Shared Degree with Verifier
-              </p>
-            </div>
-            <p class="text-slate-400 text-xs flex-shrink-0">10:43 am</p>
-          </div>
-          <div
-            class="flex items-center justify-between bg-slate-100 rounded-xl px-4 py-3.5"
-          >
-            <div class="flex items-center gap-3">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="text-navy flex-shrink-0"
-              >
-                <path d="M12 2L4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5z"></path>
-                <polyline points="9 12 11 14 15 10"></polyline>
-              </svg>
-              <p class="text-navy text-sm font-medium">
-                Verification Request Verified
-              </p>
-            </div>
-            <p class="text-slate-400 text-xs flex-shrink-0">Yesterday</p>
-          </div>
+        <div id="activity-list-m" class="flex flex-col gap-2.5">
+          <p class="text-slate-400 text-sm py-2">Loading activity...</p>
         </div>
       </div>
 
@@ -638,5 +469,231 @@
         </button>
       </nav>
     </div>
+
+    <script src="../js/auth.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const {
+          requireAuth,
+          getHolderDashboard,
+          clearAuthSession,
+        } = window.VerifiedDocAuth;
+
+        const session = requireAuth("../hero.html");
+        if (!session) return;
+
+        function escapeHtml(value) {
+          return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+
+        function formatDate(iso) {
+          if (!iso) return "";
+          const date = new Date(iso);
+          if (Number.isNaN(date.getTime())) return "";
+          return date.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          });
+        }
+
+        function formatRelative(iso) {
+          if (!iso) return "";
+          const date = new Date(iso);
+          if (Number.isNaN(date.getTime())) return "";
+          const diffMs = Date.now() - date.getTime();
+          const mins = Math.floor(diffMs / 60000);
+          if (mins < 1) return "Just now";
+          if (mins < 60) return `${mins} min ago`;
+          const hours = Math.floor(mins / 60);
+          if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+          const days = Math.floor(hours / 24);
+          if (days < 7) return `${days} day${days === 1 ? "" : "s"} ago`;
+          const weeks = Math.floor(days / 7);
+          if (weeks < 5) return `${weeks} week${weeks === 1 ? "" : "s"} ago`;
+          return formatDate(iso);
+        }
+
+        function statusBadge(status) {
+          const key = String(status || "").toUpperCase();
+          const map = {
+            ACTIVE: {
+              label: "Verified",
+              classes: "bg-emerald-100 text-emerald-700",
+              dot: "bg-emerald-500",
+            },
+            PENDING: {
+              label: "Pending",
+              classes: "bg-amber-100 text-amber-700",
+              dot: "bg-amber-500",
+            },
+            EXPIRED: {
+              label: "Expired",
+              classes: "bg-slate-100 text-slate-600",
+              dot: "bg-slate-400",
+            },
+            REVOKED: {
+              label: "Revoked",
+              classes: "bg-red-100 text-red-700",
+              dot: "bg-red-500",
+            },
+          };
+          const style = map[key] || {
+            label: key || "Unknown",
+            classes: "bg-slate-100 text-slate-600",
+            dot: "bg-slate-400",
+          };
+          return `<span class="flex items-center gap-1.5 ${style.classes} text-xs font-medium px-2.5 py-1 rounded-full">
+            <span class="w-1.5 h-1.5 rounded-full ${style.dot}"></span>
+            ${escapeHtml(style.label)}
+          </span>`;
+        }
+
+        function setText(id, value) {
+          const el = document.getElementById(id);
+          if (el) el.textContent = value;
+        }
+
+        function showError(message) {
+          ["dashboard-error", "dashboard-error-m"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.textContent = message;
+            el.classList.toggle("hidden", !message);
+          });
+        }
+
+        function renderStats(stats = {}) {
+          setText("stat-total", stats.total ?? 0);
+          setText("stat-shared", stats.sharedThisMonth ?? 0);
+          setText("stat-pending", stats.pendingVerifications ?? 0);
+          setText("stat-total-m", stats.total ?? 0);
+          setText("stat-shared-m", stats.sharedThisMonth ?? 0);
+          setText("stat-pending-m", stats.pendingVerifications ?? 0);
+
+          setText(
+            "stat-total-sub",
+            `${stats.active ?? 0} active · ${stats.expired ?? 0} expired`,
+          );
+          setText(
+            "stat-shared-sub",
+            `${stats.sharedThisMonth ?? 0} share${stats.sharedThisMonth === 1 ? "" : "s"} this month`,
+          );
+          setText(
+            "stat-pending-sub",
+            (stats.pendingVerifications ?? 0) > 0
+              ? "Awaiting verifier action"
+              : "No pending requests",
+          );
+        }
+
+        function renderCredentials(credentials = []) {
+          const list = document.getElementById("credentials-list");
+          const listM = document.getElementById("credentials-list-m");
+
+          if (!credentials.length) {
+            list.innerHTML =
+              '<p class="px-6 py-8 text-slate-400 text-sm">No credentials yet.</p>';
+            listM.innerHTML =
+              '<p class="text-slate-400 text-sm py-4">No credentials yet.</p>';
+            return;
+          }
+
+          list.innerHTML = credentials
+            .map((cred) => {
+              const org = cred.organization?.name || "Unknown issuer";
+              const issued = formatDate(cred.issuedAt);
+              return `<div class="flex items-center justify-between px-6 py-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-sidebar flex-shrink-0"></div>
+                  <div>
+                    <p class="text-navy text-sm font-medium">${escapeHtml(cred.title || "Untitled credential")}</p>
+                    <p class="text-slate-400 text-xs mt-0.5">Issued by ${escapeHtml(org)}${issued ? ` · ${issued}` : ""}</p>
+                  </div>
+                </div>
+                ${statusBadge(cred.effectiveStatus || cred.status)}
+              </div>`;
+            })
+            .join("");
+
+          listM.innerHTML = credentials
+            .map((cred) => {
+              const year = cred.issuedAt
+                ? new Date(cred.issuedAt).getFullYear()
+                : "";
+              const isActive =
+                String(cred.effectiveStatus || cred.status).toUpperCase() ===
+                "ACTIVE";
+              return `<div class="bg-slate-100 rounded-xl p-4 min-w-[190px] flex-shrink-0">
+                <div class="flex items-center gap-2">
+                  <p class="text-navy text-sm font-medium truncate">${escapeHtml(cred.title || "Untitled")}</p>
+                  ${isActive ? '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0"></span>' : ""}
+                </div>
+                <p class="text-slate-400 text-xs mt-2">Issued: ${year || "—"}</p>
+              </div>`;
+            })
+            .join("");
+        }
+
+        function renderActivity(activity = []) {
+          const list = document.getElementById("activity-list");
+          const listM = document.getElementById("activity-list-m");
+
+          if (!activity.length) {
+            list.innerHTML =
+              '<p class="px-6 py-8 text-slate-400 text-sm">No recent activity.</p>';
+            listM.innerHTML =
+              '<p class="text-slate-400 text-sm py-2">No recent activity.</p>';
+            return;
+          }
+
+          list.innerHTML = activity
+            .map(
+              (item) => `<div class="px-6 py-4">
+                <div class="flex gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-sidebar mt-1.5 flex-shrink-0"></span>
+                  <p class="text-navy text-sm leading-snug">${escapeHtml(item.title || item.type || "Activity")}</p>
+                </div>
+                <p class="text-slate-400 text-xs mt-1 ml-3.5">${escapeHtml(formatRelative(item.createdAt))}</p>
+              </div>`,
+            )
+            .join("");
+
+          listM.innerHTML = activity
+            .map(
+              (item) => `<div class="flex items-center justify-between bg-slate-100 rounded-xl px-4 py-3.5">
+                <div class="flex items-center gap-3 min-w-0">
+                  <span class="w-1.5 h-1.5 rounded-full bg-sidebar flex-shrink-0"></span>
+                  <p class="text-navy text-sm font-medium truncate">${escapeHtml(item.title || item.type || "Activity")}</p>
+                </div>
+                <p class="text-slate-400 text-xs flex-shrink-0 ml-3">${escapeHtml(formatRelative(item.createdAt))}</p>
+              </div>`,
+            )
+            .join("");
+        }
+
+        try {
+          const data = await getHolderDashboard();
+          const holder = data.holder || session.user || {};
+          const firstName = holder.firstName || holder.fullName || "there";
+
+          setText("welcome-title", `Welcome back, ${firstName}`);
+          setText("welcome-title-m", `Hello ${firstName}`);
+          renderStats(data.stats || {});
+          renderCredentials(data.recentCredentials || []);
+          renderActivity(data.recentActivity || []);
+        } catch (err) {
+          showError(err.message || "Failed to load dashboard.");
+          if (err.status === 401) {
+            clearAuthSession();
+            window.location.href = "../hero.html";
+          }
+        }
+      });
+    </script>
   </body>
 </html>

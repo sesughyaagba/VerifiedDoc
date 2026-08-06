@@ -45,209 +45,196 @@
       <img src="./Assets/logo.svg" alt="Logo">
     </div>
 
-    <!-- Navigation -->
     <nav class="flex-1 px-3 py-4 space-y-1 text-xs font-medium" id="sidebar-nav">
-      <!-- Active Item -->
-      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-md bg-[#3b4e7a] text-white transition-colors">
+      <a href="dashboard-issuing-organization.html" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-md bg-[#3b4e7a] text-white transition-colors">
         <span class="icon-indicator w-4 h-4 rounded-sm bg-amber-400/80 inline-block"></span>
         <span class="font-semibold">Dashboard</span>
       </a>
-
-      <!-- Inactive Items -->
-      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
+      <a href="issuer-issue-credential.html" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
         <span class="icon-indicator w-4 h-4 rounded-sm bg-slate-500/30 inline-block"></span>
-        <span>Issued Credentials</span>
+        <span>Issue Credential</span>
       </a>
-
       <a href="institution-portal.html" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
         <span class="icon-indicator w-4 h-4 rounded-sm bg-slate-500/30 inline-block"></span>
         <span>Institutional Portal</span>
       </a>
-
-      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
+      <a href="issuer-verification-requests.html" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
         <span class="icon-indicator w-4 h-4 rounded-sm bg-slate-500/30 inline-block"></span>
         <span>Verification Requests</span>
       </a>
-
-      <a href="#" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
+      <a href="src/prototype-settings-creHolder.html" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors">
         <span class="icon-indicator w-4 h-4 rounded-sm bg-slate-500/30 inline-block"></span>
-        <span>Organization Profile</span>
+        <span>Account Settings</span>
       </a>
     </nav>
   </aside>
 
-  <!-- MAIN CONTENT AREA -->
   <main class="flex-1 p-8 max-w-6xl mx-auto space-y-5">
-    
-    <!-- Top Header -->
     <div class="flex items-center justify-between mb-2">
       <div>
-        <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Welcome back, Brimatel Ltd</h1>
+        <h1 id="welcome-title" class="text-2xl font-bold text-slate-900 tracking-tight">Welcome back</h1>
         <p class="text-xs text-slate-400 mt-1">Here's an overview of your organization's credential activity</p>
+        <p id="dash-error" class="hidden text-red-600 text-xs font-medium mt-2"></p>
       </div>
-      <button class="bg-[#19284d] hover:bg-[#111c38] text-white text-xs font-medium px-4 py-2.5 rounded-md transition-colors shadow-sm">
+      <a href="issuer-issue-credential.html" class="bg-[#19284d] hover:bg-[#111c38] text-white text-xs font-medium px-4 py-2.5 rounded-md transition-colors shadow-sm">
         + Issue a Credential
-      </button>
+      </a>
     </div>
 
-    <!-- STAT CARD 1 -->
     <div class="bg-white rounded-xl border border-slate-200/80 p-5 shadow-xs">
       <h3 class="text-[11px] font-semibold tracking-wider text-slate-400 uppercase">Total Credentials Issued</h3>
-      <p class="text-3xl font-bold text-[#19284d] mt-1">142</p>
-      <p class="text-xs text-emerald-600 font-medium mt-1">+ 8 this month</p>
+      <p id="stat-total" class="text-3xl font-bold text-[#19284d] mt-1">—</p>
+      <p id="stat-total-sub" class="text-xs text-emerald-600 font-medium mt-1">Loading...</p>
     </div>
 
-    <!-- STAT CARD 2 -->
     <div class="bg-white rounded-xl border border-slate-200/80 p-5 shadow-xs">
       <h3 class="text-[11px] font-semibold tracking-wider text-slate-400 uppercase">Active Recipients</h3>
-      <p class="text-3xl font-bold text-[#19284d] mt-1">96</p>
-      <p class="text-xs text-emerald-700/80 font-medium mt-1">Across 5 programs</p>
+      <p id="stat-recipients" class="text-3xl font-bold text-[#19284d] mt-1">—</p>
+      <p class="text-xs text-emerald-700/80 font-medium mt-1">Active holders linked to your org</p>
     </div>
 
-    <!-- STAT CARD 3 -->
     <div class="bg-white rounded-xl border border-slate-200/80 p-5 shadow-xs">
       <h3 class="text-[11px] font-semibold tracking-wider text-slate-400 uppercase">Pending Verification Requests</h3>
-      <p class="text-3xl font-bold text-[#19284d] mt-1">4</p>
+      <p id="stat-pending" class="text-3xl font-bold text-[#19284d] mt-1">—</p>
       <p class="text-xs text-amber-500 font-medium mt-1">Awaiting your response</p>
     </div>
 
-    <!-- RECENTLY ISSUED SECTION -->
     <div class="bg-white rounded-xl border border-slate-200/80 shadow-xs overflow-hidden">
       <div class="p-4 px-5 flex justify-between items-center border-b border-slate-100">
         <h2 class="text-sm font-bold text-slate-800">Recently Issued</h2>
-        <a href="#" class="text-xs text-slate-600 hover:text-slate-900 font-medium">View all</a>
+        <a href="issuer-issue-credential.html" class="text-xs text-slate-600 hover:text-slate-900 font-medium">Issue new</a>
       </div>
-
-      <div class="divide-y divide-slate-100">
-        <!-- Item 1 -->
-        <div class="p-4 px-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
-          <div class="flex items-center gap-4">
-            <div class="w-9 h-9 rounded-md bg-[#19284d] flex shrink-0"></div>
-            <div>
-              <p class="text-xs font-bold text-slate-800">Data Analysis Certification</p>
-              <p class="text-[11px] text-slate-400 mt-0.5">Issued to Juliana Ene Ogli . 03 May 2026</p>
-            </div>
-          </div>
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-emerald-100/70 text-emerald-700">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Active
-          </span>
-        </div>
-
-        <!-- Item 2 -->
-        <div class="p-4 px-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
-          <div class="flex items-center gap-4">
-            <div class="w-9 h-9 rounded-md bg-[#19284d] flex shrink-0"></div>
-            <div>
-              <p class="text-xs font-bold text-slate-800">Professional Training Cert.</p>
-              <p class="text-[11px] text-slate-400 mt-0.5">Issued to Ubong . 18 Feb 2026</p>
-            </div>
-          </div>
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-emerald-100/70 text-emerald-700">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Active
-          </span>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="p-4 px-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
-          <div class="flex items-center gap-4">
-            <div class="w-9 h-9 rounded-md bg-[#19284d] flex shrink-0"></div>
-            <div>
-              <p class="text-xs font-bold text-slate-800">Field Safety Certificate</p>
-              <p class="text-[11px] text-slate-400 mt-0.5">Issued to Genesis Adegoke . 30 Jun 2026</p>
-            </div>
-          </div>
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-rose-100/80 text-rose-700">
-            <span class="w-1.5 h-1.5 rounded-full bg-rose-600"></span> Revoked
-          </span>
-        </div>
+      <div id="recent-credentials" class="divide-y divide-slate-100">
+        <p class="p-5 text-slate-400 text-sm">Loading...</p>
       </div>
     </div>
 
-    <!-- VERIFICATION REQUESTS SECTION -->
     <div class="bg-white rounded-xl border border-slate-200/80 shadow-xs overflow-hidden">
-      <div class="p-4 px-5 border-b border-slate-100">
+      <div class="p-4 px-5 border-b border-slate-100 flex justify-between items-center">
         <h2 class="text-sm font-bold text-slate-800">Verification Requests</h2>
+        <a href="issuer-verification-requests.html" class="text-xs text-slate-600 hover:text-slate-900 font-medium">View all</a>
       </div>
-
-      <div class="divide-y divide-slate-100">
-        <!-- Request 1 -->
-        <div class="p-4 px-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
-          <div>
-            <p class="text-xs text-slate-700">
-              <span class="font-bold text-slate-900">Brimatel HR</span> requests verification of Data Analysis Cert.
-            </p>
-            <p class="text-[11px] text-slate-400 mt-0.5">2 hours ago</p>
-          </div>
-          <div class="flex items-center gap-2">
-            <button onclick="handleAction('Approved')" class="px-3 py-1 rounded text-[11px] font-medium bg-emerald-100/70 text-emerald-800 hover:bg-emerald-200 transition-colors">
-              Approve
-            </button>
-            <button onclick="handleAction('Denied')" class="px-3 py-1 rounded text-[11px] font-medium bg-rose-100/70 text-rose-700 hover:bg-rose-200 transition-colors">
-              Deny
-            </button>
-          </div>
-        </div>
-
-        <!-- Request 2 -->
-        <div class="p-4 px-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
-          <div>
-            <p class="text-xs text-slate-700">
-              <span class="font-bold text-slate-900">Lumora Solutions</span> requests verification of Training Cert.
-            </p>
-            <p class="text-[11px] text-slate-400 mt-0.5">1 day ago</p>
-          </div>
-          <div class="flex items-center gap-2">
-            <button onclick="handleAction('Approved')" class="px-3 py-1 rounded text-[11px] font-medium bg-emerald-100/70 text-emerald-800 hover:bg-emerald-200 transition-colors">
-              Approve
-            </button>
-            <button onclick="handleAction('Denied')" class="px-3 py-1 rounded text-[11px] font-medium bg-rose-100/70 text-rose-700 hover:bg-rose-200 transition-colors">
-              Deny
-            </button>
-          </div>
-        </div>
+      <div id="recent-requests" class="divide-y divide-slate-100">
+        <p class="p-5 text-slate-400 text-sm">Loading...</p>
       </div>
     </div>
-
   </main>
 
-  <!-- Interactive JavaScript logic -->
+  <script src="./js/auth.js"></script>
   <script>
-    function handleAction(status) {
-      alert(`Request marked as: ${status}`);
-    }
+    document.addEventListener("DOMContentLoaded", async () => {
+      const {
+        requireAuth,
+        getAuthSession,
+        getOrganizationId,
+        getOrganization,
+        getOrganizationDashboard,
+        reviewOrganizationVerificationRequest,
+        clearAuthSession,
+      } = window.VerifiedDocAuth;
 
-    // Sidebar highlight and navigation control
-    document.querySelectorAll('#sidebar-nav .nav-item').forEach(item => {
-      item.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
+      if (!requireAuth("hero.html")) return;
 
-        // Prevent default page jumps for unlinked items (`#`)
-        if (!href || href === '#') {
-          e.preventDefault();
-        }
+      const errorEl = document.getElementById("dash-error");
+      const orgId = getOrganizationId();
+      if (!orgId) {
+        errorEl.textContent = "No organization on this session. Log in with an org member account, or apply via Institutional Portal.";
+        errorEl.classList.remove("hidden");
+        return;
+      }
 
-        // Reset all navigation items to inactive styling
-        document.querySelectorAll('#sidebar-nav .nav-item').forEach(nav => {
-          nav.className = 'nav-item flex items-center gap-3 px-3 py-2.5 rounded-md text-slate-300 hover:bg-slate-700/30 transition-colors';
-          const title = nav.querySelector('span:not(.icon-indicator)');
-          if (title) title.classList.remove('font-semibold');
+      function escapeHtml(v) {
+        return String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+      }
+      function formatDate(iso) {
+        if (!iso) return "";
+        return new Date(iso).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+      }
+      function formatRelative(iso) {
+        if (!iso) return "";
+        const mins = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
+        if (mins < 60) return `${Math.max(mins, 1)} min ago`;
+        const hours = Math.floor(mins / 60);
+        if (hours < 24) return `${hours}h ago`;
+        return `${Math.floor(hours / 24)}d ago`;
+      }
+      function statusBadge(status) {
+        const key = String(status || "").toUpperCase();
+        if (key === "ACTIVE") return '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-emerald-100/70 text-emerald-700"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Active</span>';
+        if (key === "REVOKED") return '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-rose-100/80 text-rose-700"><span class="w-1.5 h-1.5 rounded-full bg-rose-600"></span> Revoked</span>';
+        return `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-slate-100 text-slate-600">${escapeHtml(status || "Unknown")}</span>`;
+      }
 
-          const icon = nav.querySelector('.icon-indicator');
-          if (icon) {
-            icon.className = 'icon-indicator w-4 h-4 rounded-sm bg-slate-500/30 inline-block';
-          }
+      try {
+        const [org, data] = await Promise.all([
+          getOrganization(orgId).catch(() => null),
+          getOrganizationDashboard(orgId),
+        ]);
+        const orgName = org?.name || getAuthSession()?.organization?.name || "Organization";
+        document.getElementById("welcome-title").textContent = `Welcome back, ${orgName}`;
+
+        const stats = data.stats || {};
+        document.getElementById("stat-total").textContent = stats.totalIssued ?? 0;
+        document.getElementById("stat-total-sub").textContent = `+ ${stats.issuedThisMonth ?? 0} this month`;
+        document.getElementById("stat-recipients").textContent = stats.activeRecipients ?? 0;
+        document.getElementById("stat-pending").textContent = stats.pendingVerificationRequests ?? 0;
+
+        const creds = data.recentCredentials || [];
+        document.getElementById("recent-credentials").innerHTML = creds.length
+          ? creds.map((c) => `<div class="p-4 px-5 flex items-center justify-between">
+              <div class="flex items-center gap-4">
+                <div class="w-9 h-9 rounded-md bg-[#19284d] flex shrink-0"></div>
+                <div>
+                  <p class="text-xs font-bold text-slate-800">${escapeHtml(c.title || "Credential")}</p>
+                  <p class="text-[11px] text-slate-400 mt-0.5">${escapeHtml(c.credentialType || "")} · ${escapeHtml(formatDate(c.issuedAt))}</p>
+                </div>
+              </div>
+              ${statusBadge(c.effectiveStatus || c.status)}
+            </div>`).join("")
+          : '<p class="p-5 text-slate-400 text-sm">No credentials issued yet.</p>';
+
+        const requests = data.recentVerificationRequests || [];
+        document.getElementById("recent-requests").innerHTML = requests.length
+          ? requests.map((item) => {
+              const pending = String(item.status).toUpperCase() === "PENDING";
+              const requester = item.requestedBy?.fullName || item.requestedBy?.firstName || "Requester";
+              const title = item.credential?.title || "Credential";
+              return `<div class="p-4 px-5 flex items-center justify-between gap-3">
+                <div>
+                  <p class="text-xs text-slate-700"><span class="font-bold text-slate-900">${escapeHtml(requester)}</span> requests verification of ${escapeHtml(title)}</p>
+                  <p class="text-[11px] text-slate-400 mt-0.5">${escapeHtml(formatRelative(item.createdAt))}</p>
+                </div>
+                ${pending ? `<div class="flex items-center gap-2">
+                  <button data-id="${escapeHtml(item.id)}" data-decision="APPROVE" class="review-btn px-3 py-1 rounded text-[11px] font-medium bg-emerald-100/70 text-emerald-800">Approve</button>
+                  <button data-id="${escapeHtml(item.id)}" data-decision="REJECT" class="review-btn px-3 py-1 rounded text-[11px] font-medium bg-rose-100/70 text-rose-700">Deny</button>
+                </div>` : `<span class="text-[11px] text-slate-500">${escapeHtml(item.status)}</span>`}
+              </div>`;
+            }).join("")
+          : '<p class="p-5 text-slate-400 text-sm">No verification requests.</p>';
+
+        document.querySelectorAll(".review-btn").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            btn.disabled = true;
+            try {
+              await reviewOrganizationVerificationRequest(btn.dataset.id, {
+                decision: btn.dataset.decision,
+              });
+              window.location.reload();
+            } catch (err) {
+              errorEl.textContent = err.message;
+              errorEl.classList.remove("hidden");
+              btn.disabled = false;
+            }
+          });
         });
-
-        // Apply active styling to clicked item
-        this.className = 'nav-item flex items-center gap-3 px-3 py-2.5 rounded-md bg-[#3b4e7a] text-white transition-colors';
-        const title = this.querySelector('span:not(.icon-indicator)');
-        if (title) title.classList.add('font-semibold');
-
-        const icon = this.querySelector('.icon-indicator');
-        if (icon) {
-          icon.className = 'icon-indicator w-4 h-4 rounded-sm bg-amber-400/80 inline-block';
+      } catch (err) {
+        errorEl.textContent = err.message || "Failed to load organization dashboard";
+        errorEl.classList.remove("hidden");
+        if (err.status === 401) {
+          clearAuthSession();
+          window.location.href = "hero.html";
         }
-      });
+      }
     });
   </script>
 </body>

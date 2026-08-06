@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VerifiedDoc | Activity Log</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { poppins: ["Poppins", "sans-serif"] },
+            colors: {
+              navy: "#021C3E",
+              sidebar: "#1F3864",
+              teal: "#12677F",
+              gold: "#C98A2C",
+              gold2: "#B08D57",
+              pagebg: "#F7F2FA",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+      .filter-btn.active {
+        background: #1f3864;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body class="bg-white">
+    <!-- ============ DESKTOP LAYOUT ============ -->
+    <div class="hidden lg:flex min-h-screen">
+      <aside class="w-60 flex-shrink-0 bg-sidebar flex flex-col py-6 px-5">
+        <div class="mb-4 px-1">
+          <img src="assets/logo.svg" alt="VerifiedDoc logo" class="w-20 h-10" />
+        </div>
+
+        <nav class="flex flex-col gap-1 flex-1">
+          <a
+            href="./prototype-dashboard-creHolder.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm hover:bg-white/5 hover:text-white transition"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+              <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+              <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+              <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+            </svg>
+            Dashboard
+          </a>
+          <a
+            href="./prototype-credentials-creHolder.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm hover:bg-white/5 hover:text-white transition"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="6"></circle>
+              <path d="M8.5 13.5L6 22l6-3.5 6 3.5-2.5-8.5"></path>
+            </svg>
+            My Credentials
+          </a>
+          <a
+            href="../digital-wallet.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm hover:bg-white/5 hover:text-white transition"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="6" width="20" height="14" rx="2"></rect>
+              <path d="M2 10h20"></path>
+              <circle cx="17" cy="14.5" r="1"></circle>
+            </svg>
+            Digital wallet
+          </a>
+          <a
+            href="./prototype-uploadDocument.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm hover:bg-white/5 hover:text-white transition"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            Upload Document
+          </a>
+          <a
+            href="./prototype-share-creHolder.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm hover:bg-white/5 hover:text-white transition"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.6" y1="13.5" x2="15.4" y2="17.5"></line>
+              <line x1="15.4" y1="6.5" x2="8.6" y2="10.5"></line>
+            </svg>
+            Share Credential
+          </a>
+          <a
+            href="./prototype-activity-creHolder.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-white/10 text-white text-sm font-medium"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Activity Log
+          </a>
+          <a
+            href="./prototype-settings-creHolder.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 text-sm hover:bg-white/5 hover:text-white transition"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"></path>
+            </svg>
+            Account Settings
+          </a>
+        </nav>
+
+        <div class="flex items-center gap-2.5 px-1 pt-4 border-t border-white/10">
+          <div
+            id="user-avatar"
+            class="w-8 h-8 rounded-full bg-gold2 flex items-center justify-center text-navy text-sm font-semibold flex-shrink-0"
+          >
+            —
+          </div>
+          <div class="leading-tight min-w-0">
+            <p id="user-name" class="text-white text-sm font-medium truncate">Loading...</p>
+            <p class="text-slate-400 text-xs">Credential Holder</p>
+          </div>
+        </div>
+      </aside>
+
+      <main class="flex-1 bg-pagebg px-10 py-8 overflow-y-auto">
+        <div class="mb-6">
+          <h1 class="text-navy font-bold text-2xl">Activity Log</h1>
+          <p class="text-slate-500 text-sm mt-1">
+            Track credential issues, shares, and verification events
+          </p>
+          <p id="page-error" class="hidden text-red-600 text-xs font-medium mt-2"></p>
+        </div>
+
+        <div class="bg-white rounded-xl border border-slate-200 p-5 mb-5">
+          <div class="flex flex-wrap gap-2" id="type-filters">
+            <button type="button" data-type="" class="filter-btn active text-xs font-medium px-3.5 py-1.5 rounded-lg border border-slate-200 text-slate-600 transition">
+              All
+            </button>
+            <button type="button" data-type="CREDENTIAL_ISSUED" class="filter-btn text-xs font-medium px-3.5 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition">
+              CREDENTIAL_ISSUED
+            </button>
+            <button type="button" data-type="SHARE_LINK_CREATED" class="filter-btn text-xs font-medium px-3.5 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition">
+              SHARE_LINK_CREATED
+            </button>
+            <button type="button" data-type="VERIFICATION_EVENT" class="filter-btn text-xs font-medium px-3.5 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition">
+              VERIFICATION_EVENT
+            </button>
+            <button type="button" data-type="VERIFICATION_REQUEST" class="filter-btn text-xs font-medium px-3.5 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition">
+              VERIFICATION_REQUEST
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+          <div class="grid grid-cols-12 gap-3 px-6 py-3 border-b border-slate-100 text-[11px] uppercase tracking-wide text-slate-400 font-semibold">
+            <div class="col-span-6">Activity</div>
+            <div class="col-span-3">Type</div>
+            <div class="col-span-3 text-right">When</div>
+          </div>
+          <div id="activity-list">
+            <p class="px-6 py-10 text-center text-slate-400 text-sm">Loading activity...</p>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between mt-5">
+          <p id="pagination-label" class="text-slate-500 text-xs">Showing 0 activities</p>
+          <div class="flex items-center gap-2">
+            <button
+              id="prev-page"
+              type="button"
+              class="border border-slate-200 text-slate-600 text-xs font-medium px-3 py-1.5 rounded-lg hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed transition"
+              disabled
+            >
+              Previous
+            </button>
+            <span id="page-indicator" class="text-slate-500 text-xs font-medium px-1">Page 1</span>
+            <button
+              id="next-page"
+              type="button"
+              class="border border-slate-200 text-slate-600 text-xs font-medium px-3 py-1.5 rounded-lg hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed transition"
+              disabled
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ============ MOBILE LAYOUT ============ -->
+    <div class="flex lg:hidden flex-col min-h-screen bg-pagebg">
+      <header class="bg-sidebar flex items-center gap-3 px-4 py-4 flex-shrink-0">
+        <a href="./prototype-dashboard-creHolder.html" class="text-white">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </a>
+        <p class="text-white font-semibold text-sm flex-1 text-center pr-6">Activity Log</p>
+      </header>
+
+      <div class="flex-1 px-5 pt-4 pb-8 overflow-y-auto">
+        <p class="text-slate-500 text-sm mb-4">Track credential issues, shares, and verification events</p>
+        <p id="page-error-m" class="hidden text-red-600 text-xs font-medium mb-3"></p>
+
+        <div class="flex gap-2 overflow-x-auto pb-1 mb-4" id="type-filters-m">
+          <button type="button" data-type="" class="filter-btn active text-xs font-medium px-3.5 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 whitespace-nowrap">All</button>
+          <button type="button" data-type="CREDENTIAL_ISSUED" class="filter-btn text-xs font-medium px-3.5 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 whitespace-nowrap">CREDENTIAL_ISSUED</button>
+          <button type="button" data-type="SHARE_LINK_CREATED" class="filter-btn text-xs font-medium px-3.5 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 whitespace-nowrap">SHARE_LINK_CREATED</button>
+          <button type="button" data-type="VERIFICATION_EVENT" class="filter-btn text-xs font-medium px-3.5 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 whitespace-nowrap">VERIFICATION_EVENT</button>
+          <button type="button" data-type="VERIFICATION_REQUEST" class="filter-btn text-xs font-medium px-3.5 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 whitespace-nowrap">VERIFICATION_REQUEST</button>
+        </div>
+
+        <div id="activity-cards" class="flex flex-col gap-3">
+          <p class="text-slate-400 text-sm py-6 text-center">Loading activity...</p>
+        </div>
+
+        <div class="flex items-center justify-between mt-5">
+          <button id="prev-page-m" type="button" class="border border-sidebar text-sidebar text-xs font-medium px-3 py-2 rounded-lg disabled:opacity-40" disabled>Prev</button>
+          <span id="page-indicator-m" class="text-slate-500 text-xs font-medium">Page 1</span>
+          <button id="next-page-m" type="button" class="border border-sidebar text-sidebar text-xs font-medium px-3 py-2 rounded-lg disabled:opacity-40" disabled>Next</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const {
+          requireAuth,
+          getAuthSession,
+          getHolderActivity,
+          clearAuthSession,
+        } = window.VerifiedDocAuth;
+
+        const session = requireAuth("../hero.html");
+        if (!session) return;
+
+        const state = {
+          type: "",
+          page: 1,
+          limit: 10,
+          items: [],
+          pagination: { page: 1, limit: 10, total: 0, totalPages: 0 },
+        };
+
+        function escapeHtml(value) {
+          return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+
+        function formatDate(iso) {
+          if (!iso) return "—";
+          const date = new Date(iso);
+          if (Number.isNaN(date.getTime())) return "—";
+          return date.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          });
+        }
+
+        function formatRelative(iso) {
+          if (!iso) return "—";
+          const date = new Date(iso);
+          if (Number.isNaN(date.getTime())) return "—";
+          const diffMs = Date.now() - date.getTime();
+          const mins = Math.floor(diffMs / 60000);
+          if (mins < 1) return "Just now";
+          if (mins < 60) return `${mins} min ago`;
+          const hours = Math.floor(mins / 60);
+          if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+          const days = Math.floor(hours / 24);
+          if (days < 7) return `${days} day${days === 1 ? "" : "s"} ago`;
+          const weeks = Math.floor(days / 7);
+          if (weeks < 5) return `${weeks} week${weeks === 1 ? "" : "s"} ago`;
+          return formatDate(iso);
+        }
+
+        function typeBadge(type) {
+          const key = String(type || "").toUpperCase();
+          const map = {
+            CREDENTIAL_ISSUED: "bg-emerald-100 text-emerald-700",
+            SHARE_LINK_CREATED: "bg-teal/10 text-teal",
+            VERIFICATION_EVENT: "bg-amber-100 text-amber-700",
+            VERIFICATION_REQUEST: "bg-slate-100 text-slate-600",
+          };
+          const classes = map[key] || "bg-slate-100 text-slate-600";
+          return `<span class="inline-flex items-center ${classes} text-xs font-medium px-2.5 py-1 rounded-full">${escapeHtml(key || "Unknown")}</span>`;
+        }
+
+        function showError(message) {
+          ["page-error", "page-error-m"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.textContent = message || "";
+            el.classList.toggle("hidden", !message);
+          });
+        }
+
+        function hydrateUser() {
+          const user = getAuthSession()?.user || {};
+          const name =
+            user.fullName ||
+            [user.firstName, user.lastName].filter(Boolean).join(" ") ||
+            user.email ||
+            "Credential Holder";
+          const initial = (user.firstName || name || "?").charAt(0).toUpperCase();
+          const avatar = document.getElementById("user-avatar");
+          const nameEl = document.getElementById("user-name");
+          if (avatar) avatar.textContent = initial;
+          if (nameEl) nameEl.textContent = name;
+        }
+
+        function renderList() {
+          const items = state.items;
+          const list = document.getElementById("activity-list");
+          const cards = document.getElementById("activity-cards");
+
+          if (!items.length) {
+            list.innerHTML =
+              '<p class="px-6 py-10 text-center text-slate-400 text-sm">No activity found.</p>';
+            cards.innerHTML =
+              '<p class="text-slate-400 text-sm py-6 text-center">No activity found.</p>';
+          } else {
+            list.innerHTML = items
+              .map(
+                (item) => `<div class="grid grid-cols-12 gap-3 items-center px-6 py-4 border-b border-slate-100 last:border-b-0 hover:bg-slate-50/70 transition">
+                  <div class="col-span-6 min-w-0">
+                    <p class="text-navy text-sm font-medium truncate">${escapeHtml(item.title || item.type || "Activity")}</p>
+                  </div>
+                  <div class="col-span-3">${typeBadge(item.type)}</div>
+                  <div class="col-span-3 text-right text-sm text-slate-500">${escapeHtml(formatRelative(item.createdAt))}</div>
+                </div>`,
+              )
+              .join("");
+
+            cards.innerHTML = items
+              .map(
+                (item) => `<div class="bg-white border border-slate-200 rounded-xl p-4">
+                  <div class="flex items-start justify-between gap-3">
+                    <p class="text-navy text-sm font-semibold min-w-0">${escapeHtml(item.title || item.type || "Activity")}</p>
+                    ${typeBadge(item.type)}
+                  </div>
+                  <p class="text-slate-500 text-xs mt-3 pt-3 border-t border-slate-100">${escapeHtml(formatRelative(item.createdAt))}</p>
+                </div>`,
+              )
+              .join("");
+          }
+
+          const { page, total, totalPages } = state.pagination;
+          const shown = items.length;
+          document.getElementById("pagination-label").textContent =
+            total === 0
+              ? "Showing 0 activities"
+              : `Showing ${shown} of ${total} activit${total === 1 ? "y" : "ies"}`;
+
+          ["page-indicator", "page-indicator-m"].forEach((id) => {
+            document.getElementById(id).textContent = `Page ${page}${totalPages ? ` of ${totalPages}` : ""}`;
+          });
+
+          const canPrev = page > 1;
+          const canNext = totalPages ? page < totalPages : false;
+          ["prev-page", "prev-page-m"].forEach((id) => {
+            document.getElementById(id).disabled = !canPrev;
+          });
+          ["next-page", "next-page-m"].forEach((id) => {
+            document.getElementById(id).disabled = !canNext;
+          });
+        }
+
+        function setActiveFilters() {
+          document.querySelectorAll(".filter-btn").forEach((btn) => {
+            const isActive = (btn.dataset.type || "") === state.type;
+            btn.classList.toggle("active", isActive);
+          });
+        }
+
+        async function loadActivity() {
+          showError("");
+          setActiveFilters();
+          document.getElementById("activity-list").innerHTML =
+            '<p class="px-6 py-10 text-center text-slate-400 text-sm">Loading activity...</p>';
+          document.getElementById("activity-cards").innerHTML =
+            '<p class="text-slate-400 text-sm py-6 text-center">Loading activity...</p>';
+
+          try {
+            const response = await getHolderActivity({
+              type: state.type || undefined,
+              page: state.page,
+              limit: state.limit,
+            });
+            state.items = response.data || response.items || [];
+            state.pagination = response.pagination || {
+              page: state.page,
+              limit: state.limit,
+              total: state.items.length,
+              totalPages: 1,
+            };
+            renderList();
+          } catch (err) {
+            showError(err.message || "Failed to load activity.");
+            state.items = [];
+            renderList();
+            if (err.status === 401) {
+              clearAuthSession();
+              window.location.href = "../hero.html";
+            }
+          }
+        }
+
+        document.querySelectorAll(".filter-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            state.type = btn.dataset.type || "";
+            state.page = 1;
+            loadActivity();
+          });
+        });
+
+        function bindPager(prevId, nextId) {
+          document.getElementById(prevId).addEventListener("click", () => {
+            if (state.page <= 1) return;
+            state.page -= 1;
+            loadActivity();
+          });
+          document.getElementById(nextId).addEventListener("click", () => {
+            const max = state.pagination.totalPages || 1;
+            if (state.page >= max) return;
+            state.page += 1;
+            loadActivity();
+          });
+        }
+        bindPager("prev-page", "next-page");
+        bindPager("prev-page-m", "next-page-m");
+
+        hydrateUser();
+        loadActivity();
+      });
+    </script>
+  </body>
+</html>

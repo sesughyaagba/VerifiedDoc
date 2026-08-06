@@ -164,9 +164,11 @@
                     </div>
 
                     <!-- Submit Button -->
-                    <button onclick="window.location.href='admin-dashboard.html'"
+                    <p id="login-error" class="hidden text-center text-xs text-red-500"></p>
+                    <button
                         type="submit"
-                        class="w-full h-[48px] bg-[#1E3A6E] hover:bg-[#162C54] text-white rounded-lg font-sans font-medium text-[15px] flex items-center justify-center transition-all duration-150 active:scale-[0.99] shadow-sm focus:outline-none mt-2"
+                        id="signInBtn"
+                        class="w-full h-[48px] bg-[#1E3A6E] hover:bg-[#162C54] text-white rounded-lg font-sans font-medium text-[15px] flex items-center justify-center transition-all duration-150 active:scale-[0.99] shadow-sm focus:outline-none mt-2 disabled:opacity-60"
                     >
                         Sign In
                     </button>
@@ -192,7 +194,15 @@
     <footer class="p-2"></footer>
 
     <!-- Interactive JavaScript -->
+    <script src="./js/auth.js"></script>
     <script>
+        const {
+            loginAccount,
+            saveAuthSession,
+            logoutAccount,
+            clearAuthSession,
+        } = window.VerifiedDocAuth;
+
         function togglePassword() {
             const passwordInput = document.getElementById('passwordInput');
             const eyeSlashIcon = document.getElementById('eyeSlashIcon');
@@ -209,10 +219,38 @@
             }
         }
 
-        function handleFormSubmit(event) {
+        async function handleFormSubmit(event) {
             event.preventDefault();
-            const email = document.getElementById('emailInput').value;
-            const remember = document.getElementById('rememberCheckbox').checked;
+            const email = document.getElementById('emailInput').value.trim();
+            const password = document.getElementById('passwordInput').value;
+            const errorEl = document.getElementById('login-error');
+            const submitBtn = document.getElementById('signInBtn');
+
+            errorEl.classList.add('hidden');
+            errorEl.textContent = '';
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Signing In...';
+
+            try {
+                const session = await loginAccount({ email, password });
+                saveAuthSession(session);
+
+                if (session?.user?.role !== 'PLATFORM_ADMIN') {
+                    try {
+                        await logoutAccount();
+                    } catch {
+                        clearAuthSession();
+                    }
+                    throw new Error('Access denied. Platform admin credentials required.');
+                }
+
+                window.location.href = 'admin-dashboard.html';
+            } catch (err) {
+                errorEl.textContent = err.message || 'Sign in failed. Please try again.';
+                errorEl.classList.remove('hidden');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Sign In';
+            }
         }
     </script>
 </body>

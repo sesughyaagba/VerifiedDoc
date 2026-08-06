@@ -32,43 +32,32 @@
 
       <!-- Navigation Links -->
       <nav class="space-y-1.5" id="sidebar-nav">
-        <!-- Dashboard (Active) -->
-        <a href="#"
+        <a href="dashboard-verifier.html"
           class="nav-item flex items-center space-x-3 px-3.5 py-2.5 rounded-lg bg-white/15 text-white font-semibold text-sm transition">
           <div class="icon-indicator w-4 h-4 bg-[#C5A059] rounded-sm shrink-0"></div>
           <span>Dashboard</span>
         </a>
-
-        <!-- Verify a Credential -->
-        <a href="#"
+        <a href="verifier-verify.html"
           class="nav-item flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white font-medium text-sm transition">
           <div class="icon-indicator w-4 h-4 bg-slate-500/50 rounded-sm shrink-0"></div>
           <span>Verify a Credential</span>
         </a>
-
-        <!-- Verification History -->
-        <a href="#"
+        <a href="dashboard-verifier.html#history"
           class="nav-item flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white font-medium text-sm transition">
           <div class="icon-indicator w-4 h-4 bg-slate-500/50 rounded-sm shrink-0"></div>
           <span>Verification History</span>
         </a>
-
-        <!-- Verification Result -->
-        <a href="verification-result.html"
+        <a href="public-verify.html"
           class="nav-item flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white font-medium text-sm transition">
           <div class="icon-indicator w-4 h-4 bg-slate-500/50 rounded-sm shrink-0"></div>
-          <span>Verification Result</span>
+          <span>Public Verify</span>
         </a>
-
-        <!-- Saved Organizations -->
-        <a href="#"
+        <a href="verifier-saved-orgs.html"
           class="nav-item flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white font-medium text-sm transition">
           <div class="icon-indicator w-4 h-4 bg-slate-500/50 rounded-sm shrink-0"></div>
           <span>Saved Organizations</span>
         </a>
-
-        <!-- Account Settings -->
-        <a href="#"
+        <a href="src/prototype-settings-creHolder.html"
           class="nav-item flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white font-medium text-sm transition">
           <div class="icon-indicator w-4 h-4 bg-slate-500/50 rounded-sm shrink-0"></div>
           <span>Account Settings</span>
@@ -83,151 +72,154 @@
   <!-- MAIN CONTENT  -->
   <main class="flex-1 p-8 max-w-6xl overflow-y-auto">
 
-    <!-- Top Bar Header -->
     <div class="flex items-start justify-between mb-8">
       <div>
-        <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Welcome back, Seyitan</h2>
+        <h2 id="welcome-title" class="text-2xl font-bold text-slate-900 tracking-tight">Welcome back</h2>
         <p class="text-sm text-slate-500 mt-1">Verify a credential or review your verification history</p>
+        <p id="dash-error" class="hidden text-red-600 text-xs font-medium mt-2"></p>
       </div>
-      <button
+      <a href="verifier-verify.html"
         class="bg-[#21355E] hover:bg-[#1a2b4c] text-white px-4 py-2.5 rounded-lg font-medium text-sm shadow-sm transition flex items-center space-x-2">
         <span>+ New Verification</span>
-      </button>
+      </a>
     </div>
 
-    <!-- STATS CARDS -->
     <div class="space-y-4 mb-6">
-
-      <!-- Card 1: Total Credentials Issued -->
       <div class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-2xs">
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Total Credentials Issued</p>
-        <h3 class="text-3xl font-extrabold text-[#21355E] leading-tight">58</h3>
-        <p class="text-xs text-emerald-600 font-medium mt-1">+ 6 this month</p>
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Total Verifications</p>
+        <h3 id="stat-total" class="text-3xl font-extrabold text-[#21355E] leading-tight">—</h3>
+        <p id="stat-total-sub" class="text-xs text-emerald-600 font-medium mt-1">Loading...</p>
       </div>
-
-      <!-- Card 2: Verified This Month -->
       <div class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-2xs">
         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Verified This Month</p>
-        <h3 class="text-3xl font-extrabold text-[#21355E] leading-tight">6</h3>
-        <p class="text-xs text-emerald-600 font-medium mt-1">All confirmed valid</p>
+        <h3 id="stat-month" class="text-3xl font-extrabold text-[#21355E] leading-tight">—</h3>
+        <p id="stat-success-sub" class="text-xs text-emerald-600 font-medium mt-1">Loading...</p>
       </div>
-
-      <!-- Card 3: Failed Verifications -->
       <div class="bg-white border border-slate-200/80 rounded-xl p-5 shadow-2xs">
         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Failed Verifications</p>
-        <h3 class="text-3xl font-extrabold text-[#21355E] leading-tight">2</h3>
+        <h3 id="stat-failed" class="text-3xl font-extrabold text-[#21355E] leading-tight">—</h3>
         <p class="text-xs text-rose-500 font-medium mt-1">Flagged as invalid</p>
       </div>
-
     </div>
 
-    <!-- SEARCH / VERIFY INPUT CARD -->
     <div class="bg-white border border-slate-200/80 rounded-xl p-6 mb-6 shadow-2xs">
       <h3 class="text-base font-bold text-slate-900 mb-4">Verify a Credential</h3>
-
-      <div class="flex items-center max-w-2xl">
-        <div class="relative flex-1">
-          <input type="text" placeholder="Enter credential ID or scan QR code..."
-            class="w-full px-4 py-2.5 text-sm bg-white border border-slate-200 rounded-lg text-slate-700 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" />
-        </div>
-        <button class="w-25 h-10.5 rounded-lg border border-[#1F3864] bg-[#1F3864]">
-          <!-- Search / Action Icon Placeholder -->
-          <i data-lucide="search" class="w-4 h-4 opacity-0 hidden"></i>
-        </button>
-      </div>
-
-      <p class="text-xs text-slate-400 mt-3">You can verify any credential shared directly with you, or search by
-        ID</p>
+      <form id="quick-verify" class="flex items-center max-w-2xl gap-2">
+        <input id="quick-token" type="text" required placeholder="Enter share token or public ID..."
+          class="flex-1 px-4 py-2.5 text-sm bg-white border border-slate-200 rounded-lg text-slate-700 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" />
+        <button type="submit" class="px-4 h-10 rounded-lg border border-[#1F3864] bg-[#1F3864] text-white text-sm font-medium">Verify</button>
+      </form>
+      <p class="text-xs text-slate-400 mt-3">Saved organizations: <span id="saved-count">0</span></p>
+      <p id="quick-error" class="hidden text-red-600 text-xs mt-2"></p>
+      <p id="quick-success" class="hidden text-emerald-600 text-xs mt-2"></p>
     </div>
 
-    <!-- VERIFICATION HISTORY CONTAINER (HIGHLIGHTED BOX) -->
-    <div class="border-2 border-blue-500 rounded-2xl p-5 bg-white shadow-xs">
+    <div id="history" class="border-2 border-blue-500 rounded-2xl p-5 bg-white shadow-xs">
       <h3 class="text-base font-bold text-slate-900 mb-4">Verification History</h3>
-
-      <div class="space-y-3">
-
-        <!-- Card 1 -->
-        <div class="bg-white border border-slate-200/80 rounded-xl p-3.5 flex items-center justify-between">
-          <div class="flex items-center space-x-3.5">
-            <div class="w-9 h-9 bg-[#3B738D] rounded-md shrink-0"></div>
-            <div>
-              <h4 class="text-sm font-bold text-slate-800 leading-tight">UI/UX Design Certificate</h4>
-              <p class="text-xs text-slate-400 mt-0.5">Juliana Ene Ogli . Verified 2 days ago</p>
-            </div>
-          </div>
-          <span
-            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100/60 text-emerald-700">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>
-            Valid
-          </span>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="bg-white border border-slate-200/80 rounded-xl p-3.5 flex items-center justify-between">
-          <div class="flex items-center space-x-3.5">
-            <div class="w-9 h-9 bg-[#3B738D] rounded-md shrink-0"></div>
-            <div>
-              <h4 class="text-sm font-bold text-slate-800 leading-tight">Data Analysis Certification</h4>
-              <p class="text-xs text-slate-400 mt-0.5">Tunde Bakare . Verified 5 days ago</p>
-            </div>
-          </div>
-          <span
-            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100/60 text-emerald-700">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>
-            Valid
-          </span>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="bg-white border border-slate-200/80 rounded-xl p-3.5 flex items-center justify-between">
-          <div class="flex items-center space-x-3.5">
-            <div class="w-9 h-9 bg-[#3B738D] rounded-md shrink-0"></div>
-            <div>
-              <h4 class="text-sm font-bold text-slate-800 leading-tight">Field Safety Certificate</h4>
-              <p class="text-xs text-slate-400 mt-0.5">Musa Aliyu . Checked 1 week ago</p>
-            </div>
-          </div>
-          <span
-            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-rose-100/60 text-rose-600">
-            <span class="w-1.5 h-1.5 rounded-full bg-rose-500 mr-1.5"></span>
-            invalid
-          </span>
-        </div>
-
+      <div id="history-list" class="space-y-3">
+        <p class="text-slate-400 text-sm">Loading...</p>
       </div>
     </div>
   </main>
 
+  <script src="./js/auth.js"></script>
   <script>
-    // Initialize Lucide Icons
     lucide.createIcons();
 
-    // Dynamic Sidebar Handler
-    document.querySelectorAll('#sidebar-nav .nav-item').forEach(item => {
-      item.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
+    document.addEventListener("DOMContentLoaded", async () => {
+      const {
+        requireAuth,
+        getAuthSession,
+        getVerifierDashboard,
+        performVerification,
+        clearAuthSession,
+      } = window.VerifiedDocAuth;
 
-        // Prevent navigation if the link is a placeholder ('#')
-        if (!href || href === '#') {
-          e.preventDefault();
+      if (!requireAuth("hero.html")) return;
+
+      const session = getAuthSession();
+      const name = session?.user?.firstName || session?.user?.fullName || "Verifier";
+      document.getElementById("welcome-title").textContent = `Welcome back, ${name}`;
+
+      function escapeHtml(v) {
+        return String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+      }
+
+      function formatRelative(iso) {
+        if (!iso) return "";
+        const d = new Date(iso);
+        if (Number.isNaN(d.getTime())) return "";
+        const mins = Math.floor((Date.now() - d.getTime()) / 60000);
+        if (mins < 60) return `${Math.max(mins, 1)} min ago`;
+        const hours = Math.floor(mins / 60);
+        if (hours < 24) return `${hours}h ago`;
+        return `${Math.floor(hours / 24)}d ago`;
+      }
+
+      function badge(result) {
+        const ok = String(result).toUpperCase() === "VALID" || String(result).toUpperCase() === "VERIFIED";
+        return ok
+          ? `<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100/60 text-emerald-700"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>Valid</span>`
+          : `<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-rose-100/60 text-rose-600"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 mr-1.5"></span>${escapeHtml(result || "Invalid")}</span>`;
+      }
+
+      try {
+        const data = await getVerifierDashboard();
+        const stats = data.stats || {};
+        document.getElementById("stat-total").textContent = stats.totalVerifications ?? 0;
+        document.getElementById("stat-total-sub").textContent = `${stats.successful ?? 0} successful`;
+        document.getElementById("stat-month").textContent = stats.thisMonth ?? 0;
+        document.getElementById("stat-success-sub").textContent = `${stats.successful ?? 0} confirmed valid`;
+        document.getElementById("stat-failed").textContent = stats.failed ?? 0;
+        document.getElementById("saved-count").textContent = data.savedOrganizationsCount ?? 0;
+
+        const recent = data.recentVerifications || [];
+        const list = document.getElementById("history-list");
+        if (!recent.length) {
+          list.innerHTML = '<p class="text-slate-400 text-sm">No verifications yet.</p>';
+        } else {
+          list.innerHTML = recent.map((item) => {
+            const title = item.credentialPublicIdSnapshot || item.method || "Verification";
+            const org = item.organization?.name || "Unknown org";
+            return `<div class="bg-white border border-slate-200/80 rounded-xl p-3.5 flex items-center justify-between">
+              <div class="flex items-center space-x-3.5">
+                <div class="w-9 h-9 bg-[#3B738D] rounded-md shrink-0"></div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-800 leading-tight">${escapeHtml(title)}</h4>
+                  <p class="text-xs text-slate-400 mt-0.5">${escapeHtml(org)} · ${escapeHtml(formatRelative(item.createdAt))}</p>
+                </div>
+              </div>
+              ${badge(item.result)}
+            </div>`;
+          }).join("");
         }
+      } catch (err) {
+        document.getElementById("dash-error").textContent = err.message || "Failed to load dashboard";
+        document.getElementById("dash-error").classList.remove("hidden");
+        if (err.status === 401) {
+          clearAuthSession();
+          window.location.href = "hero.html";
+        }
+      }
 
-        // Reset all navigation links to inactive styles
-        document.querySelectorAll('#sidebar-nav .nav-item').forEach(nav => {
-          nav.className = 'nav-item flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 hover:text-white font-medium text-sm transition';
-          
-          const icon = nav.querySelector('.icon-indicator');
-          if (icon) {
-            icon.className = 'icon-indicator w-4 h-4 bg-slate-500/50 rounded-sm shrink-0';
-          }
-        });
-
-        // Apply active styles to the clicked item
-        this.className = 'nav-item flex items-center space-x-3 px-3.5 py-2.5 rounded-lg bg-white/15 text-white font-semibold text-sm transition';
-        
-        const icon = this.querySelector('.icon-indicator');
-        if (icon) {
-          icon.className = 'icon-indicator w-4 h-4 bg-[#C5A059] rounded-sm shrink-0';
+      document.getElementById("quick-verify").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const value = document.getElementById("quick-token").value.trim();
+        const qErr = document.getElementById("quick-error");
+        const qOk = document.getElementById("quick-success");
+        qErr.classList.add("hidden");
+        qOk.classList.add("hidden");
+        try {
+          const looksLikePublicId = value.length < 40 && !value.includes(".");
+          const payload = looksLikePublicId
+            ? { method: "PUBLIC_ID", publicId: value }
+            : { method: "SHARE_TOKEN", token: value };
+          const result = await performVerification(payload);
+          qOk.textContent = `Result: ${result?.result || result?.verification?.result || "Completed"}`;
+          qOk.classList.remove("hidden");
+        } catch (err) {
+          qErr.textContent = err.message || "Verification failed";
+          qErr.classList.remove("hidden");
         }
       });
     });

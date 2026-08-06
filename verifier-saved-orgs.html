@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saved Organizations | VerifiedDoc</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>body { font-family: Poppins, sans-serif; }</style>
+</head>
+<body class="bg-[#F8FAFC] min-h-screen flex">
+  <aside class="w-64 bg-[#21355E] text-white flex flex-col p-4 shrink-0 min-h-screen">
+    <div class="px-2 py-3 mb-6"><img src="./Assets/logo.svg" alt="Logo" /></div>
+    <nav class="space-y-1.5">
+      <a href="dashboard-verifier.html" class="flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 text-sm">Dashboard</a>
+      <a href="verifier-verify.html" class="flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 text-sm">Verify a Credential</a>
+      <a href="verifier-saved-orgs.html" class="flex items-center space-x-3 px-3.5 py-2.5 rounded-lg bg-white/15 text-white font-semibold text-sm">Saved Organizations</a>
+      <a href="src/prototype-settings-creHolder.html" class="flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-slate-300 hover:bg-white/5 text-sm">Account Settings</a>
+    </nav>
+  </aside>
+
+  <main class="flex-1 p-8 max-w-4xl">
+    <h1 class="text-2xl font-bold text-slate-900">Saved Organizations</h1>
+    <p class="text-sm text-slate-500 mt-1 mb-6">Organizations you follow for faster verification</p>
+    <p id="error" class="hidden text-red-600 text-xs font-medium mb-4"></p>
+    <div id="org-list" class="space-y-3">
+      <p class="text-slate-400 text-sm">Loading...</p>
+    </div>
+  </main>
+
+  <script src="./js/auth.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const {
+        requireAuth,
+        getSavedOrganizations,
+        unsaveOrganization,
+        clearAuthSession,
+      } = window.VerifiedDocAuth;
+
+      if (!requireAuth("hero.html")) return;
+
+      const list = document.getElementById("org-list");
+      const errorEl = document.getElementById("error");
+
+      function escapeHtml(v) {
+        return String(v ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      async function load() {
+        errorEl.classList.add("hidden");
+        try {
+          const res = await getSavedOrganizations();
+          const items = res?.data || res || [];
+          if (!items.length) {
+            list.innerHTML = '<p class="text-slate-400 text-sm">No saved organizations yet.</p>';
+            return;
+          }
+          list.innerHTML = items
+            .map((item) => {
+              const org = item.organization || item;
+              const orgId = item.organizationId || org.id;
+              return `<div class="bg-white border border-slate-200 rounded-xl p-4 flex items-center justify-between gap-4">
+                <div>
+                  <p class="text-sm font-semibold text-slate-800">${escapeHtml(org.name || "Organization")}</p>
+                  <p class="text-xs text-slate-400 mt-0.5">${escapeHtml(org.country || "")} · ${escapeHtml(org.status || "")}</p>
+                </div>
+                <button data-id="${escapeHtml(orgId)}" class="unsave-btn text-xs font-medium text-rose-600 border border-rose-200 px-3 py-1.5 rounded-lg hover:bg-rose-50">Remove</button>
+              </div>`;
+            })
+            .join("");
+
+          list.querySelectorAll(".unsave-btn").forEach((btn) => {
+            btn.addEventListener("click", async () => {
+              btn.disabled = true;
+              try {
+                await unsaveOrganization(btn.dataset.id);
+                await load();
+              } catch (err) {
+                errorEl.textContent = err.message;
+                errorEl.classList.remove("hidden");
+                btn.disabled = false;
+              }
+            });
+          });
+        } catch (err) {
+          errorEl.textContent = err.message || "Failed to load organizations";
+          errorEl.classList.remove("hidden");
+          list.innerHTML = "";
+          if (err.status === 401) {
+            clearAuthSession();
+            window.location.href = "hero.html";
+          }
+        }
+      }
+
+      load();
+    });
+  </script>
+</body>
+</html>

@@ -86,7 +86,8 @@
       <!-- RIGHT: verify code form -->
       <div class="w-full lg:w-1/2 flex flex-col px-6 sm:px-12 py-9 lg:py-12">
         <button
-          onclick="window.location.href='../password-create.html'"
+          type="button"
+          onclick="window.location.href='prototype-forgetPasswd.html'"
           class="hidden lg:flex items-center gap-1 text-navy font-semibold text-sm self-start mb-8"
         >
           <svg
@@ -134,8 +135,8 @@
           <p class="text-slate-500 text-sm text-center mt-2">
             Enter the 6 digit code sent to
           </p>
-          <p class="text-gold text-sm font-medium text-center mt-1">
-            adenijiad***.com
+          <p id="otp-email" class="text-gold text-sm font-medium text-center mt-1">
+            your email
           </p>
 
           <div class="flex justify-center gap-2 sm:gap-3 mt-8" id="otp-inputs">
@@ -220,8 +221,29 @@
       </div>
     </div>
 
+    <script src="../js/auth.js"></script>
     <script>
+      const {
+        verifyPasswordResetOtp,
+        requestPasswordReset,
+      } = window.VerifiedDocAuth;
+
       const inputs = Array.from(document.querySelectorAll("#otp-inputs input"));
+      const requestId = sessionStorage.getItem("vd_reset_requestId");
+      const resetEmail = sessionStorage.getItem("vd_reset_email") || "";
+
+      if (!requestId) {
+        window.location.href = "prototype-forgetPasswd.html";
+      } else {
+
+      function maskEmail(email) {
+        if (!email || !email.includes("@")) return email || "your email";
+        const [local, domain] = email.split("@");
+        const visible = local.slice(0, Math.min(3, local.length));
+        return `${visible}***@${domain}`;
+      }
+
+      document.getElementById("otp-email").textContent = maskEmail(resetEmail);
 
       inputs.forEach((input, idx) => {
         input.addEventListener("input", (e) => {
@@ -280,11 +302,25 @@
         }, 1000);
       }
 
-      resendBtn.addEventListener("click", () => {
+      resendBtn.addEventListener("click", async () => {
         if (resendBtn.disabled) return;
-        inputs.forEach((i) => (i.value = ""));
-        inputs[0].focus();
-        startTimer();
+        if (!resetEmail) {
+          window.location.href = "prototype-forgetPasswd.html";
+          return;
+        }
+        try {
+          resendBtn.disabled = true;
+          const result = await requestPasswordReset(resetEmail);
+          const nextId = result?.requestId || result?.data?.requestId;
+          if (nextId) sessionStorage.setItem("vd_reset_requestId", nextId);
+          inputs.forEach((i) => (i.value = ""));
+          inputs[0].focus();
+          startTimer();
+        } catch (err) {
+          errorMsg.textContent = err.message || "Could not resend code.";
+          errorMsg.classList.remove("hidden");
+          resendBtn.disabled = false;
+        }
       });
 
       startTimer();
@@ -292,15 +328,40 @@
       const verifyBtn = document.getElementById("verify-btn");
       const errorMsg = document.getElementById("error-msg");
 
-      verifyBtn.addEventListener("click", () => {
+      verifyBtn.addEventListener("click", async () => {
         const code = inputs.map((i) => i.value).join("");
         if (code.length < 6) {
+          errorMsg.textContent = "Please enter all 6 digits.";
           errorMsg.classList.remove("hidden");
           return;
         }
         errorMsg.classList.add("hidden");
-        console.log("Verifying code:", code);
+        verifyBtn.disabled = true;
+        verifyBtn.textContent = "Verifying...";
+
+        try {
+          const activeRequestId =
+            sessionStorage.getItem("vd_reset_requestId") || requestId;
+          const result = await verifyPasswordResetOtp({
+            requestId: activeRequestId,
+            otp: code,
+          });
+          const resetToken =
+            result?.resetToken || result?.data?.resetToken;
+          if (!resetToken) {
+            throw new Error("OTP verified, but no reset token was returned.");
+          }
+          sessionStorage.setItem("vd_reset_token", resetToken);
+          window.location.href = "../password-create.html";
+        } catch (err) {
+          errorMsg.textContent =
+            err.message || "Invalid or expired code. Please try again.";
+          errorMsg.classList.remove("hidden");
+          verifyBtn.disabled = false;
+          verifyBtn.textContent = "Verify Code";
+        }
       });
+      } // end else requestId present
     </script>
   </body>
 </html>
