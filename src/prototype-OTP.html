@@ -223,11 +223,7 @@
 
     <script src="../js/auth.js"></script>
     <script>
-      const {
-        verifyPasswordResetOtp,
-        requestPasswordReset,
-      } = window.VerifiedDocAuth;
-
+      const auth = window.VerifiedDocAuth;
       const inputs = Array.from(document.querySelectorAll("#otp-inputs input"));
       const requestId = sessionStorage.getItem("vd_reset_requestId");
       const resetEmail = sessionStorage.getItem("vd_reset_email") || "";
@@ -342,7 +338,7 @@
         try {
           const activeRequestId =
             sessionStorage.getItem("vd_reset_requestId") || requestId;
-          const result = await verifyPasswordResetOtp({
+          const result = await auth.verifyPasswordResetOtp({
             requestId: activeRequestId,
             otp: code,
           });

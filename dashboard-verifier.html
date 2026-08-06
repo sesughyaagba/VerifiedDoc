@@ -127,17 +127,11 @@
     lucide.createIcons();
 
     document.addEventListener("DOMContentLoaded", async () => {
-      const {
-        requireAuth,
-        getAuthSession,
-        getVerifierDashboard,
-        performVerification,
-        clearAuthSession,
-      } = window.VerifiedDocAuth;
+      const auth = window.VerifiedDocAuth;
 
-      if (!requireAuth("hero.html")) return;
+if (!auth.requireAuth("hero.html")) return;
 
-      const session = getAuthSession();
+const session = auth.getAuthSession();
       const name = session?.user?.firstName || session?.user?.fullName || "Verifier";
       document.getElementById("welcome-title").textContent = `Welcome back, ${name}`;
 
@@ -164,7 +158,7 @@
       }
 
       try {
-        const data = await getVerifierDashboard();
+        const data = await auth.getVerifierDashboard();
         const stats = data.stats || {};
         document.getElementById("stat-total").textContent = stats.totalVerifications ?? 0;
         document.getElementById("stat-total-sub").textContent = `${stats.successful ?? 0} successful`;
@@ -197,7 +191,7 @@
         document.getElementById("dash-error").textContent = err.message || "Failed to load dashboard";
         document.getElementById("dash-error").classList.remove("hidden");
         if (err.status === 401) {
-          clearAuthSession();
+          auth.clearAuthSession();
           window.location.href = "hero.html";
         }
       }
