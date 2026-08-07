@@ -323,18 +323,31 @@
         }
 
         const apiRole = UI_ROLE_TO_API[selectedRole];
-        if (!apiRole) {
-          setError('Issuing institutions cannot self-register. Choose Credential Holder or Verifier.');
-          return;
-        }
+       if (!apiRole) {
+  setError('Issuing institutions cannot self-register. Choose Credential Holder or Verifier.');
+  return;
+}
 
-        const payload = {
-          firstName: document.getElementById('first-name').value.trim(),
-          lastName: document.getElementById('last-name').value.trim(),
-          email: document.getElementById('email').value.trim(),
-          password: document.getElementById('password').value,
-          role: apiRole,
-        };
+// Validate password before sending to the backend
+const password = document.getElementById('password').value;
+
+const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+
+if (!passwordRegex.test(password)) {
+  setError(
+    'Password must be 8+ characters with uppercase, lowercase, number, and special character.'
+  );
+  return;
+}
+
+const payload = {
+  firstName: document.getElementById('first-name').value.trim(),
+  lastName: document.getElementById('last-name').value.trim(),
+  email: document.getElementById('email').value.trim(),
+  password,
+  role: apiRole,
+};
 
         submitBtn.disabled = true;
         submitBtn.textContent = 'Creating Account...';
